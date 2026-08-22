@@ -33,8 +33,26 @@
                     Data Barang
                 </a>
 
+                @if (auth()->user()->isAdmin())
+                    <a href="{{ route('barang-masuk.index') }}"
+                       class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium {{ request()->routeIs('barang-masuk.*') ? 'bg-white/10 text-white' : 'text-zinc-400 hover:bg-white/5 hover:text-zinc-200' }}">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                        </svg>
+                        Barang Masuk
+                    </a>
+
+                    <a href="{{ route('barang-keluar.index') }}"
+                       class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium {{ request()->routeIs('barang-keluar.*') ? 'bg-white/10 text-white' : 'text-zinc-400 hover:bg-white/5 hover:text-zinc-200' }}">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-4.5-9L12 3m0 0L7.5 7.5M12 3v13.5" />
+                        </svg>
+                        Barang Keluar
+                    </a>
+                @endif
+
                 <div class="px-3 pb-1 pt-5 text-[11px] font-semibold uppercase tracking-wider text-zinc-600">Segera hadir</div>
-                @foreach (['Kategori', 'Supplier', 'Barang Masuk', 'Barang Keluar', 'Monitoring Stok', 'Rekomendasi Restock', 'Laporan', 'Pengguna'] as $item)
+                @foreach (['Kategori', 'Supplier', 'Monitoring Stok', 'Rekomendasi Restock', 'Laporan', 'Pengguna'] as $item)
                     <div class="flex cursor-not-allowed items-center gap-3 rounded-lg px-3 py-2 text-sm text-zinc-600">{{ $item }}</div>
                 @endforeach
             </nav>

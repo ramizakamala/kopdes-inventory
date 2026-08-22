@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +23,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/barang/{barang}/edit', [BarangController::class, 'edit'])->name('barang.edit')->middleware('role:admin');
     Route::put('/barang/{barang}', [BarangController::class, 'update'])->name('barang.update')->middleware('role:admin');
     Route::delete('/barang/{barang}', [BarangController::class, 'destroy'])->name('barang.destroy')->middleware('role:admin');
+
+    // Barang Masuk & Barang Keluar (khusus admin)
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/barang-masuk', [BarangMasukController::class, 'index'])->name('barang-masuk.index');
+        Route::get('/barang-masuk/create', [BarangMasukController::class, 'create'])->name('barang-masuk.create');
+        Route::post('/barang-masuk', [BarangMasukController::class, 'store'])->name('barang-masuk.store');
+
+        Route::get('/barang-keluar', [BarangKeluarController::class, 'index'])->name('barang-keluar.index');
+        Route::get('/barang-keluar/create', [BarangKeluarController::class, 'create'])->name('barang-keluar.create');
+        Route::post('/barang-keluar', [BarangKeluarController::class, 'store'])->name('barang-keluar.store');
+    });
 });

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'Dashboard') — SIMPERDES</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet">
+    @vite(['resources/css/app.css'])
+</head>
+<body class="min-h-screen bg-zinc-950 font-sans text-zinc-200 antialiased">
+    <div class="flex min-h-screen">
+        <aside class="flex w-64 shrink-0 flex-col border-r border-white/5 bg-zinc-900/60">
+            <div class="border-b border-white/5 px-6 py-6">
+                <div class="text-lg font-semibold tracking-tight text-white">SIMPERDES</div>
+                <div class="mt-0.5 text-xs text-zinc-500">Manajemen Persediaan Koperasi Desa</div>
+            </div>
+
+            <nav class="flex-1 space-y-1 px-3 py-4">
+                <a href="{{ route('dashboard') }}"
+                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium {{ request()->routeIs('dashboard') ? 'bg-white/10 text-white' : 'text-zinc-400 hover:bg-white/5 hover:text-zinc-200' }}">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75" />
+                    </svg>
+                    Dashboard
+                </a>
+
+                <a href="{{ route('barang.index') }}"
+                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium {{ request()->routeIs('barang.*') ? 'bg-white/10 text-white' : 'text-zinc-400 hover:bg-white/5 hover:text-zinc-200' }}">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                    </svg>
+                    Data Barang
+                </a>
+
+                <div class="px-3 pb-1 pt-5 text-[11px] font-semibold uppercase tracking-wider text-zinc-600">Segera hadir</div>
+                @foreach (['Kategori', 'Supplier', 'Barang Masuk', 'Barang Keluar', 'Monitoring Stok', 'Rekomendasi Restock', 'Laporan', 'Pengguna'] as $item)
+                    <div class="flex cursor-not-allowed items-center gap-3 rounded-lg px-3 py-2 text-sm text-zinc-600">{{ $item }}</div>
+                @endforeach
+            </nav>
+
+            <div class="border-t border-white/5 px-6 py-4">
+                <div class="text-sm font-medium text-white">{{ auth()->user()->name }}</div>
+                <div class="text-xs capitalize text-zinc-500">{{ auth()->user()->role }}</div>
+                <form method="POST" action="{{ route('logout') }}" class="mt-3">
+                    @csrf
+                    <button class="text-sm text-zinc-400 transition hover:text-white">Keluar →</button>
+                </form>
+            </div>
+        </aside>
+
+        <div class="flex min-w-0 flex-1 flex-col">
+            <header class="sticky top-0 z-10 border-b border-white/5 bg-zinc-950/80 px-8 py-4 backdrop-blur">
+                <h1 class="text-xl font-semibold text-white">@yield('title')</h1>
+            </header>
+
+            <main class="flex-1 px-8 py-6">
+                @if (session('success'))
+                    <div class="mb-4 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">{{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                    <div class="mb-4 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">{{ session('error') }}</div>
+                @endif
+
+                @yield('content')
+            </main>
+        </div>
+    </div>
+</body>
+</html>

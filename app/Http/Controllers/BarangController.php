@@ -1,0 +1,109 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Barang;
+use App\Models\Kategori;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+class BarangController extends Controller
+{
+    public function index(Request $request): View
+    {
+        $query = Barang::with('kategori')->orderBy('nama_barang');
+
+        if ($q = $request->query('q')) {
+            $query->where(function ($w) use ($q) {
+                $w->where('nama_barang', 'like', "%{$q}%")
+                    ->orWhere('kode_barang', 'like', "%{$q}%");
+            });
+        }
+
+        if ($status = $request->query('status')) {
+            if ($status === 'habis') {
+                $query->where('stok_saat_ini', '<=', 0);
+            } elseif ($status === 'menipis') {
+                $query->whereColumn('stok_saat_ini', '<', 'stok_minimum')->where('stok_saat_ini', '>', 0);
+            } elseif ($status === 'aman') {
+                $query->whereColumn('stok_saat_ini', '>=', 'stok_minimum')->where('stok_saat_ini', '>', 0);
+            }
+        }
+
+        $barangs = $query->paginate(10)->withQueryString();
+
+        return view('barang.index', compact('barangs'));
+    }
+
+    public function create(): View
+    {
+        $kategoris = Kategori::orderBy('nama_kategori')->get();
+
+        return view('barang.create', compact('kategoris'));
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'kode_barang' => ['required', 'string', 'max:50', 'unique:barang,kode_barang'],
+            'nama_barang' => ['required', 'string', 'max:255'],
+            'kategori_id' => ['nullable', 'exists:kategori,id'],
+            'satuan' => ['required', 'string', 'max:20'],
+            'harga_beli' => ['required', 'numeric', 'min:0'],
+            'harga_jual' => ['required', 'numeric', 'min:0'],
+            'stok_minimum' => ['required', 'integer', 'min:0'],
+            'is_batch_tracked' => ['boolean'],
+        ]);
+
+        $data['is_batch_tracked'] = $request->boolean('is_batch_tracked');
+        $data['stok_saat_ini'] = 0;
+
+        Barang::create($data);
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan.');
+    }
+
+    public function edit(Barang $barang): View
+    {
+        $kategoris = Kategori::orderBy('nama_kategori')->get();
+
+        return view('barang.edit', compact('barang', 'kategoris'));
+    }
+
+    public function update(Request $request, Barang $barang): RedirectResponse
+    {
+        $data = $request->validate([
+            'kode_barang' => ['required', 'string', 'max:50', 'unique:barang,kode_barang,'.$barang->id],
+            'nama_barang' => ['required', 'string', 'max:255'],
+            'kategori_id' => ['nullable', 'exists:kategori,id'],
+            'satuan' => ['required', 'string', 'max:20'],
+            'harga_beli' => ['required', 'numeric', 'min:0'],
+            'harga_jual' => ['required', 'numeric', 'min:0'],
+            'stok_minimum' => ['required', 'integer', 'min:0'],
+            'is_batch_tracked' => ['boolean'],
+        ]);
+
+        $data['is_batch_tracked'] = $request->boolean('is_batch_tracked');
+
+        $barang->update($data);
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil diperbarui.');
+    }
+
+    public function destroy(Barang $barang): RedirectResponse
+    {
+        $hasHistory = $barang->barangMasuks()->exists()
+            || $barang->barangKeluars()->exists()
+            || $barang->stockAdjustments()->exists()
+            || $barang->batches()->exists();
+
+        if ($hasHistory) {
+            return back()->with('error', 'Barang tidak bisa dihapus karena masih punya riwayat transaksi.');
+        }
+
+        $barang->delete();
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil dihapus.');
+    }
+}

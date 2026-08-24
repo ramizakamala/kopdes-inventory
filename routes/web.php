@@ -5,6 +5,9 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -23,9 +26,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/barang/{barang}/edit', [BarangController::class, 'edit'])->name('barang.edit')->middleware('role:admin');
     Route::put('/barang/{barang}', [BarangController::class, 'update'])->name('barang.update')->middleware('role:admin');
     Route::delete('/barang/{barang}', [BarangController::class, 'destroy'])->name('barang.destroy')->middleware('role:admin');
+    Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+    Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
 
     // Barang Masuk & Barang Keluar (khusus admin)
     Route::middleware('role:admin')->group(function () {
+        Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+        Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
+        Route::get('/kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+        Route::put('/kategori/{kategori}', [KategoriController::class, 'update'])->name('kategori.update');
+        Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+        Route::get('/supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
+        Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier.store');
+        Route::get('/supplier/{supplier}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
+        Route::put('/supplier/{supplier}', [SupplierController::class, 'update'])->name('supplier.update');
+        Route::delete('/supplier/{supplier}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
         Route::get('/barang-masuk', [BarangMasukController::class, 'index'])->name('barang-masuk.index');
         Route::get('/barang-masuk/create', [BarangMasukController::class, 'create'])->name('barang-masuk.create');
         Route::post('/barang-masuk', [BarangMasukController::class, 'store'])->name('barang-masuk.store');

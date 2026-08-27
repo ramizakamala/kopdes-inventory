@@ -8,38 +8,40 @@
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet">
     @vite(['resources/css/app.css'])
 </head>
-<body class="flex min-h-screen items-center justify-center bg-zinc-950 font-sans text-zinc-200 antialiased">
-    <div class="w-full max-w-sm">
+<body class="flex min-h-screen items-center justify-center bg-[#F5F5F5] font-sans text-zinc-800 antialiased">
+    <div class="w-full max-w-sm px-4">
         <div class="mb-8 text-center">
-            <div class="text-2xl font-semibold tracking-tight text-white">SIMPERDES</div>
+            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-700 shadow-lg shadow-green-700/20">
+                <svg class="h-7 w-7 text-zinc-900" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                </svg>
+            </div>
+            <div class="text-2xl font-bold tracking-tight text-zinc-900">SIMPERDES</div>
             <div class="mt-1 text-sm text-zinc-500">Manajemen Persediaan Koperasi Desa</div>
         </div>
 
-        <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-6">
+        <div class="card p-6">
             @if ($errors->any())
-                <div class="mb-4 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
-                    {{ $errors->first() }}
-                </div>
+                <div class="flash-error !mb-4">{{ $errors->first() }}</div>
             @endif
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                <label class="mb-1.5 block text-sm font-medium text-zinc-300">Username / Email</label>
+                <label class="label">Username / Email</label>
                 <input type="text" name="login" value="{{ old('login') }}" required autofocus
-                       class="mb-4 w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-600 outline-none focus:border-white/30">
+                       class="input mb-4">
 
-                <label class="mb-1.5 block text-sm font-medium text-zinc-300">Password</label>
+                <label class="label">Password</label>
                 <input type="password" name="password" required
-                       class="mb-5 w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-600 outline-none focus:border-white/30">
+                       class="input mb-5">
 
-                <button type="submit"
-                        class="w-full rounded-lg bg-white px-3 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-zinc-200">
+                <button type="submit" class="btn btn-primary w-full py-2.5 font-semibold">
                     Masuk
                 </button>
             </form>
         </div>
 
-        <p class="mt-4 text-center text-xs text-zinc-600">Demo: admin / password &middot; pimpinan / password</p>
+        <p class="mt-4 text-center text-xs text-zinc-500">Demo: admin / password &middot; pimpinan / password</p>
     </div>
 </body>
 </html>

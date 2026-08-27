@@ -6,23 +6,23 @@
     <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
         <form method="GET" action="{{ route('kategori.index') }}" class="flex flex-wrap items-center gap-2">
             <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari kategori..."
-                   class="w-64 rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-600 outline-none focus:border-white/30">
-            <button type="submit" class="rounded-lg border border-white/10 px-3 py-2 text-sm text-zinc-300 hover:bg-white/5">Cari</button>
+                   class="w-64 input">
+            <button type="submit" class="btn btn-outline">Cari</button>
         </form>
 
         @if (auth()->user()->isAdmin())
             <a href="{{ route('kategori.create') }}"
-               class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-zinc-200">
+               class="btn btn-primary">
                 + Tambah Kategori
             </a>
         @endif
     </div>
 
-    <div class="overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03]">
+    <div class="overflow-hidden card">
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="border-b border-white/5 text-left text-xs uppercase tracking-wider text-zinc-500">
+                    <tr class="border-b border-zinc-100 bg-zinc-50/60 text-left text-xs uppercase tracking-wider text-zinc-500">
                         <th class="px-5 py-3">Nama Kategori</th>
                         <th class="px-5 py-3">Deskripsi</th>
                         <th class="px-5 py-3">Jumlah Barang</th>
@@ -31,20 +31,20 @@
                         @endif
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-white/5">
+                <tbody class="divide-y divide-zinc-100">
                     @forelse ($kategoris as $k)
-                        <tr class="transition hover:bg-white/[0.02]">
-                            <td class="px-5 py-3 font-medium text-white">{{ $k->nama_kategori }}</td>
-                            <td class="px-5 py-3 text-zinc-400">{{ $k->deskripsi ?? '—' }}</td>
-                            <td class="px-5 py-3 text-zinc-300">{{ $k->barangs_count }}</td>
+                        <tr class="transition hover:bg-zinc-50/60">
+                            <td class="px-5 py-3 font-medium text-zinc-900">{{ $k->nama_kategori }}</td>
+                            <td class="px-5 py-3 text-zinc-500">{{ $k->deskripsi ?? '—' }}</td>
+                            <td class="px-5 py-3 text-zinc-600">{{ $k->barangs_count }}</td>
                             @if (auth()->user()->isAdmin())
                                 <td class="px-5 py-3">
                                     <div class="flex justify-end gap-2">
-                                        <a href="{{ route('kategori.edit', $k) }}" class="text-zinc-400 hover:text-white">Edit</a>
+                                        <a href="{{ route('kategori.edit', $k) }}" class="text-zinc-500 hover:text-zinc-900">Edit</a>
                                         <form method="POST" action="{{ route('kategori.destroy', $k) }}" onsubmit="return confirm('Hapus kategori ini?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="text-red-400 hover:text-red-300">Hapus</button>
+                                            <button class="text-red-600 hover:text-red-700">Hapus</button>
                                         </form>
                                     </div>
                                 </td>

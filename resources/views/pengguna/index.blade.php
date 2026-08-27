@@ -6,16 +6,16 @@
     <div class="mb-4 flex items-center justify-between gap-3">
         <div></div>
         <a href="{{ route('pengguna.create') }}"
-           class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-zinc-200">
+           class="btn btn-primary">
             + Tambah Pengguna
         </a>
     </div>
 
-    <div class="overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03]">
+    <div class="overflow-hidden card">
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="border-b border-white/5 text-left text-xs uppercase tracking-wider text-zinc-500">
+                    <tr class="border-b border-zinc-100 bg-zinc-50/60 text-left text-xs uppercase tracking-wider text-zinc-500">
                         <th class="px-5 py-3">Nama</th>
                         <th class="px-5 py-3">Username</th>
                         <th class="px-5 py-3">Email</th>
@@ -24,19 +24,19 @@
                         <th class="px-5 py-3 text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-white/5">
+                <tbody class="divide-y divide-zinc-100">
                     @forelse ($users as $u)
-                        <tr class="transition hover:bg-white/[0.02]">
-                            <td class="px-5 py-3 font-medium text-white">
+                        <tr class="transition hover:bg-zinc-50/60">
+                            <td class="px-5 py-3 font-medium text-zinc-900">
                                 {{ $u->name }}
                                 @if ($u->id === auth()->id())
                                     <span class="ml-1 text-xs text-zinc-500">(Anda)</span>
                                 @endif
                             </td>
-                            <td class="px-5 py-3 text-zinc-400">{{ $u->username }}</td>
-                            <td class="px-5 py-3 text-zinc-400">{{ $u->email }}</td>
+                            <td class="px-5 py-3 text-zinc-500">{{ $u->username }}</td>
+                            <td class="px-5 py-3 text-zinc-500">{{ $u->email }}</td>
                             <td class="px-5 py-3">
-                                <span class="rounded-full px-2.5 py-0.5 text-xs font-medium {{ $u->role === 'admin' ? 'bg-white/10 text-white' : 'bg-sky-500/15 text-sky-300' }}">
+                                <span class="rounded-full px-2.5 py-0.5 text-xs font-medium {{ $u->role === 'admin' ? 'bg-white/10 text-zinc-900' : 'bg-sky-500/15 text-sky-300' }}">
                                     {{ ucfirst($u->role) }}
                                 </span>
                             </td>
@@ -47,11 +47,11 @@
                             </td>
                             <td class="px-5 py-3">
                                 <div class="flex justify-end gap-2">
-                                    <a href="{{ route('pengguna.edit', $u) }}" class="text-zinc-400 hover:text-white">Edit</a>
+                                    <a href="{{ route('pengguna.edit', $u) }}" class="text-zinc-500 hover:text-zinc-900">Edit</a>
                                     <form method="POST" action="{{ route('pengguna.destroy', $u) }}" onsubmit="return confirm('Hapus pengguna ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="text-red-400 hover:text-red-300">Hapus</button>
+                                        <button class="text-red-600 hover:text-red-700">Hapus</button>
                                     </form>
                                 </div>
                             </td>

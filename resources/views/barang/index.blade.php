@@ -6,30 +6,30 @@
     <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
         <form method="GET" action="{{ route('barang.index') }}" class="flex flex-wrap items-center gap-2">
             <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari nama / kode barang..."
-                   class="w-64 rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-600 outline-none focus:border-white/30">
+                   class="w-64 input">
             <select name="status" onchange="this.form.submit()"
-                    class="rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+                    class="input">
                 <option value="">Semua status</option>
                 <option value="aman" @selected(request('status') === 'aman')>Aman</option>
                 <option value="menipis" @selected(request('status') === 'menipis')>Menipis</option>
                 <option value="habis" @selected(request('status') === 'habis')>Habis</option>
             </select>
-            <button type="submit" class="rounded-lg border border-white/10 px-3 py-2 text-sm text-zinc-300 hover:bg-white/5">Cari</button>
+            <button type="submit" class="btn btn-outline">Cari</button>
         </form>
 
         @if (auth()->user()->isAdmin())
             <a href="{{ route('barang.create') }}"
-               class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-zinc-200">
+               class="btn btn-primary">
                 + Tambah Barang
             </a>
         @endif
     </div>
 
-    <div class="overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03]">
+    <div class="overflow-hidden card">
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="border-b border-white/5 text-left text-xs uppercase tracking-wider text-zinc-500">
+                    <tr class="border-b border-zinc-100 bg-zinc-50/60 text-left text-xs uppercase tracking-wider text-zinc-500">
                         <th class="px-5 py-3">Kode</th>
                         <th class="px-5 py-3">Nama Barang</th>
                         <th class="px-5 py-3">Kategori</th>
@@ -43,25 +43,25 @@
                         @endif
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-white/5">
+                <tbody class="divide-y divide-zinc-100">
                     @forelse ($barangs as $b)
-                        <tr class="transition hover:bg-white/[0.02]">
-                            <td class="px-5 py-3 font-mono text-xs text-zinc-400">{{ $b->kode_barang }}</td>
-                            <td class="px-5 py-3 font-medium text-white">{{ $b->nama_barang }}</td>
-                            <td class="px-5 py-3 text-zinc-400">{{ $b->kategori?->nama_kategori ?? '—' }}</td>
-                            <td class="px-5 py-3 text-zinc-400">{{ $b->satuan }}</td>
-                            <td class="px-5 py-3 text-zinc-400">Rp{{ number_format($b->harga_beli, 0, ',', '.') }}</td>
-                            <td class="px-5 py-3 text-zinc-400">Rp{{ number_format($b->harga_jual, 0, ',', '.') }}</td>
-                            <td class="px-5 py-3 text-zinc-300">{{ $b->stok_saat_ini }}</td>
+                        <tr class="transition hover:bg-zinc-50/60">
+                            <td class="px-5 py-3 font-mono text-xs text-zinc-500">{{ $b->kode_barang }}</td>
+                            <td class="px-5 py-3 font-medium text-zinc-900">{{ $b->nama_barang }}</td>
+                            <td class="px-5 py-3 text-zinc-500">{{ $b->kategori?->nama_kategori ?? '—' }}</td>
+                            <td class="px-5 py-3 text-zinc-500">{{ $b->satuan }}</td>
+                            <td class="px-5 py-3 text-zinc-500">Rp{{ number_format($b->harga_beli, 0, ',', '.') }}</td>
+                            <td class="px-5 py-3 text-zinc-500">Rp{{ number_format($b->harga_jual, 0, ',', '.') }}</td>
+                            <td class="px-5 py-3 text-zinc-600">{{ $b->stok_saat_ini }}</td>
                             <td class="px-5 py-3"><x-status-badge :status="$b->status" /></td>
                             @if (auth()->user()->isAdmin())
                                 <td class="px-5 py-3">
                                     <div class="flex justify-end gap-2">
-                                        <a href="{{ route('barang.edit', $b) }}" class="text-zinc-400 hover:text-white">Edit</a>
+                                        <a href="{{ route('barang.edit', $b) }}" class="text-zinc-500 hover:text-zinc-900">Edit</a>
                                         <form method="POST" action="{{ route('barang.destroy', $b) }}" onsubmit="return confirm('Hapus barang ini?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="text-red-400 hover:text-red-300">Hapus</button>
+                                            <button class="text-red-600 hover:text-red-700">Hapus</button>
                                         </form>
                                     </div>
                                 </td>

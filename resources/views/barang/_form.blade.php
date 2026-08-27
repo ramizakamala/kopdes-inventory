@@ -11,20 +11,20 @@
 
 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
     <div>
-        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Kode Barang</label>
+        <label class="label">Kode Barang</label>
         <input type="text" name="kode_barang" value="{{ $k }}" required
-               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
-        @error('kode_barang')<p class="mt-1 text-xs text-red-400">{{ $message }}</p>@enderror
+               class="input">
+        @error('kode_barang')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
     </div>
     <div>
-        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Nama Barang</label>
+        <label class="label">Nama Barang</label>
         <input type="text" name="nama_barang" value="{{ $n }}" required
-               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
-        @error('nama_barang')<p class="mt-1 text-xs text-red-400">{{ $message }}</p>@enderror
+               class="input">
+        @error('nama_barang')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
     </div>
     <div>
-        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Kategori</label>
-        <select name="kategori_id" class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+        <label class="label">Kategori</label>
+        <select name="kategori_id" class="input">
             <option value="">— Tanpa Kategori —</option>
             @foreach ($kategoris as $katItem)
                 <option value="{{ $katItem->id }}" @selected($kat == $katItem->id)>{{ $katItem->nama_kategori }}</option>
@@ -32,41 +32,41 @@
         </select>
     </div>
     <div>
-        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Satuan</label>
+        <label class="label">Satuan</label>
         <input type="text" name="satuan" value="{{ $sat }}" required placeholder="pcs / kg / liter / sak"
-               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+               class="input">
     </div>
     <div>
-        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Harga Beli</label>
+        <label class="label">Harga Beli</label>
         <input type="number" name="harga_beli" value="{{ $hb }}" min="0" step="1" required
-               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+               class="input">
     </div>
     <div>
-        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Harga Jual</label>
+        <label class="label">Harga Jual</label>
         <input type="number" name="harga_jual" value="{{ $hj }}" min="0" step="1" required
-               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+               class="input">
     </div>
     <div>
-        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Stok Minimum</label>
+        <label class="label">Stok Minimum</label>
         <input type="number" name="stok_minimum" value="{{ $sm }}" min="0" required
-               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+               class="input">
     </div>
     <div>
-        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Lead Time (hari)</label>
+        <label class="label">Lead Time (hari)</label>
         <input type="number" name="lead_time_hari" value="{{ old('lead_time_hari', $barang->lead_time_hari ?? 3) }}" min="0" required
-               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+               class="input">
         <p class="mt-1 text-xs text-zinc-600">Waktu tunggu order sampai barang tiba dari supplier</p>
     </div>
     <div>
-        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Safety Stock</label>
+        <label class="label">Safety Stock</label>
         <input type="number" name="safety_stock" value="{{ old('safety_stock', $barang->safety_stock ?? 0) }}" min="0" required
-               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+               class="input">
         <p class="mt-1 text-xs text-zinc-600">Stok pengaman cadangan saat menunggu order datang</p>
     </div>
     <div class="flex items-end pb-2">
-        <label class="flex items-center gap-2 text-sm text-zinc-300">
+        <label class="flex items-center gap-2 text-sm text-zinc-600">
             <input type="checkbox" name="is_batch_tracked" value="1" @checked($bt)
-                   class="rounded border-white/20 bg-zinc-900 accent-white">
+                   class="rounded border-zinc-300 accent-green-700">
             Lacak batch & kedaluwarsa
         </label>
     </div>

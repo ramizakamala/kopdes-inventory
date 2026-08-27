@@ -51,6 +51,18 @@
         <input type="number" name="stok_minimum" value="{{ $sm }}" min="0" required
                class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
     </div>
+    <div>
+        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Lead Time (hari)</label>
+        <input type="number" name="lead_time_hari" value="{{ old('lead_time_hari', $barang->lead_time_hari ?? 3) }}" min="0" required
+               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+        <p class="mt-1 text-xs text-zinc-600">Waktu tunggu order sampai barang tiba dari supplier</p>
+    </div>
+    <div>
+        <label class="mb-1.5 block text-sm font-medium text-zinc-300">Safety Stock</label>
+        <input type="number" name="safety_stock" value="{{ old('safety_stock', $barang->safety_stock ?? 0) }}" min="0" required
+               class="w-full rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white outline-none focus:border-white/30">
+        <p class="mt-1 text-xs text-zinc-600">Stok pengaman cadangan saat menunggu order datang</p>
+    </div>
     <div class="flex items-end pb-2">
         <label class="flex items-center gap-2 text-sm text-zinc-300">
             <input type="checkbox" name="is_batch_tracked" value="1" @checked($bt)

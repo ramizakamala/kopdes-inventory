@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'harga_beli',
     'harga_jual',
     'stok_minimum',
+    'lead_time_hari',
+    'safety_stock',
     'stok_saat_ini',
     'is_batch_tracked',
 ])]
@@ -31,6 +33,8 @@ class Barang extends Model
             'harga_beli' => 'decimal:2',
             'harga_jual' => 'decimal:2',
             'stok_minimum' => 'integer',
+            'lead_time_hari' => 'integer',
+            'safety_stock' => 'integer',
             'stok_saat_ini' => 'integer',
             'is_batch_tracked' => 'boolean',
         ];
@@ -59,6 +63,32 @@ class Barang extends Model
     public function stockAdjustments(): HasMany
     {
         return $this->hasMany(StockAdjustment::class, 'barang_id');
+    }
+
+    /** Total barang keluar 30 hari terakhir. */
+    public function keluar30Hari(): int
+    {
+        return (int) $this->barangKeluars()
+            ->where('tanggal', '>=', now()->subDays(30)->toDateString())
+            ->sum('jumlah');
+    }
+
+    /** Rata-rata pemakaian per hari (30 hari terakhir). */
+    public function rataPemakaianHarian(): float
+    {
+        return $this->keluar30Hari() / 30;
+    }
+
+    /**
+     * Reorder Point: (rata² pemakaian harian × lead time) + safety stock,
+     * tidak pernah di bawah stok minimum (jaring pengaman SRS).
+     */
+    public function rop(?int $keluar30Hari = null): int
+    {
+        $avg = ($keluar30Hari ?? $this->keluar30Hari()) / 30;
+        $rop = (int) ceil($avg * $this->lead_time_hari) + $this->safety_stock;
+
+        return max($rop, $this->stok_minimum);
     }
 
     /** Status stok: habis | menipis | aman */

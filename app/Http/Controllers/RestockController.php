@@ -14,9 +14,7 @@ class RestockController extends Controller
         $query = Barang::with('kategori')
             ->withCount(['barangKeluars as keluar_30hari' => function ($q) {
                 $q->where('tanggal', '>=', now()->subDays(30)->toDateString());
-            }])
-            ->whereColumn('stok_saat_ini', '<=', 'stok_minimum')
-            ->orderByRaw('stok_saat_ini - stok_minimum');
+            }]);
 
         if ($q = $request->query('q')) {
             $query->where(function ($w) use ($q) {
@@ -25,7 +23,14 @@ class RestockController extends Controller
             });
         }
 
-        $barangs = $query->get();
+        // ROP dihitung per barang (butuh data pemakaian), jadi filter di koleksi.
+        $barangs = $query->get()
+            ->filter(fn (Barang $b) => $b->stok_saat_ini <= $b->rop($b->keluar_30hari))
+            ->sortByDesc(fn (Barang $b) => $b->rop($b->keluar_30hari) - $b->stok_saat_ini)
+            ->values();
+
+        // map rop per barang biar view & hitung rekomendasi pakai nilai sama
+        $ropMap = $barangs->mapWithKeys(fn (Barang $b) => [$b->id => $b->rop($b->keluar_30hari)]);
 
         // supplier dari transaksi barang masuk terakhir tiap barang
         $supplierTerakhir = collect();
@@ -38,14 +43,14 @@ class RestockController extends Controller
                 ->pluck('nama_supplier', 'barang_id');
         }
 
-        $totalRekomendasi = $barangs->sum(fn ($b) => $this->jumlahRekomendasi($b));
+        $totalRekomendasi = $barangs->sum(fn (Barang $b) => $this->jumlahRekomendasi($b, $ropMap[$b->id]));
 
-        return view('restock.index', compact('barangs', 'supplierTerakhir', 'totalRekomendasi'));
+        return view('restock.index', compact('barangs', 'ropMap', 'supplierTerakhir', 'totalRekomendasi'));
     }
 
-    /** Estimasi jumlah pengadaan: 2x stok minimum dikurangi stok saat ini. */
-    private function jumlahRekomendasi(Barang $barang): int
+    /** Estimasi jumlah pengadaan: 2x ROP dikurangi stok saat ini. */
+    private function jumlahRekomendasi(Barang $barang, int $rop): int
     {
-        return max(0, ($barang->stok_minimum * 2) - $barang->stok_saat_ini);
+        return max(0, ($rop * 2) - $barang->stok_saat_ini);
     }
 }

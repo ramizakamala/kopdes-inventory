@@ -20,7 +20,7 @@
     <div class="min-h-screen lg:flex">
 
         {{-- ═══ Sidebar ═══ --}}
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col bg-green-950 transition-transform duration-200 lg:static lg:translate-x-0">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col bg-green-950 transition-transform duration-200 lg:sticky lg:inset-y-auto lg:top-0 lg:h-screen lg:translate-x-0">
             {{-- Brand --}}
             <div class="flex items-center gap-3 px-5 py-6">
                 <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-400 text-emerald-950 shadow-lg shadow-emerald-500/20">

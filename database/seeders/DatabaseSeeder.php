@@ -34,6 +34,15 @@ class DatabaseSeeder extends Seeder
             'status' => 'aktif',
         ]);
 
+        User::create([
+            'name' => 'Petugas Gudang',
+            'username' => 'petugas',
+            'email' => 'petugas@kopdes.test',
+            'password' => Hash::make('password'),
+            'role' => 'petugas',
+            'status' => 'aktif',
+        ]);
+
         $sembako = Kategori::create(['nama_kategori' => 'Sembako', 'deskripsi' => 'Kebutuhan pokok']);
         $pertanian = Kategori::create(['nama_kategori' => 'Pertanian', 'deskripsi' => 'Sarana pertanian']);
         $kesehatan = Kategori::create(['nama_kategori' => 'Obat-obatan', 'deskripsi' => 'Produk kesehatan']);

@@ -36,7 +36,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/laporan/cetak', [LaporanController::class, 'cetak'])->name('laporan.cetak');
 
-    // Barang Masuk & Barang Keluar (khusus admin)
+    // Barang Masuk & Barang Keluar (admin + petugas)
+    Route::middleware('role:admin,petugas')->group(function () {
+        Route::get('/barang-masuk', [BarangMasukController::class, 'index'])->name('barang-masuk.index');
+        Route::get('/barang-masuk/create', [BarangMasukController::class, 'create'])->name('barang-masuk.create');
+        Route::post('/barang-masuk', [BarangMasukController::class, 'store'])->name('barang-masuk.store');
+
+        Route::get('/barang-keluar', [BarangKeluarController::class, 'index'])->name('barang-keluar.index');
+        Route::get('/barang-keluar/create', [BarangKeluarController::class, 'create'])->name('barang-keluar.create');
+        Route::post('/barang-keluar', [BarangKeluarController::class, 'store'])->name('barang-keluar.store');
+    });
+
+    // Kelola master, penyesuaian, restock & pengguna (khusus admin)
     Route::middleware('role:admin')->group(function () {
         Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
         Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
@@ -48,13 +59,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/supplier/{supplier}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
         Route::put('/supplier/{supplier}', [SupplierController::class, 'update'])->name('supplier.update');
         Route::delete('/supplier/{supplier}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
-        Route::get('/barang-masuk', [BarangMasukController::class, 'index'])->name('barang-masuk.index');
-        Route::get('/barang-masuk/create', [BarangMasukController::class, 'create'])->name('barang-masuk.create');
-        Route::post('/barang-masuk', [BarangMasukController::class, 'store'])->name('barang-masuk.store');
-
-        Route::get('/barang-keluar', [BarangKeluarController::class, 'index'])->name('barang-keluar.index');
-        Route::get('/barang-keluar/create', [BarangKeluarController::class, 'create'])->name('barang-keluar.create');
-        Route::post('/barang-keluar', [BarangKeluarController::class, 'store'])->name('barang-keluar.store');
 
         Route::get('/penyesuaian-stok', [StockAdjustmentController::class, 'index'])->name('penyesuaian-stok.index');
         Route::get('/penyesuaian-stok/create', [StockAdjustmentController::class, 'create'])->name('penyesuaian-stok.create');

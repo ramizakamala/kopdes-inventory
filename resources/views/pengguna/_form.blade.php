@@ -35,6 +35,7 @@
         <label class="label">Role</label>
         <select name="role" class="input">
             <option value="admin" @selected($r === 'admin')>Admin / Pengelola</option>
+            <option value="petugas" @selected($r === 'petugas')>Petugas / Operator</option>
             <option value="pimpinan" @selected($r === 'pimpinan')>Pimpinan</option>
         </select>
     </div>

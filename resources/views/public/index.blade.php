@@ -8,66 +8,27 @@
         <div class="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-teal-200/40 blur-3xl"></div>
         <div class="pointer-events-none absolute -right-24 top-40 h-80 w-80 rounded-full bg-amber-200/30 blur-3xl"></div>
 
-        <div class="relative mx-auto grid max-w-6xl items-center gap-14 px-5 pb-16 pt-16 lg:grid-cols-2 lg:pt-24">
-            {{-- Teks --}}
-            <div class="text-center lg:text-left">
-                <h1 class="text-4xl font-semibold leading-[1.1] tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
-                    Kebutuhan pokok warga desa, <span class="text-teal-700">stoknya bisa dicek dari rumah.</span>
-                </h1>
-                <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-stone-500 lg:mx-0">
-                    Beras, minyak, pupuk, obat. Harganya wajar dan stoknya selalu kelihatan,
-                    jadi nggak perlu nebak-nebak sebelum datang ke koperasi.
-                </p>
-                <div class="mt-8 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-                    <a href="{{ route('produk') }}" class="inline-flex items-center gap-2 rounded-full bg-teal-700 px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-teal-700/25 transition hover:bg-teal-800">
-                        Cek Stok &amp; Harga
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
-                    </a>
-                    <a href="{{ route('kontak') }}" class="inline-flex items-center gap-1 text-base font-semibold text-teal-700 transition hover:underline">
-                        Hubungi pengurus
-                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
-            {{-- Visual --}}
-            <div class="relative mx-auto w-full max-w-md lg:max-w-none">
-                <div class="overflow-hidden rounded-2xl border border-stone-200 bg-white">
-                    @php $hero = $produkUnggulan->first(); @endphp
-                    @if ($hero)
-                        @php $pct = min(100, (int) round($hero->stok_saat_ini / max(1, $hero->stok_minimum) * 100)); @endphp
-                        <div class="overflow-hidden">
-                            <x-produk-art :barang="$hero" />
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-start justify-between gap-2">
-                                <div>
-                                    <div class="text-[15px] font-semibold text-stone-900">{{ $hero->nama_barang }}</div>
-                                    <div class="mt-0.5 text-xs text-stone-400">{{ $hero->kategori?->nama_kategori ?? 'Umum' }} &middot; {{ $hero->satuan }}</div>
-                                </div>
-                                <x-stok-badge :barang="$hero" />
-                            </div>
-                            <div class="mt-4 flex items-end justify-between gap-2">
-                                <div class="text-2xl font-semibold tabular-nums tracking-tight text-stone-900">Rp{{ number_format($hero->harga_jual, 0, ',', '.') }}</div>
-                                <div class="text-xs tabular-nums text-stone-400">{{ $hero->stok_saat_ini }} / min {{ $hero->stok_minimum }}</div>
-                            </div>
-                            <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
-                                <div class="h-full rounded-full {{ $hero->status === 'habis' ? 'bg-red-500' : ($hero->status === 'menipis' ? 'bg-amber-500' : 'bg-green-500') }} transition-all duration-700" style="width: {{ $pct }}%"></div>
-                            </div>
-                            <p class="mt-5 text-xs text-stone-400">{{ $totalBarang }} jenis produk &middot; {{ number_format($totalStok) }} unit stok tercatat</p>
-                            <a href="{{ route('produk') }}" class="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-teal-700 px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-teal-800">
-                                Cek semua produk
-                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                                </svg>
-                            </a>
-                        </div>
-                    @endif
-                </div>
+        <div class="relative mx-auto max-w-3xl px-5 pb-16 pt-20 text-center lg:pt-28">
+            <h1 class="text-4xl font-semibold leading-[1.1] tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+                Kebutuhan pokok warga desa, <span class="text-teal-700">stoknya bisa dicek dari rumah.</span>
+            </h1>
+            <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-stone-500">
+                Beras, minyak, pupuk, obat. Harganya wajar dan stoknya selalu kelihatan,
+                jadi nggak perlu nebak-nebak sebelum datang ke koperasi.
+            </p>
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+                <a href="{{ route('produk') }}" class="inline-flex items-center gap-2 rounded-full bg-teal-700 px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-teal-700/25 transition hover:bg-teal-800">
+                    Cek Stok &amp; Harga
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
+                <a href="{{ route('kontak') }}" class="inline-flex items-center gap-1 text-base font-semibold text-teal-700 transition hover:underline">
+                    Hubungi pengurus
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
             </div>
         </div>
     </section>

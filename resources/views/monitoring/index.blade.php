@@ -65,7 +65,7 @@
                             <td class="px-5 py-3 font-mono text-xs text-zinc-500">{{ $b->kode_barang }}</td>
                             <td class="px-5 py-3 font-medium text-zinc-900">{{ $b->nama_barang }}</td>
                             <td class="px-5 py-3 text-zinc-500">{{ $b->kategori?->nama_kategori ?? '—' }}</td>
-                            <td class="px-5 py-3 font-semibold {{ $b->stok_saat_ini <= 0 ? 'text-red-600' : ($b->status === 'menipis' ? 'text-amber-300' : 'text-zinc-900') }}">{{ $b->stok_saat_ini }}</td>
+                            <td class="px-5 py-3 font-semibold {{ $b->stok_saat_ini <= 0 ? 'text-red-600' : ($b->status === 'menipis' ? 'text-amber-600' : 'text-stone-900') }}">{{ $b->stok_saat_ini }}</td>
                             <td class="px-5 py-3 text-zinc-500">{{ $b->stok_minimum }}</td>
                             <td class="px-5 py-3"><x-status-badge :status="$b->status" /></td>
                             <td class="px-5 py-3 text-zinc-600">Rp{{ number_format($b->stok_saat_ini * $b->harga_beli, 0, ',', '.') }}</td>

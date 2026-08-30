@@ -5,43 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Masuk — SIMPERDES</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800" rel="stylesheet">
     @vite(['resources/css/app.css'])
 </head>
-<body class="flex min-h-screen items-center justify-center bg-[#F5F5F5] font-sans text-zinc-800 antialiased">
-    <div class="w-full max-w-sm px-4">
-        <div class="mb-8 text-center">
-            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-700 shadow-lg shadow-green-700/20">
-                <svg class="h-7 w-7 text-zinc-900" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+<body class="flex min-h-screen bg-canvas font-sans text-stone-800 antialiased">
+
+    {{-- Panel kiri: brand --}}
+    <div class="relative hidden w-1/2 overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-900 to-green-950 lg:flex lg:flex-col lg:justify-between">
+        <div class="pointer-events-none absolute -left-24 -top-24 h-96 w-96 rounded-full bg-emerald-500/20 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-32 -right-16 h-[28rem] w-[28rem] rounded-full bg-teal-400/10 blur-3xl"></div>
+
+        <div class="relative flex items-center gap-3 px-12 pt-12">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400 text-emerald-950 shadow-lg shadow-emerald-500/30">
+                <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                 </svg>
             </div>
-            <div class="text-2xl font-bold tracking-tight text-zinc-900">SIMPERDES</div>
-            <div class="mt-1 text-sm text-zinc-500">Manajemen Persediaan Koperasi Desa</div>
+            <div>
+                <div class="text-2xl font-extrabold tracking-tight text-white">SIMPERDES</div>
+                <div class="text-sm text-emerald-200/70">Manajemen Persediaan Koperasi Desa</div>
+            </div>
         </div>
 
-        <div class="card p-6">
-            @if ($errors->any())
-                <div class="flash-error !mb-4">{{ $errors->first() }}</div>
-            @endif
-
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <label class="label">Username / Email</label>
-                <input type="text" name="login" value="{{ old('login') }}" required autofocus
-                       class="input mb-4">
-
-                <label class="label">Password</label>
-                <input type="password" name="password" required
-                       class="input mb-5">
-
-                <button type="submit" class="btn btn-primary w-full py-2.5 font-semibold">
-                    Masuk
-                </button>
-            </form>
+        <div class="relative px-12">
+            <h2 class="max-w-md text-3xl font-extrabold leading-tight tracking-tight text-white">
+                Kelola stok koperasi desa jadi lebih mudah &amp; rapi.
+            </h2>
+            <ul class="mt-8 space-y-4">
+                <li class="flex items-center gap-3 text-emerald-100">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-300 ring-1 ring-inset ring-emerald-400/30">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                    </span>
+                    Pantau stok barang secara real-time
+                </li>
+                <li class="flex items-center gap-3 text-emerald-100">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-300 ring-1 ring-inset ring-emerald-400/30">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                    </span>
+                    Catat barang masuk &amp; keluar dengan mudah
+                </li>
+                <li class="flex items-center gap-3 text-emerald-100">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-300 ring-1 ring-inset ring-emerald-400/30">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                    </span>
+                    Peringatan otomatis saat stok menipis
+                </li>
+            </ul>
         </div>
 
-        <p class="mt-4 text-center text-xs text-zinc-500">Demo: admin / password &middot; pimpinan / password</p>
+        <div class="relative px-12 pb-10 text-sm text-emerald-200/50">
+            &copy; {{ date('Y') }} SIMPERDES &middot; Sistem Manajemen Persediaan Koperasi Desa
+        </div>
+    </div>
+
+    {{-- Panel kanan: form --}}
+    <div class="flex flex-1 items-center justify-center px-5 py-12">
+        <div class="w-full max-w-md">
+            <div class="mb-8 flex flex-col items-center text-center lg:hidden">
+                <div class="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-700 text-white shadow-lg shadow-emerald-700/25">
+                    <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                    </svg>
+                </div>
+                <div class="text-2xl font-extrabold tracking-tight text-stone-900">SIMPERDES</div>
+                <div class="mt-1 text-sm text-stone-500">Manajemen Persediaan Koperasi Desa</div>
+            </div>
+
+            <div class="mb-8 lg:mb-10">
+                <h1 class="text-3xl font-extrabold tracking-tight text-stone-900">Selamat datang</h1>
+                <p class="mt-2 text-[15px] text-stone-500">Masuk dengan akun Anda untuk mulai mengelola persediaan.</p>
+            </div>
+
+            <div class="card p-7">
+                @if ($errors->any())
+                    <div class="flash-error !mb-5">
+                        <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                        </svg>
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <label for="login" class="label">Username / Email</label>
+                    <input id="login" type="text" name="login" value="{{ old('login') }}" required autofocus
+                           placeholder="contoh: admin" class="input mb-5">
+
+                    <label for="password" class="label">Password</label>
+                    <input id="password" type="password" name="password" required placeholder="••••••••"
+                           class="input mb-6">
+
+                    <button type="submit" class="btn btn-primary w-full py-3 text-base">
+                        Masuk
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <p class="mt-5 text-center text-sm text-stone-500">
+                Akun demo: <code class="rounded-md bg-stone-100 px-1.5 py-0.5 font-semibold text-stone-700">admin</code> / <code class="rounded-md bg-stone-100 px-1.5 py-0.5 font-semibold text-stone-700">password</code>
+            </p>
+        </div>
     </div>
 </body>
 </html>

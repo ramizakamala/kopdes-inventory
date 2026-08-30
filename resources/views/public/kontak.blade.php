@@ -7,7 +7,7 @@
         <div class="mx-auto max-w-5xl px-5 py-16 lg:py-20">
             <div class="text-center">
                 <p class="text-sm font-semibold text-teal-700">Kontak</p>
-                <h1 class="mt-2 text-4xl font-semibold tracking-tight text-[#1d1d1f] sm:text-5xl">Hubungi kami.</h1>
+                <h1 class="mt-2 text-4xl font-semibold tracking-tight text-stone-900 sm:text-5xl">Hubungi kami.</h1>
                 <p class="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-stone-500">
                     Ada pertanyaan, pesanan, atau ingin bergabung menjadi anggota?
                     Pengurus akan segera menghubungi Anda.
@@ -17,7 +17,7 @@
             <div class="mt-12 grid gap-8 lg:grid-cols-5">
                 {{-- Info --}}
                 <div class="space-y-4 lg:col-span-2">
-                    <div class="rounded-3xl bg-[#f5f5f7] p-6">
+                    <div class="rounded-3xl bg-[#FAF7F1] p-6">
                         <div class="flex items-center gap-3">
                             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-teal-700 shadow-sm">
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -26,12 +26,12 @@
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-sm font-semibold text-[#1d1d1f]">Alamat</div>
+                                <div class="text-sm font-semibold text-stone-900">Alamat</div>
                                 <div class="mt-0.5 text-sm text-stone-500">Jl. Raya Desa No. 1, Kec. Contoh, Kab. Contoh</div>
                             </div>
                         </div>
                     </div>
-                    <div class="rounded-3xl bg-[#f5f5f7] p-6">
+                    <div class="rounded-3xl bg-[#FAF7F1] p-6">
                         <div class="flex items-center gap-3">
                             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-teal-700 shadow-sm">
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -39,12 +39,12 @@
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-sm font-semibold text-[#1d1d1f]">Telepon / WhatsApp</div>
+                                <div class="text-sm font-semibold text-stone-900">Telepon / WhatsApp</div>
                                 <div class="mt-0.5 text-sm text-stone-500">+62 812-3456-7890</div>
                             </div>
                         </div>
                     </div>
-                    <div class="rounded-3xl bg-[#f5f5f7] p-6">
+                    <div class="rounded-3xl bg-[#FAF7F1] p-6">
                         <div class="flex items-center gap-3">
                             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-teal-700 shadow-sm">
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -52,7 +52,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-sm font-semibold text-[#1d1d1f]">Jam Layanan</div>
+                                <div class="text-sm font-semibold text-stone-900">Jam Layanan</div>
                                 <div class="mt-0.5 text-sm text-stone-500">Senin – Sabtu, 07.00 – 17.00 WIB</div>
                             </div>
                         </div>
@@ -60,8 +60,8 @@
                 </div>
 
                 {{-- Form --}}
-                <div class="rounded-3xl bg-[#f5f5f7] p-7 lg:col-span-3 lg:p-9">
-                    <h2 class="text-xl font-semibold tracking-tight text-[#1d1d1f]">Kirim pesan.</h2>
+                <div class="rounded-3xl bg-[#FAF7F1] p-7 lg:col-span-3 lg:p-9">
+                    <h2 class="text-xl font-semibold tracking-tight text-stone-900">Kirim pesan.</h2>
                     <form method="POST" action="{{ route('kontak.kirim') }}" class="mt-6">
                         @csrf
                         <div class="grid gap-5 sm:grid-cols-2">
@@ -86,7 +86,7 @@
                             <textarea id="pesan" name="pesan" rows="5" required placeholder="Tulis pesan Anda..."
                                       class="input !bg-white resize-none">{{ old('pesan') }}</textarea>
                         </div>
-                        <button type="submit" class="mt-7 inline-flex items-center gap-2 rounded-full bg-[#1d1d1f] px-7 py-3 text-[15px] font-semibold text-white transition hover:bg-black">
+                        <button type="submit" class="mt-7 inline-flex items-center gap-2 rounded-full bg-teal-700 px-7 py-3 text-[15px] font-semibold text-white shadow-lg shadow-teal-700/25 transition hover:bg-teal-800">
                             Kirim Pesan
                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />

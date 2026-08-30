@@ -10,14 +10,14 @@
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900" rel="stylesheet">
     @vite(['resources/css/app.css'])
 </head>
-<body class="bg-white font-sans text-[#1d1d1f] antialiased">
+<body class="bg-[#FAF7F1] font-sans text-stone-900 antialiased">
 
-    {{-- ═══ Navigasi ala Apple ═══ --}}
-    <header class="sticky top-0 z-40 border-b border-stone-200/60 bg-[#f5f5f7]/80 backdrop-blur-xl">
+    {{-- ═══ Navigasi ═══ --}}
+    <header class="sticky top-0 z-40 border-b border-stone-200/60 bg-white/75 backdrop-blur-xl">
         <div class="mx-auto flex h-12 max-w-5xl items-center justify-between gap-4 px-5">
             <a href="{{ route('home') }}" class="flex items-center gap-2.5">
                 <x-logo size="h-7 w-7" icon="h-4 w-4" tile="rounded-lg bg-teal-700 shadow-teal-700/25" />
-                <span class="text-[15px] font-semibold tracking-tight text-[#1d1d1f]">Koperasi Desa Makmur</span>
+                <span class="text-[15px] font-semibold tracking-tight text-stone-900">Koperasi Desa Makmur</span>
             </a>
 
             <nav class="hidden items-center gap-6 md:flex">
@@ -62,8 +62,8 @@
         @yield('content')
     </main>
 
-    {{-- ═══ Footer ala Apple ═══ --}}
-    <footer class="mt-24 bg-[#f5f5f7]">
+    {{-- ═══ Footer ═══ --}}
+    <footer class="mt-24 border-t border-stone-200/60 bg-[#FAF7F1]">
         <div class="mx-auto max-w-5xl px-5 py-12">
             <p class="max-w-3xl text-xs leading-relaxed text-stone-500">
                 Koperasi Desa Makmur — koperasi desa yang menyediakan kebutuhan pokok, sarana pertanian,

@@ -3,11 +3,11 @@
 @section('title', 'Katalog Produk')
 
 @section('content')
-    <section class="bg-[#f5f5f7]">
+    <section class="bg-[#FAF7F1]">
         <div class="mx-auto max-w-5xl px-5 py-16 lg:py-20">
             <div class="text-center">
                 <p class="text-sm font-semibold text-teal-700">Katalog</p>
-                <h1 class="mt-2 text-4xl font-semibold tracking-tight text-[#1d1d1f] sm:text-5xl">Produk koperasi.</h1>
+                <h1 class="mt-2 text-4xl font-semibold tracking-tight text-stone-900 sm:text-5xl">Produk koperasi.</h1>
                 <p class="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-stone-500">
                     Semua produk tersedia di koperasi desa. Ketersediaan stok ditampilkan
                     langsung dari sistem persediaan.
@@ -32,17 +32,13 @@
                 @forelse ($barangs as $p)
                     <div class="rounded-3xl bg-white p-6 shadow-sm transition hover:shadow-md">
                         <div class="flex items-start justify-between gap-2">
-                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f5f5f7] text-stone-500">
-                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                                </svg>
-                            </div>
+                            <x-kategori-chip :kategori="$p->kategori" />
                             <x-stok-badge :barang="$p" />
                         </div>
-                        <h3 class="mt-4 text-base font-semibold leading-snug text-[#1d1d1f]">{{ $p->nama_barang }}</h3>
+                        <h3 class="mt-4 text-base font-semibold leading-snug text-stone-900">{{ $p->nama_barang }}</h3>
                         <div class="mt-0.5 text-xs text-stone-400">{{ $p->kategori?->nama_kategori ?? 'Umum' }} &middot; satuan {{ $p->satuan }}</div>
                         <div class="mt-4 flex items-end justify-between gap-2 border-t border-stone-100 pt-4">
-                            <div class="text-xl font-semibold tabular-nums tracking-tight text-[#1d1d1f]">Rp{{ number_format($p->harga_jual, 0, ',', '.') }}</div>
+                            <div class="text-xl font-semibold tabular-nums tracking-tight text-stone-900">Rp{{ number_format($p->harga_jual, 0, ',', '.') }}</div>
                             <div class="text-xs text-stone-400">Stok {{ $p->stok_saat_ini }} {{ $p->satuan }}</div>
                         </div>
                     </div>

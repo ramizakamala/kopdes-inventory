@@ -215,6 +215,14 @@
         document.getElementById('menu-toggle').addEventListener('click', function () {
             document.getElementById('sidebar').classList.toggle('-translate-x-full');
         });
+
+        // reveal on scroll (public pages)
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
     </script>
 </body>
 </html>

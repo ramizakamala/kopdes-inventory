@@ -90,4 +90,25 @@
     .stat-caption {
         @apply mt-1 text-xs text-stone-400;
     }
+
+    /* ── Animasi publik ─────────────────────── */
+    .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.revealed {
+        opacity: 1;
+        transform: none;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .float-slow { animation: float 6s ease-in-out infinite; }
+    .float-slower { animation: float 9s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+        .float-slow, .float-slower { animation: none; }
+    }
 }

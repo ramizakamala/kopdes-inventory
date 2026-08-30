@@ -30,6 +30,10 @@
             {{-- Grid produk --}}
             <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 @forelse ($barangs as $p)
+                    @php
+                        $pct = min(100, (int) round($p->stok_saat_ini / max(1, $p->stok_minimum) * 100));
+                        $bar = $p->status === 'habis' ? 'bg-red-500' : ($p->status === 'menipis' ? 'bg-amber-500' : 'bg-green-500');
+                    @endphp
                     <div class="rounded-3xl bg-white p-6 shadow-sm transition hover:shadow-md">
                         <div class="flex items-start justify-between gap-2">
                             <x-kategori-chip :kategori="$p->kategori" />
@@ -39,7 +43,10 @@
                         <div class="mt-0.5 text-xs text-stone-400">{{ $p->kategori?->nama_kategori ?? 'Umum' }} &middot; satuan {{ $p->satuan }}</div>
                         <div class="mt-4 flex items-end justify-between gap-2 border-t border-stone-100 pt-4">
                             <div class="text-xl font-semibold tabular-nums tracking-tight text-stone-900">Rp{{ number_format($p->harga_jual, 0, ',', '.') }}</div>
-                            <div class="text-xs text-stone-400">Stok {{ $p->stok_saat_ini }} {{ $p->satuan }}</div>
+                            <div class="text-xs tabular-nums text-stone-400">Stok {{ $p->stok_saat_ini }} / min {{ $p->stok_minimum }}</div>
+                        </div>
+                        <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
+                            <div class="h-full rounded-full {{ $bar }} transition-all duration-700" style="width: {{ $pct }}%"></div>
                         </div>
                     </div>
                 @empty

@@ -17,13 +17,14 @@ class PublicController extends Controller
         $totalKategori = Kategori::count();
         $totalStok = (int) Barang::sum('stok_saat_ini');
         $kategoris = Kategori::orderBy('nama_kategori')->get();
+        $barangs = Barang::orderBy('nama_barang')->get();
         $produkUnggulan = Barang::with('kategori')
             ->where('stok_saat_ini', '>', 0)
             ->latest()
             ->take(8)
             ->get();
 
-        return view('public.index', compact('totalBarang', 'totalKategori', 'totalStok', 'kategoris', 'produkUnggulan'));
+        return view('public.index', compact('totalBarang', 'totalKategori', 'totalStok', 'kategoris', 'barangs', 'produkUnggulan'));
     }
 
     public function produk(Request $request): View
@@ -55,12 +56,19 @@ class PublicController extends Controller
             'nama' => ['required', 'string', 'max:100'],
             'email' => ['nullable', 'email', 'max:255'],
             'telepon' => ['nullable', 'string', 'max:20'],
+            'barang' => ['nullable', 'string', 'max:255'],
             'pesan' => ['required', 'string', 'max:1000'],
         ], [
             'nama.required' => 'Nama wajib diisi.',
             'email.email' => 'Format email tidak valid.',
             'pesan.required' => 'Pesan wajib diisi.',
         ]);
+
+        // form layanan: tandai barang yang dicari di awal pesan
+        if (! empty($data['barang'])) {
+            $data['pesan'] = "Permintaan barang: {$data['barang']}.\n{$data['pesan']}";
+        }
+        unset($data['barang']);
 
         KontakMessage::create($data);
 

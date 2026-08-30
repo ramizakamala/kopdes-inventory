@@ -36,43 +36,37 @@
 
             {{-- Visual --}}
             <div class="relative mx-auto w-full max-w-md lg:max-w-none">
-                <div class="relative rounded-[2rem] border border-stone-200/70 bg-gradient-to-br from-white to-teal-50/50 p-10 shadow-xl shadow-stone-200/60">
-                    <svg class="float-slow mx-auto h-44 w-44" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <defs>
-                            <linearGradient id="hexGrad" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="#0d9488" />
-                                <stop offset="100%" stop-color="#134e4a" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M12 2.5 20 7v10l-8 4.5L4 17V7l8-4.5Z" stroke="url(#hexGrad)" stroke-width="1.4" />
-                        <path d="M8.5 17v-5" stroke="#0d9488" stroke-width="1.8" />
-                        <path d="M12 17v-6.5" stroke="#14b8a6" stroke-width="1.8" />
-                        <path d="M15.5 17v-8" stroke="#2dd4bf" stroke-width="1.8" />
-                    </svg>
-
-                    <div class="float-slower absolute -left-3 top-10 flex items-center gap-2.5 rounded-2xl border border-stone-200/70 bg-white/95 px-4 py-2.5 shadow-lg shadow-stone-200/60 backdrop-blur">
-                        <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                            </svg>
+                <div class="overflow-hidden rounded-2xl border border-stone-200 bg-white">
+                    @php $hero = $produkUnggulan->first(); @endphp
+                    @if ($hero)
+                        @php $pct = min(100, (int) round($hero->stok_saat_ini / max(1, $hero->stok_minimum) * 100)); @endphp
+                        <div class="overflow-hidden">
+                            <x-produk-art :barang="$hero" />
                         </div>
-                        <div class="text-sm">
-                            <div class="font-semibold tabular-nums text-stone-900">{{ $totalBarang }} jenis produk</div>
-                            <div class="text-xs text-stone-400">dari {{ $totalKategori }} kategori</div>
+                        <div class="p-6">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <div class="text-[15px] font-semibold text-stone-900">{{ $hero->nama_barang }}</div>
+                                    <div class="mt-0.5 text-xs text-stone-400">{{ $hero->kategori?->nama_kategori ?? 'Umum' }} &middot; {{ $hero->satuan }}</div>
+                                </div>
+                                <x-stok-badge :barang="$hero" />
+                            </div>
+                            <div class="mt-4 flex items-end justify-between gap-2">
+                                <div class="text-2xl font-semibold tabular-nums tracking-tight text-stone-900">Rp{{ number_format($hero->harga_jual, 0, ',', '.') }}</div>
+                                <div class="text-xs tabular-nums text-stone-400">{{ $hero->stok_saat_ini }} / min {{ $hero->stok_minimum }}</div>
+                            </div>
+                            <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
+                                <div class="h-full rounded-full {{ $hero->status === 'habis' ? 'bg-red-500' : ($hero->status === 'menipis' ? 'bg-amber-500' : 'bg-green-500') }} transition-all duration-700" style="width: {{ $pct }}%"></div>
+                            </div>
+                            <p class="mt-5 text-xs text-stone-400">{{ $totalBarang }} jenis produk &middot; {{ number_format($totalStok) }} unit stok tercatat</p>
+                            <a href="{{ route('produk') }}" class="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-teal-700 px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-teal-800">
+                                Cek semua produk
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </a>
                         </div>
-                    </div>
-
-                    <div class="float-slow absolute -right-2 bottom-12 flex items-center gap-2.5 rounded-2xl border border-stone-200/70 bg-white/95 px-4 py-2.5 shadow-lg shadow-stone-200/60 backdrop-blur">
-                        <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
-                            </svg>
-                        </div>
-                        <div class="text-sm">
-                            <div class="font-semibold tabular-nums text-stone-900">{{ number_format($totalStok) }} unit stok</div>
-                            <div class="text-xs text-stone-400">tercatat saat ini</div>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -128,30 +122,79 @@
         </div>
     </section>
 
-    {{-- ═══ Layanan ═══ --}}
+    {{-- ═══ Layanan + form tanya barang ═══ --}}
     <section class="border-y border-stone-100 bg-stone-50">
-        <div class="mx-auto max-w-5xl px-5 py-20 lg:py-24">
-            <div class="reveal text-center">
-                <p class="text-sm font-semibold uppercase tracking-wider text-teal-700">Apa yang kami sediakan</p>
-                <h2 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900 sm:text-4xl">Layanan koperasi.</h2>
-            </div>
+        <div class="mx-auto max-w-6xl px-5 py-20 lg:py-24">
+            <div class="reveal grid gap-10 lg:grid-cols-5">
+                {{-- Daftar layanan: satu panel menyatu --}}
+                <div class="lg:col-span-3">
+                    <p class="text-sm font-semibold uppercase tracking-wider text-teal-700">Apa yang kami sediakan</p>
+                    <h2 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900 sm:text-4xl">Layanan koperasi.</h2>
+                    <p class="mt-3 max-w-md text-[15px] leading-relaxed text-stone-500">
+                        Klik kategori untuk lihat stok dan harganya.
+                    </p>
 
-            <div class="reveal mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                @forelse ($kategoris as $kat)
-                    <a href="{{ route('produk', ['kategori_id' => $kat->id]) }}" class="group rounded-3xl border border-stone-200/70 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-teal-200 hover:shadow-lg">
-                        <x-kategori-chip :kategori="$kat" />
-                        <h3 class="mt-5 text-lg font-semibold tracking-tight text-stone-900">{{ $kat->nama_kategori }}</h3>
-                        <p class="mt-1.5 text-sm leading-relaxed text-stone-500">{{ $kat->deskripsi ?? 'Kebutuhan warga desa.' }}</p>
-                        <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-teal-700">
-                            Lihat produk
-                            <svg class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                            </svg>
-                        </span>
-                    </a>
-                @empty
-                    <p class="col-span-full py-10 text-center text-stone-400">Belum ada kategori.</p>
-                @endforelse
+                    <div class="mt-8 divide-y divide-stone-200/70 rounded-2xl border border-stone-200 bg-white">
+                        @forelse ($kategoris as $kat)
+                            <a href="{{ route('produk', ['kategori_id' => $kat->id]) }}"
+                               class="group flex items-center gap-4 px-5 py-5 transition hover:bg-stone-50 sm:px-6">
+                                <x-kategori-chip :kategori="$kat" size="h-11 w-11" icon="h-5 w-5" />
+                                <div class="min-w-0 flex-1">
+                                    <div class="text-[15px] font-semibold text-stone-900 group-hover:text-teal-700">{{ $kat->nama_kategori }}</div>
+                                    <div class="mt-0.5 text-sm leading-relaxed text-stone-500">{{ $kat->deskripsi ?? 'Kebutuhan warga desa.' }}</div>
+                                </div>
+                                <svg class="h-4 w-4 shrink-0 text-stone-300 transition group-hover:translate-x-0.5 group-hover:text-teal-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </a>
+                        @empty
+                            <p class="px-6 py-10 text-center text-stone-400">Belum ada kategori.</p>
+                        @endforelse
+                    </div>
+                </div>
+
+                {{-- Form nyata: primary action --}}
+                <div class="lg:col-span-2">
+                    <div class="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8">
+                        <h3 class="text-xl font-semibold tracking-tight text-stone-900">Tanya stok atau pesan barang</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-stone-500">
+                            Isi form ini, pesanan masuk langsung ke pengurus dan dibalas maksimal 1×24 jam.
+                        </p>
+                        <form method="POST" action="{{ route('kontak.kirim') }}" class="mt-6 space-y-4">
+                            @csrf
+                            <div>
+                                <label for="lnama" class="label">Nama <span class="text-red-500">*</span></label>
+                                <input id="lnama" type="text" name="nama" value="{{ old('nama') }}" required
+                                       placeholder="Nama lengkap" autocomplete="name" class="input !bg-stone-50">
+                            </div>
+                            <div>
+                                <label for="ltelepon" class="label">No. WhatsApp</label>
+                                <input id="ltelepon" type="tel" name="telepon" value="{{ old('telepon') }}"
+                                       placeholder="08xx-xxxx-xxxx" autocomplete="tel" inputmode="tel" class="input !bg-stone-50">
+                            </div>
+                            <div>
+                                <label for="lbarang" class="label">Barang yang dicari</label>
+                                <select id="lbarang" name="barang" class="input !bg-stone-50">
+                                    <option value="">— Pilih barang (opsional) —</option>
+                                    @foreach ($barangs as $b)
+                                        <option value="{{ $b->nama_barang }}" @selected(old('barang') == $b->nama_barang)>{{ $b->nama_barang }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <label for="lpesan" class="label">Pesan <span class="text-red-500">*</span></label>
+                                <textarea id="lpesan" name="pesan" rows="4" required placeholder="mis. Beras 5kg masih ada berapa?"
+                                          class="input !bg-stone-50 resize-none">{{ old('pesan') }}</textarea>
+                            </div>
+                            <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-full bg-teal-700 px-6 py-3 text-[15px] font-semibold text-white transition hover:bg-teal-800">
+                                Kirim Pertanyaan
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

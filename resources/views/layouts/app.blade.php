@@ -20,17 +20,17 @@
     <div class="min-h-screen lg:flex">
 
         {{-- ═══ Sidebar ═══ --}}
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col bg-green-950 transition-transform duration-200 lg:sticky lg:inset-y-auto lg:top-0 lg:h-screen lg:translate-x-0">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col border-r border-stone-200/70 bg-white transition-transform duration-200 lg:sticky lg:inset-y-auto lg:top-0 lg:h-screen lg:translate-x-0">
             {{-- Brand --}}
             <div class="flex items-center gap-3 px-5 py-6">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-400 text-emerald-950 shadow-lg shadow-emerald-500/20">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-700 text-white shadow-sm shadow-emerald-700/25">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                     </svg>
                 </div>
                 <div>
-                    <div class="text-lg font-extrabold tracking-tight text-white">SIMPERDES</div>
-                    <div class="text-xs font-medium text-emerald-200/60">Manajemen Persediaan</div>
+                    <div class="text-lg font-extrabold tracking-tight text-stone-900">SIMPERDES</div>
+                    <div class="text-xs font-medium text-stone-400">Manajemen Persediaan</div>
                 </div>
             </div>
 
@@ -133,16 +133,16 @@
             </nav>
 
             {{-- Profil pengguna --}}
-            <div class="border-t border-white/10 px-4 py-4">
+            <div class="border-t border-stone-100 px-4 py-4">
                 <div class="flex items-center gap-3">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-sm font-bold text-emerald-300 ring-1 ring-inset ring-emerald-400/30">{{ $inisial }}</div>
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-800">{{ $inisial }}</div>
                     <div class="min-w-0 flex-1">
-                        <div class="truncate text-sm font-semibold text-white">{{ $nama }}</div>
-                        <div class="text-xs capitalize text-emerald-200/60">{{ $role }}</div>
+                        <div class="truncate text-sm font-semibold text-stone-900">{{ $nama }}</div>
+                        <div class="text-xs capitalize text-stone-400">{{ $role }}</div>
                     </div>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" title="Keluar" class="flex h-9 w-9 items-center justify-center rounded-xl text-emerald-200/60 transition hover:bg-white/10 hover:text-white">
+                        <button type="submit" title="Keluar" class="flex h-9 w-9 items-center justify-center rounded-lg text-stone-400 transition hover:bg-red-50 hover:text-red-600">
                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                             </svg>
@@ -154,7 +154,7 @@
 
         {{-- ═══ Konten utama ═══ --}}
         <div class="flex min-w-0 flex-1 flex-col">
-            <header class="sticky top-0 z-30 border-b border-stone-200/70 bg-white/85 backdrop-blur">
+            <header class="sticky top-0 z-30 border-b border-stone-200/70 bg-canvas/80 backdrop-blur">
                 <div class="flex items-center justify-between gap-4 px-5 py-4 lg:px-8">
                     <div class="flex items-center gap-3">
                         <button id="menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-xl border border-stone-200 bg-white text-stone-600 lg:hidden">
@@ -170,7 +170,7 @@
                     <div class="hidden items-center gap-3 sm:flex">
                         <span class="text-sm font-medium text-stone-500">{{ $tanggalHariIni }}</span>
                         <span class="h-5 w-px bg-stone-200"></span>
-                        <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold capitalize text-emerald-700 ring-1 ring-inset ring-emerald-200">
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-bold capitalize text-stone-600 ring-1 ring-inset ring-stone-200">
                             <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                             {{ $role }}
                         </span>

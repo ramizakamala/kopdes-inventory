@@ -11,45 +11,45 @@
 <body class="flex min-h-screen bg-canvas font-sans text-stone-800 antialiased">
 
     {{-- Panel kiri: brand --}}
-    <div class="relative hidden w-1/2 overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-900 to-green-950 lg:flex lg:flex-col lg:justify-between">
-        <div class="pointer-events-none absolute -left-24 -top-24 h-96 w-96 rounded-full bg-emerald-500/20 blur-3xl"></div>
-        <div class="pointer-events-none absolute -bottom-32 -right-16 h-[28rem] w-[28rem] rounded-full bg-teal-400/10 blur-3xl"></div>
+    <div class="relative hidden w-1/2 overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-stone-100 lg:flex lg:flex-col lg:justify-between">
+        <div class="pointer-events-none absolute -left-24 -top-24 h-96 w-96 rounded-full bg-emerald-200/40 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-32 -right-16 h-[28rem] w-[28rem] rounded-full bg-teal-200/30 blur-3xl"></div>
 
         <div class="relative flex items-center gap-3 px-12 pt-12">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400 text-emerald-950 shadow-lg shadow-emerald-500/30">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-700 text-white shadow-sm shadow-emerald-700/25">
                 <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                 </svg>
             </div>
             <div>
-                <div class="text-2xl font-extrabold tracking-tight text-white">SIMPERDES</div>
-                <div class="text-sm text-emerald-200/70">Manajemen Persediaan Koperasi Desa</div>
+                <div class="text-2xl font-extrabold tracking-tight text-stone-900">SIMPERDES</div>
+                <div class="text-sm text-stone-500">Manajemen Persediaan Koperasi Desa</div>
             </div>
         </div>
 
         <div class="relative px-12">
-            <h2 class="max-w-md text-3xl font-extrabold leading-tight tracking-tight text-white">
+            <h2 class="max-w-md text-3xl font-extrabold leading-tight tracking-tight text-stone-900">
                 Kelola stok koperasi desa jadi lebih mudah &amp; rapi.
             </h2>
             <ul class="mt-8 space-y-4">
-                <li class="flex items-center gap-3 text-emerald-100">
-                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-300 ring-1 ring-inset ring-emerald-400/30">
+                <li class="flex items-center gap-3 text-stone-700">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
                     </span>
                     Pantau stok barang secara real-time
                 </li>
-                <li class="flex items-center gap-3 text-emerald-100">
-                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-300 ring-1 ring-inset ring-emerald-400/30">
+                <li class="flex items-center gap-3 text-stone-700">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
                     </span>
                     Catat barang masuk &amp; keluar dengan mudah
                 </li>
-                <li class="flex items-center gap-3 text-emerald-100">
-                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-300 ring-1 ring-inset ring-emerald-400/30">
+                <li class="flex items-center gap-3 text-stone-700">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
@@ -59,7 +59,7 @@
             </ul>
         </div>
 
-        <div class="relative px-12 pb-10 text-sm text-emerald-200/50">
+        <div class="relative px-12 pb-10 text-sm text-stone-400">
             &copy; {{ date('Y') }} SIMPERDES &middot; Sistem Manajemen Persediaan Koperasi Desa
         </div>
     </div>

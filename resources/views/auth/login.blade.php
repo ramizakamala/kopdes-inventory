@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Masuk — SIMPERDES</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800" rel="stylesheet">
     @vite(['resources/css/app.css'])
@@ -11,16 +12,12 @@
 <body class="flex min-h-screen bg-canvas font-sans text-stone-800 antialiased">
 
     {{-- Panel kiri: brand --}}
-    <div class="relative hidden w-1/2 overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-stone-100 lg:flex lg:flex-col lg:justify-between">
-        <div class="pointer-events-none absolute -left-24 -top-24 h-96 w-96 rounded-full bg-emerald-200/40 blur-3xl"></div>
-        <div class="pointer-events-none absolute -bottom-32 -right-16 h-[28rem] w-[28rem] rounded-full bg-teal-200/30 blur-3xl"></div>
+    <div class="relative hidden w-1/2 overflow-hidden bg-gradient-to-br from-teal-50 via-white to-stone-100 lg:flex lg:flex-col lg:justify-between">
+        <div class="pointer-events-none absolute -left-24 -top-24 h-96 w-96 rounded-full bg-teal-200/40 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-32 -right-16 h-[28rem] w-[28rem] rounded-full bg-cyan-200/30 blur-3xl"></div>
 
         <div class="relative flex items-center gap-3 px-12 pt-12">
-            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-700 text-white shadow-sm shadow-emerald-700/25">
-                <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                </svg>
-            </div>
+            <x-logo size="h-12 w-12" icon="h-7 w-7" />
             <div>
                 <div class="text-2xl font-extrabold tracking-tight text-stone-900">SIMPERDES</div>
                 <div class="text-sm text-stone-500">Manajemen Persediaan Koperasi Desa</div>
@@ -33,7 +30,7 @@
             </h2>
             <ul class="mt-8 space-y-4">
                 <li class="flex items-center gap-3 text-stone-700">
-                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-100 text-teal-700">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
@@ -41,7 +38,7 @@
                     Pantau stok barang secara real-time
                 </li>
                 <li class="flex items-center gap-3 text-stone-700">
-                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-100 text-teal-700">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
@@ -49,7 +46,7 @@
                     Catat barang masuk &amp; keluar dengan mudah
                 </li>
                 <li class="flex items-center gap-3 text-stone-700">
-                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-100 text-teal-700">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
@@ -68,10 +65,8 @@
     <div class="flex flex-1 items-center justify-center px-5 py-12">
         <div class="w-full max-w-md">
             <div class="mb-8 flex flex-col items-center text-center lg:hidden">
-                <div class="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-700 text-white shadow-lg shadow-emerald-700/25">
-                    <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                    </svg>
+                <div class="mb-3 flex flex-col items-center">
+                    <x-logo size="h-14 w-14" icon="h-7 w-7" tile="rounded-2xl bg-teal-700 shadow-teal-700/25" />
                 </div>
                 <div class="text-2xl font-extrabold tracking-tight text-stone-900">SIMPERDES</div>
                 <div class="mt-1 text-sm text-stone-500">Manajemen Persediaan Koperasi Desa</div>

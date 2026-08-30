@@ -36,12 +36,12 @@
                             <td class="px-5 py-3 text-zinc-500">{{ $u->username }}</td>
                             <td class="px-5 py-3 text-zinc-500">{{ $u->email }}</td>
                             <td class="px-5 py-3">
-                                <span class="rounded-full px-3 py-1 text-[13px] font-bold ring-1 ring-inset {{ $u->role === 'admin' ? 'bg-emerald-50 text-emerald-700 ring-emerald-200' : 'bg-sky-50 text-sky-700 ring-sky-200' }}">
+                                <span class="rounded-full px-3 py-1 text-[13px] font-bold ring-1 ring-inset {{ $u->role === 'admin' ? 'bg-teal-50 text-teal-700 ring-teal-200' : 'bg-sky-50 text-sky-700 ring-sky-200' }}">
                                     {{ ucfirst($u->role) }}
                                 </span>
                             </td>
                             <td class="px-5 py-3">
-                                <span class="rounded-full px-3 py-1 text-[13px] font-bold ring-1 ring-inset {{ $u->status === 'aktif' ? 'bg-emerald-50 text-emerald-700 ring-emerald-200' : 'bg-red-50 text-red-700 ring-red-200' }}">
+                                <span class="rounded-full px-3 py-1 text-[13px] font-bold ring-1 ring-inset {{ $u->status === 'aktif' ? 'bg-green-50 text-green-700 ring-green-200' : 'bg-red-50 text-red-700 ring-red-200' }}">
                                     {{ ucfirst($u->status) }}
                                 </span>
                             </td>

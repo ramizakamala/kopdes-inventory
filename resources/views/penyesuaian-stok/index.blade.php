@@ -29,7 +29,7 @@
                             <td class="px-5 py-3 text-zinc-500">{{ $a->tanggal->format('d M Y') }}</td>
                             <td class="px-5 py-3 font-medium text-zinc-900">{{ $a->barang?->nama_barang ?? '—' }}</td>
                             <td class="px-5 py-3">
-                                <span class="{{ $a->jumlah_penyesuaian > 0 ? 'text-emerald-400' : 'text-red-600' }}">
+                                <span class="{{ $a->jumlah_penyesuaian > 0 ? 'font-semibold text-green-600' : 'font-semibold text-red-600' }}">
                                     {{ $a->jumlah_penyesuaian > 0 ? '+' : '' }}{{ $a->jumlah_penyesuaian }}
                                 </span>
                                 <span class="text-xs text-zinc-500">{{ $a->barang?->satuan }}</span>

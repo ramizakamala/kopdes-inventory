@@ -16,7 +16,7 @@
         <div class="flex flex-wrap gap-1 rounded-xl border border-stone-200/80 bg-white p-1 shadow-sm">
             @foreach ($tabs as $key => $label)
                 <a href="{{ route('laporan.index', ['jenis' => $key]) }}"
-                   class="rounded-lg px-4 py-2 text-sm font-semibold transition {{ $jenis === $key ? 'bg-emerald-700 text-white shadow-sm' : 'text-stone-500 hover:bg-stone-100 hover:text-stone-900' }}">
+                   class="rounded-lg px-4 py-2 text-sm font-semibold transition {{ $jenis === $key ? 'bg-teal-700 text-white shadow-sm' : 'text-stone-500 hover:bg-stone-100 hover:text-stone-900' }}">
                     {{ $label }}
                 </a>
             @endforeach

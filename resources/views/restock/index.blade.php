@@ -50,7 +50,7 @@
                             </td>
                             <td class="px-5 py-3 text-zinc-600">{{ max(0, $rop - $b->stok_saat_ini) }}</td>
                             <td class="px-5 py-3 text-zinc-500">{{ round($b->keluar_30hari / 30, 2) }}</td>
-                            <td class="px-5 py-3 font-bold text-emerald-700">{{ max(0, ($rop * 2) - $b->stok_saat_ini) }}</td>
+                            <td class="px-5 py-3 font-bold text-teal-700">{{ max(0, ($rop * 2) - $b->stok_saat_ini) }}</td>
                             <td class="px-5 py-3 text-zinc-500">{{ $supplierTerakhir[$b->id] ?? '—' }}</td>
                         </tr>
                     @empty

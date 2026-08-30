@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Dashboard') — SIMPERDES</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800" rel="stylesheet">
     @vite(['resources/css/app.css'])
@@ -23,11 +24,7 @@
         <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col border-r border-stone-200/70 bg-white transition-transform duration-200 lg:sticky lg:inset-y-auto lg:top-0 lg:h-screen lg:translate-x-0">
             {{-- Brand --}}
             <div class="flex items-center gap-3 px-5 py-6">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-700 text-white shadow-sm shadow-emerald-700/25">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                    </svg>
-                </div>
+                <x-logo />
                 <div>
                     <div class="text-lg font-extrabold tracking-tight text-stone-900">SIMPERDES</div>
                     <div class="text-xs font-medium text-stone-400">Manajemen Persediaan</div>
@@ -135,7 +132,7 @@
             {{-- Profil pengguna --}}
             <div class="border-t border-stone-100 px-4 py-4">
                 <div class="flex items-center gap-3">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-800">{{ $inisial }}</div>
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-100 text-sm font-bold text-teal-800">{{ $inisial }}</div>
                     <div class="min-w-0 flex-1">
                         <div class="truncate text-sm font-semibold text-stone-900">{{ $nama }}</div>
                         <div class="text-xs capitalize text-stone-400">{{ $role }}</div>
@@ -171,7 +168,7 @@
                         <span class="text-sm font-medium text-stone-500">{{ $tanggalHariIni }}</span>
                         <span class="h-5 w-px bg-stone-200"></span>
                         <span class="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-bold capitalize text-stone-600 ring-1 ring-inset ring-stone-200">
-                            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-teal-500"></span>
                             {{ $role }}
                         </span>
                     </div>

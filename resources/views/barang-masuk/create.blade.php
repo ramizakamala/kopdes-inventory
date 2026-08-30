@@ -18,11 +18,11 @@
                     </div>
                     <div>
                         <label class="label">Barang</label>
-                        <select name="barang_id" required
+                        <select name="barang_id" id="barang-select" required
                                 class="input">
                             <option value="">— Pilih Barang —</option>
                             @foreach ($barangs as $b)
-                                <option value="{{ $b->id }}" @selected(old('barang_id') == $b->id)>{{ $b->nama_barang }} ({{ $b->kode_barang }})</option>
+                                <option value="{{ $b->id }}" data-harga="{{ $b->harga_beli }}" @selected(old('barang_id') == $b->id)>{{ $b->nama_barang }} ({{ $b->kode_barang }})</option>
                             @endforeach
                         </select>
                     </div>
@@ -43,8 +43,9 @@
                     </div>
                     <div>
                         <label class="label">Harga Beli (per satuan)</label>
-                        <input type="number" name="harga_beli" value="{{ old('harga_beli') }}" min="0" required
+                        <input type="number" name="harga_beli" id="harga-input" value="{{ old('harga_beli') }}" min="0" required
                                class="input">
+                        <p class="mt-1 text-xs text-stone-400">Terisi otomatis dari harga beli barang, bisa diubah.</p>
                     </div>
                     <div>
                         <label class="label">Nomor Batch (opsional)</label>
@@ -68,4 +69,15 @@
             </div>
         </form>
     </div>
+
+    <script>
+        // autofill harga beli dari barang terpilih (kurangi kerja manual)
+        var select = document.getElementById('barang-select');
+        var harga = document.getElementById('harga-input');
+        select.addEventListener('change', function () {
+            var opt = select.selectedOptions[0];
+            if (opt && opt.value) { harga.value = opt.dataset.harga; }
+            else { harga.value = ''; }
+        });
+    </script>
 @endsection

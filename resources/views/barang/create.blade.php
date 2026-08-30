@@ -7,7 +7,7 @@
         <form method="POST" action="{{ route('barang.store') }}">
             @csrf
             <div class="card p-6">
-                @include('barang._form', ['barang' => null])
+                @include('barang._form', ['barang' => null, 'suggestedKode' => $suggestedKode ?? null])
             </div>
             <div class="mt-4 flex items-center gap-3">
                 <button type="submit" class="btn btn-primary">Simpan</button>

@@ -40,7 +40,15 @@ class BarangController extends Controller
     {
         $kategoris = Kategori::orderBy('nama_kategori')->get();
 
-        return view('barang.create', compact('kategoris'));
+        // suggest kode berikutnya biar nggak diketik manual (urangi kerja)
+        $last = Barang::where('kode_barang', 'like', 'BRG-%')->orderBy('kode_barang', 'desc')->value('kode_barang');
+        $suggestedKode = 'BRG-001';
+        if ($last) {
+            $num = (int) substr($last, 4);
+            $suggestedKode = 'BRG-' . str_pad($num + 1, 3, '0', STR_PAD_LEFT);
+        }
+
+        return view('barang.create', compact('kategoris', 'suggestedKode'));
     }
 
     public function store(Request $request): RedirectResponse

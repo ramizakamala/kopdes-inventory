@@ -223,6 +223,17 @@
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+        // cegah double-submit (duplikat transaksi)
+        document.querySelectorAll('form').forEach(function (f) {
+            f.addEventListener('submit', function () {
+                var btn = this.querySelector('button[type="submit"]');
+                if (btn && !btn.disabled) {
+                    btn.disabled = true;
+                    btn.classList.add('opacity-60', 'cursor-not-allowed');
+                }
+            });
+        });
     </script>
 </body>
 </html>

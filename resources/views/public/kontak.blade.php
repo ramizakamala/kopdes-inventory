@@ -67,18 +67,18 @@
                             <div>
                                 <label for="nama" class="label">Nama <span class="text-red-500">*</span></label>
                                 <input id="nama" type="text" name="nama" value="{{ old('nama') }}" required
-                                       placeholder="Nama lengkap" class="input !bg-white">
+                                       placeholder="Nama lengkap" autocomplete="name" class="input !bg-white">
                             </div>
                             <div>
                                 <label for="telepon" class="label">No. WhatsApp / Telepon</label>
-                                <input id="telepon" type="text" name="telepon" value="{{ old('telepon') }}"
-                                       placeholder="08xx-xxxx-xxxx" class="input !bg-white">
+                                <input id="telepon" type="tel" name="telepon" value="{{ old('telepon') }}"
+                                       placeholder="08xx-xxxx-xxxx" autocomplete="tel" inputmode="tel" class="input !bg-white">
                             </div>
                         </div>
                         <div class="mt-5">
                             <label for="email" class="label">Email</label>
                             <input id="email" type="email" name="email" value="{{ old('email') }}"
-                                   placeholder="nama@contoh.com" class="input !bg-white">
+                                   placeholder="nama@contoh.com" autocomplete="email" class="input !bg-white">
                         </div>
                         <div class="mt-5">
                             <label for="pesan" class="label">Pesan <span class="text-red-500">*</span></label>

@@ -1,5 +1,5 @@
 @php
-    $k = old('kode_barang', $barang->kode_barang ?? '');
+    $k = old('kode_barang', $barang->kode_barang ?? $suggestedKode ?? '');
     $n = old('nama_barang', $barang->nama_barang ?? '');
     $kat = old('kategori_id', $barang->kategori_id ?? null);
     $sat = old('satuan', $barang->satuan ?? '');

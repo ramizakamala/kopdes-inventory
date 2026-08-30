@@ -18,24 +18,26 @@
                     </div>
                     <div>
                         <label class="label">Barang</label>
-                        <select name="barang_id" required
+                        <select name="barang_id" id="barang-select" required
                                 class="input">
                             <option value="">— Pilih Barang —</option>
                             @foreach ($barangs as $b)
-                                <option value="{{ $b->id }}" @selected(old('barang_id') == $b->id)>{{ $b->nama_barang }} — stok: {{ $b->stok_saat_ini }} {{ $b->satuan }}</option>
+                                <option value="{{ $b->id }}" data-harga="{{ $b->harga_jual }}" data-stok="{{ $b->stok_saat_ini }}" data-satuan="{{ $b->satuan }}" @selected(old('barang_id') == $b->id)>{{ $b->nama_barang }} — stok: {{ $b->stok_saat_ini }} {{ $b->satuan }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div>
                         <label class="label">Jumlah</label>
-                        <input type="number" name="jumlah" value="{{ old('jumlah') }}" min="1" required
+                        <input type="number" name="jumlah" id="jumlah-input" value="{{ old('jumlah') }}" min="1" required
                                class="input">
+                        <p id="stok-hint" class="mt-1 hidden text-xs text-amber-600"></p>
                         @error('jumlah')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
                     </div>
                     <div>
                         <label class="label">Harga Jual (per satuan)</label>
-                        <input type="number" name="harga_jual" value="{{ old('harga_jual') }}" min="0" required
+                        <input type="number" name="harga_jual" id="harga-input" value="{{ old('harga_jual') }}" min="0" required
                                class="input">
+                        <p class="mt-1 text-xs text-stone-400">Terisi otomatis dari harga barang, bisa diubah.</p>
                     </div>
                     <div class="sm:col-span-2">
                         <label class="label">Keterangan (opsional)</label>
@@ -51,4 +53,25 @@
             </div>
         </form>
     </div>
+
+    <script>
+        // autofill harga jual + batasi jumlah sesuai stok (kurangi kerja & cegah error)
+        var select = document.getElementById('barang-select');
+        var harga = document.getElementById('harga-input');
+        var jumlah = document.getElementById('jumlah-input');
+        var hint = document.getElementById('stok-hint');
+        select.addEventListener('change', function () {
+            var opt = select.selectedOptions[0];
+            if (opt && opt.value) {
+                harga.value = opt.dataset.harga;
+                jumlah.max = opt.dataset.stok;
+                hint.textContent = 'Maksimal ' + opt.dataset.stok + ' ' + opt.dataset.satuan + ' sesuai stok tersedia.';
+                hint.classList.remove('hidden');
+            } else {
+                harga.value = '';
+                jumlah.removeAttribute('max');
+                hint.classList.add('hidden');
+            }
+        });
+    </script>
 @endsection

@@ -5,6 +5,10 @@
     $c = old('catatan', $supplier->catatan ?? '');
 @endphp
 
+@if ($errors->any())
+    <div class="flash-error !mb-5">{{ $errors->first() }}</div>
+@endif
+
 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
     <div class="sm:col-span-2">
         <label class="label">Nama Supplier</label>

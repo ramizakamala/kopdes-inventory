@@ -3,6 +3,10 @@
     $d = old('deskripsi', $kategori->deskripsi ?? '');
 @endphp
 
+@if ($errors->any())
+    <div class="flash-error !mb-5">{{ $errors->first() }}</div>
+@endif
+
 <div class="grid grid-cols-1 gap-4">
     <div>
         <label class="label">Nama Kategori</label>

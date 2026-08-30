@@ -11,14 +11,7 @@
         <div class="relative mx-auto grid max-w-6xl items-center gap-14 px-5 pb-16 pt-16 lg:grid-cols-2 lg:pt-24">
             {{-- Teks --}}
             <div class="text-center lg:text-left">
-                <span class="inline-flex items-center gap-2 rounded-full bg-teal-700/10 px-4 py-1.5 text-sm font-semibold text-teal-700 ring-1 ring-inset ring-teal-700/15">
-                    <span class="relative flex h-2 w-2">
-                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-500 opacity-75"></span>
-                        <span class="relative inline-flex h-2 w-2 rounded-full bg-teal-600"></span>
-                    </span>
-                    Stok diperbarui real-time
-                </span>
-                <h1 class="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+                <h1 class="text-4xl font-semibold leading-[1.1] tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
                     Kebutuhan pokok warga desa, <span class="text-teal-700">stoknya bisa dicek dari rumah.</span>
                 </h1>
                 <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-stone-500 lg:mx-0">
@@ -181,21 +174,27 @@
                         $pct = min(100, (int) round($p->stok_saat_ini / max(1, $p->stok_minimum) * 100));
                         $bar = $p->status === 'habis' ? 'bg-red-500' : ($p->status === 'menipis' ? 'bg-amber-500' : 'bg-green-500');
                     @endphp
-                    <div class="group rounded-3xl border border-stone-200/70 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-teal-200 hover:shadow-lg">
-                        <div class="flex items-start justify-between gap-2">
-                            <x-kategori-chip :kategori="$p->kategori" />
-                            <x-stok-badge :barang="$p" />
+                    <a href="{{ route('produk', ['kategori_id' => $p->kategori_id]) }}" class="group overflow-hidden rounded-3xl border border-stone-200/70 bg-white shadow-sm transition hover:-translate-y-1 hover:border-teal-200 hover:shadow-lg">
+                        <div class="overflow-hidden">
+                            <x-produk-art :barang="$p" />
                         </div>
-                        <h3 class="mt-4 text-[15px] font-semibold leading-snug text-stone-900">{{ $p->nama_barang }}</h3>
-                        <div class="mt-0.5 text-xs text-stone-400">{{ $p->kategori?->nama_kategori ?? 'Umum' }} &middot; {{ $p->satuan }}</div>
-                        <div class="mt-4 flex items-end justify-between gap-2">
-                            <div class="text-lg font-semibold tabular-nums tracking-tight text-stone-900">Rp{{ number_format($p->harga_jual, 0, ',', '.') }}</div>
-                            <div class="text-xs tabular-nums text-stone-400">{{ $p->stok_saat_ini }} / min {{ $p->stok_minimum }}</div>
+                        <div class="p-6">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <h3 class="text-[15px] font-semibold leading-snug text-stone-900 group-hover:text-teal-700">{{ $p->nama_barang }}</h3>
+                                    <div class="mt-0.5 text-xs text-stone-400">{{ $p->kategori?->nama_kategori ?? 'Umum' }} &middot; {{ $p->satuan }}</div>
+                                </div>
+                                <x-stok-badge :barang="$p" />
+                            </div>
+                            <div class="mt-4 flex items-end justify-between gap-2">
+                                <div class="text-lg font-semibold tabular-nums tracking-tight text-stone-900">Rp{{ number_format($p->harga_jual, 0, ',', '.') }}</div>
+                                <div class="text-xs tabular-nums text-stone-400">{{ $p->stok_saat_ini }} / min {{ $p->stok_minimum }}</div>
+                            </div>
+                            <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
+                                <div class="h-full rounded-full {{ $bar }} transition-all duration-700" style="width: {{ $pct }}%"></div>
+                            </div>
                         </div>
-                        <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
-                            <div class="h-full rounded-full {{ $bar }} transition-all duration-700" style="width: {{ $pct }}%"></div>
-                        </div>
-                    </div>
+                    </a>
                 @empty
                     <p class="col-span-full py-10 text-center text-stone-400">Produk belum tersedia.</p>
                 @endforelse

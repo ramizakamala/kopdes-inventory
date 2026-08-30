@@ -3,6 +3,9 @@
 @section('title', 'Catat Barang Keluar')
 
 @section('content')
+    @if ($errors->any())
+        <div class="flash-error !mb-5">{{ $errors->first() }}</div>
+    @endif
     <div class="max-w-3xl">
         <form method="POST" action="{{ route('barang-keluar.store') }}">
             @csrf

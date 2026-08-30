@@ -27,12 +27,30 @@
                 <a href="{{ route('kontak') }}" class="text-sm font-medium transition {{ request()->routeIs('kontak') ? 'text-teal-700' : 'text-stone-600 hover:text-stone-900' }}">Kontak</a>
             </nav>
 
-            <a href="{{ route('login') }}" class="flex items-center gap-1.5 text-sm font-medium text-stone-600 transition hover:text-stone-900">
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span class="hidden sm:inline">Login Staff</span>
-            </a>
+            <div class="flex items-center gap-2">
+                <a href="{{ route('login') }}" class="hidden items-center gap-1.5 text-sm font-medium text-stone-600 transition hover:text-stone-900 sm:flex">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Login Staff</span>
+                </a>
+                <button id="menu-toggle" type="button" class="flex h-9 w-9 items-center justify-center rounded-lg text-stone-600 transition hover:bg-stone-100 md:hidden">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        {{-- Menu mobile --}}
+        <div id="mobile-menu" class="hidden border-t border-stone-200/60 bg-white px-5 py-3 md:hidden">
+            <div class="flex flex-col">
+                <a href="{{ route('home') }}" class="rounded-lg px-3 py-2.5 text-[15px] font-semibold {{ request()->routeIs('home') ? 'bg-teal-50 text-teal-800' : 'text-stone-700' }}">Beranda</a>
+                <a href="{{ route('produk') }}" class="rounded-lg px-3 py-2.5 text-[15px] font-semibold {{ request()->routeIs('produk') ? 'bg-teal-50 text-teal-800' : 'text-stone-700' }}">Produk</a>
+                <a href="{{ route('tentang') }}" class="rounded-lg px-3 py-2.5 text-[15px] font-semibold {{ request()->routeIs('tentang') ? 'bg-teal-50 text-teal-800' : 'text-stone-700' }}">Tentang</a>
+                <a href="{{ route('kontak') }}" class="rounded-lg px-3 py-2.5 text-[15px] font-semibold {{ request()->routeIs('kontak') ? 'bg-teal-50 text-teal-800' : 'text-stone-700' }}">Kontak</a>
+                <a href="{{ route('login') }}" class="mt-1 rounded-lg border-t border-stone-100 px-3 py-3 text-[15px] font-semibold text-teal-700">Login Staff</a>
+            </div>
         </div>
     </header>
 
@@ -114,6 +132,11 @@
     </footer>
 
     <script>
+        // toggle menu mobile
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
         // reveal on scroll
         var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (e) {

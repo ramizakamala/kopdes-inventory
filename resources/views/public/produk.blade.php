@@ -34,21 +34,27 @@
                         $pct = min(100, (int) round($p->stok_saat_ini / max(1, $p->stok_minimum) * 100));
                         $bar = $p->status === 'habis' ? 'bg-red-500' : ($p->status === 'menipis' ? 'bg-amber-500' : 'bg-green-500');
                     @endphp
-                    <div class="rounded-3xl bg-white p-6 shadow-sm transition hover:shadow-md">
-                        <div class="flex items-start justify-between gap-2">
-                            <x-kategori-chip :kategori="$p->kategori" />
-                            <x-stok-badge :barang="$p" />
+                    <a href="{{ route('produk', ['kategori_id' => $p->kategori_id]) }}" class="group overflow-hidden rounded-3xl bg-white shadow-sm transition hover:shadow-md">
+                        <div class="overflow-hidden">
+                            <x-produk-art :barang="$p" />
                         </div>
-                        <h3 class="mt-4 text-base font-semibold leading-snug text-stone-900">{{ $p->nama_barang }}</h3>
-                        <div class="mt-0.5 text-xs text-stone-400">{{ $p->kategori?->nama_kategori ?? 'Umum' }} &middot; satuan {{ $p->satuan }}</div>
-                        <div class="mt-4 flex items-end justify-between gap-2 border-t border-stone-100 pt-4">
-                            <div class="text-xl font-semibold tabular-nums tracking-tight text-stone-900">Rp{{ number_format($p->harga_jual, 0, ',', '.') }}</div>
-                            <div class="text-xs tabular-nums text-stone-400">Stok {{ $p->stok_saat_ini }} / min {{ $p->stok_minimum }}</div>
+                        <div class="p-6">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <h3 class="text-base font-semibold leading-snug text-stone-900 group-hover:text-teal-700">{{ $p->nama_barang }}</h3>
+                                    <div class="mt-0.5 text-xs text-stone-400">{{ $p->kategori?->nama_kategori ?? 'Umum' }} &middot; satuan {{ $p->satuan }}</div>
+                                </div>
+                                <x-stok-badge :barang="$p" />
+                            </div>
+                            <div class="mt-4 flex items-end justify-between gap-2 border-t border-stone-100 pt-4">
+                                <div class="text-xl font-semibold tabular-nums tracking-tight text-stone-900">Rp{{ number_format($p->harga_jual, 0, ',', '.') }}</div>
+                                <div class="text-xs tabular-nums text-stone-400">Stok {{ $p->stok_saat_ini }} / min {{ $p->stok_minimum }}</div>
+                            </div>
+                            <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
+                                <div class="h-full rounded-full {{ $bar }} transition-all duration-700" style="width: {{ $pct }}%"></div>
+                            </div>
                         </div>
-                        <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
-                            <div class="h-full rounded-full {{ $bar }} transition-all duration-700" style="width: {{ $pct }}%"></div>
-                        </div>
-                    </div>
+                    </a>
                 @empty
                     <div class="col-span-full rounded-3xl bg-white px-6 py-16 text-center shadow-sm">
                         <p class="text-[15px] font-medium text-stone-500">Tidak ada produk pada kategori ini.</p>

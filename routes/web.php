@@ -8,6 +8,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\PesanController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RestockController;
 use App\Http\Controllers\StockAdjustmentController;
 use App\Http\Controllers\SupplierController;
@@ -18,7 +20,12 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/', fn () => redirect()->route('dashboard'));
+// ── Halaman publik (company profile koperasi) ──
+Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/produk', [PublicController::class, 'produk'])->name('produk');
+Route::get('/tentang', [PublicController::class, 'tentang'])->name('tentang');
+Route::get('/kontak', [PublicController::class, 'kontak'])->name('kontak');
+Route::post('/kontak', [PublicController::class, 'kirimPesan'])->name('kontak.kirim');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -72,5 +79,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/pengguna/{user}/edit', [UserController::class, 'edit'])->name('pengguna.edit');
         Route::put('/pengguna/{user}', [UserController::class, 'update'])->name('pengguna.update');
         Route::delete('/pengguna/{user}', [UserController::class, 'destroy'])->name('pengguna.destroy');
+
+        Route::get('/pesan', [PesanController::class, 'index'])->name('pesan.index');
+        Route::delete('/pesan/{pesan}', [PesanController::class, 'destroy'])->name('pesan.destroy');
     });
 });

@@ -15,6 +15,7 @@ class PublicController extends Controller
     {
         $totalBarang = Barang::count();
         $totalKategori = Kategori::count();
+        $totalStok = (int) Barang::sum('stok_saat_ini');
         $kategoris = Kategori::orderBy('nama_kategori')->get();
         $produkUnggulan = Barang::with('kategori')
             ->where('stok_saat_ini', '>', 0)
@@ -22,7 +23,7 @@ class PublicController extends Controller
             ->take(8)
             ->get();
 
-        return view('public.index', compact('totalBarang', 'totalKategori', 'kategoris', 'produkUnggulan'));
+        return view('public.index', compact('totalBarang', 'totalKategori', 'totalStok', 'kategoris', 'produkUnggulan'));
     }
 
     public function produk(Request $request): View

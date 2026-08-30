@@ -12,7 +12,7 @@
 
             <div class="mx-auto mt-10 max-w-3xl space-y-5 text-center text-[15px] leading-relaxed text-stone-600">
                 <p>
-                    Koperasi Desa berdiri sebagai wadah ekonomi warga desa — menyediakan kebutuhan
+                    Koperasi Desa berdiri sebagai wadah ekonomi warga. Kami menyediakan kebutuhan
                     pokok sehari-hari, sarana pertanian, hingga produk kesehatan dengan harga yang
                     jujur dan terjangkau.
                 </p>
@@ -22,7 +22,7 @@
                     percaya bahwa setiap rupiah dikelola dengan transparan.
                 </p>
                 <p>
-                    Keuntungan koperasi dikembalikan untuk kemajuan desa — mulai dari bantuan
+                    Keuntungan koperasi dikembalikan untuk kemajuan desa, mulai dari bantuan
                     pertanian, beasiswa anak sekolah, hingga perbaikan fasilitas umum.
                 </p>
             </div>

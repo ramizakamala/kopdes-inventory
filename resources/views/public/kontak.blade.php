@@ -9,8 +9,7 @@
                 <p class="text-sm font-semibold text-teal-700">Kontak</p>
                 <h1 class="mt-2 text-4xl font-semibold tracking-tight text-stone-900 sm:text-5xl">Hubungi kami.</h1>
                 <p class="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-stone-500">
-                    Ada pertanyaan, pesanan, atau ingin bergabung menjadi anggota?
-                    Pengurus akan segera menghubungi Anda.
+                    Kirim pesan ke pengurus. Balasan maksimal 1×24 jam di hari kerja.
                 </p>
             </div>
 

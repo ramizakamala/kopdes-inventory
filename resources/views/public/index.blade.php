@@ -3,7 +3,7 @@
 @section('title', 'Beranda')
 
 @section('content')
-    {{-- ═══ Hero (split: teks kiri, visual kanan) ═══ --}}
+    {{-- ═══ Hero (split) ═══ --}}
     <section class="relative overflow-hidden bg-gradient-to-b from-teal-50/70 via-white to-white">
         <div class="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-teal-200/40 blur-3xl"></div>
         <div class="pointer-events-none absolute -right-24 top-40 h-80 w-80 rounded-full bg-amber-200/30 blur-3xl"></div>
@@ -16,24 +16,24 @@
                         <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-500 opacity-75"></span>
                         <span class="relative inline-flex h-2 w-2 rounded-full bg-teal-600"></span>
                     </span>
-                    Stok terpantau real-time
+                    Stok diperbarui real-time
                 </span>
                 <h1 class="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
-                    Kebutuhan pokok untuk <span class="text-teal-700">seluruh warga</span> desa.
+                    Kebutuhan pokok warga desa, <span class="text-teal-700">stoknya bisa dicek dari rumah.</span>
                 </h1>
                 <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-stone-500 lg:mx-0">
-                    Sembako, sarana pertanian, dan produk kesehatan dengan harga jujur —
-                    ketersediaan stok bisa dicek langsung di website ini.
+                    Beras, minyak, pupuk, obat. Harganya wajar dan stoknya selalu kelihatan,
+                    jadi nggak perlu nebak-nebak sebelum datang ke koperasi.
                 </p>
                 <div class="mt-8 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
                     <a href="{{ route('produk') }}" class="inline-flex items-center gap-2 rounded-full bg-teal-700 px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-teal-700/25 transition hover:bg-teal-800">
-                        Lihat Produk
+                        Cek Stok &amp; Harga
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                         </svg>
                     </a>
                     <a href="{{ route('kontak') }}" class="inline-flex items-center gap-1 text-base font-semibold text-teal-700 transition hover:underline">
-                        Hubungi kami
+                        Hubungi pengurus
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                         </svg>
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            {{-- Visual: heksagon + chip melayang --}}
+            {{-- Visual --}}
             <div class="relative mx-auto w-full max-w-md lg:max-w-none">
                 <div class="relative rounded-[2rem] border border-stone-200/70 bg-gradient-to-br from-white to-teal-50/50 p-10 shadow-xl shadow-stone-200/60">
                     <svg class="float-slow mx-auto h-44 w-44" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -57,39 +57,27 @@
                         <path d="M15.5 17v-8" stroke="#2dd4bf" stroke-width="1.8" />
                     </svg>
 
-                    <div class="float-slower absolute -left-3 top-8 flex items-center gap-2.5 rounded-2xl border border-stone-200/70 bg-white/95 px-4 py-2.5 shadow-lg shadow-stone-200/60 backdrop-blur">
-                        <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <div class="float-slower absolute -left-3 top-10 flex items-center gap-2.5 rounded-2xl border border-stone-200/70 bg-white/95 px-4 py-2.5 shadow-lg shadow-stone-200/60 backdrop-blur">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                             </svg>
                         </div>
                         <div class="text-sm">
-                            <div class="font-semibold text-stone-900">Stok real-time</div>
-                            <div class="text-xs text-stone-400">selalu diperbarui</div>
+                            <div class="font-semibold tabular-nums text-stone-900">{{ $totalBarang }} jenis produk</div>
+                            <div class="text-xs text-stone-400">dari {{ $totalKategori }} kategori</div>
                         </div>
                     </div>
 
                     <div class="float-slow absolute -right-2 bottom-12 flex items-center gap-2.5 rounded-2xl border border-stone-200/70 bg-white/95 px-4 py-2.5 shadow-lg shadow-stone-200/60 backdrop-blur">
-                        <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
                             </svg>
                         </div>
                         <div class="text-sm">
-                            <div class="font-semibold text-stone-900">Harga jujur</div>
-                            <div class="text-xs text-stone-400">tanpa markup</div>
-                        </div>
-                    </div>
-
-                    <div class="float-slower absolute -bottom-4 left-8 flex items-center gap-2.5 rounded-2xl border border-stone-200/70 bg-white/95 px-4 py-2.5 shadow-lg shadow-stone-200/60 backdrop-blur">
-                        <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0z" />
-                            </svg>
-                        </div>
-                        <div class="text-sm">
-                            <div class="font-semibold text-stone-900">Layanan ramah</div>
-                            <div class="text-xs text-stone-400">untuk semua warga</div>
+                            <div class="font-semibold tabular-nums text-stone-900">{{ number_format($totalStok) }} unit stok</div>
+                            <div class="text-xs text-stone-400">tercatat saat ini</div>
                         </div>
                     </div>
                 </div>
@@ -97,7 +85,7 @@
         </div>
     </section>
 
-    {{-- ═══ Statistik ═══ --}}
+    {{-- ═══ Statistik (data asli) ═══ --}}
     <section class="border-y border-stone-100 bg-stone-50">
         <div class="mx-auto grid max-w-5xl grid-cols-3 px-5 py-7">
             <div class="text-center">
@@ -109,35 +97,38 @@
                 <div class="mt-0.5 text-xs text-stone-400">Kategori</div>
             </div>
             <div class="text-center">
-                <div class="text-xl font-semibold tabular-nums text-amber-600 lg:text-2xl">100%</div>
-                <div class="mt-0.5 text-xs text-stone-400">Harga Jujur</div>
+                <div class="text-xl font-semibold tabular-nums text-stone-900 lg:text-2xl">{{ number_format($totalStok) }}</div>
+                <div class="mt-0.5 text-xs text-stone-400">Unit Stok</div>
             </div>
         </div>
     </section>
 
-    {{-- ═══ Keunggulan (nomor besar) ═══ --}}
+    {{-- ═══ Keunggulan ═══ --}}
     <section class="bg-white">
         <div class="mx-auto max-w-5xl px-5 py-20 lg:py-24">
-            <div class="reveal grid gap-10 md:grid-cols-3">
+            <div class="reveal grid gap-12 md:grid-cols-3 md:gap-10">
                 <div class="border-t-2 border-teal-600 pt-6">
                     <div class="text-4xl font-bold tabular-nums text-teal-600/25">01</div>
-                    <h3 class="mt-3 text-lg font-semibold tracking-tight text-stone-900">Stok selalu terpantau</h3>
+                    <h3 class="mt-3 text-lg font-semibold tracking-tight text-stone-900">Stok nggak pernah bohong</h3>
                     <p class="mt-2 text-sm leading-relaxed text-stone-500">
-                        Ketersediaan barang diperbarui langsung dari sistem persediaan koperasi — warga bisa cek sebelum datang.
+                        Setiap barang masuk atau keluar langsung dicatat. Angka yang muncul di website ini
+                        sama persis dengan yang ada di rak koperasi.
                     </p>
                 </div>
                 <div class="border-t-2 border-teal-600 pt-6">
                     <div class="text-4xl font-bold tabular-nums text-teal-600/25">02</div>
-                    <h3 class="mt-3 text-lg font-semibold tracking-tight text-stone-900">Harga jujur &amp; transparan</h3>
+                    <h3 class="mt-3 text-lg font-semibold tracking-tight text-stone-900">Harga terbuka</h3>
                     <p class="mt-2 text-sm leading-relaxed text-stone-500">
-                        Setiap transaksi tercatat rapi. Tidak ada harga diam-diam — semua warga mendapat harga yang sama.
+                        Harga beli dan jual tercatat rapi di kasir. Warga boleh tanya kapan saja,
+                        nggak ada harga rahasia.
                     </p>
                 </div>
                 <div class="border-t-2 border-teal-600 pt-6">
                     <div class="text-4xl font-bold tabular-nums text-teal-600/25">03</div>
-                    <h3 class="mt-3 text-lg font-semibold tracking-tight text-stone-900">Dikelola gotong royong</h3>
+                    <h3 class="mt-3 text-lg font-semibold tracking-tight text-stone-900">Keuntungan buat desa</h3>
                     <p class="mt-2 text-sm leading-relaxed text-stone-500">
-                        Diurus pengurus terpilih dari warga, keuntungan kembali untuk kemajuan desa.
+                        Sisa hasil usaha dikembalikan untuk bantuan pertanian, beasiswa anak sekolah,
+                        dan perbaikan fasilitas umum.
                     </p>
                 </div>
             </div>
@@ -150,9 +141,6 @@
             <div class="reveal text-center">
                 <p class="text-sm font-semibold uppercase tracking-wider text-teal-700">Apa yang kami sediakan</p>
                 <h2 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900 sm:text-4xl">Layanan koperasi.</h2>
-                <p class="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-stone-500">
-                    Kebutuhan warga desa tersedia di koperasi kami — dikelola rapi, transparan, dan selalu ada.
-                </p>
             </div>
 
             <div class="reveal mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -175,7 +163,7 @@
         </div>
     </section>
 
-    {{-- ═══ Produk unggulan (dengan progress stok) ═══ --}}
+    {{-- ═══ Produk unggulan ═══ --}}
     <section class="bg-white">
         <div class="mx-auto max-w-5xl px-5 py-20 lg:py-24">
             <div class="reveal flex flex-wrap items-end justify-between gap-4">
@@ -215,7 +203,7 @@
         </div>
     </section>
 
-    {{-- ═══ Testimoni warga ═══ --}}
+    {{-- ═══ Testimoni ═══ --}}
     <section class="border-y border-stone-100 bg-stone-50">
         <div class="mx-auto max-w-5xl px-5 py-20 lg:py-24">
             <div class="reveal text-center">
@@ -229,7 +217,8 @@
                         <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />
                     </svg>
                     <p class="mt-4 text-[15px] leading-relaxed text-stone-600">
-                        "Beras dan minyak selalu ada, harganya wajar. Tinggal cek stoknya di website dulu, nggak sia-sia ke koperasi."
+                        "Kemarin takut kehabisan minyak goreng, eh pas buka website ini masih kelihatan
+                        stoknya 8. Pas ke koperasi, beneran masih ada."
                     </p>
                     <div class="mt-5 flex items-center gap-3">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-teal-100 text-sm font-bold text-teal-800">BS</div>
@@ -245,7 +234,8 @@
                         <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />
                     </svg>
                     <p class="mt-4 text-[15px] leading-relaxed text-stone-600">
-                        "Kalau butuh pupuk atau obat tanaman, tinggal ke koperasi. Stoknya jelas, nggak pernah kehabisan drama."
+                        "Musim tanam kemarin pupuk sempat menipis, tapi pengurus langsung restock
+                        sebelum saya butuh. Sekarang saya cek dulu dari rumah."
                     </p>
                     <div class="mt-5 flex items-center gap-3">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-lime-100 text-sm font-bold text-lime-800">PJ</div>
@@ -261,7 +251,8 @@
                         <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />
                     </svg>
                     <p class="mt-4 text-[15px] leading-relaxed text-stone-600">
-                        "Website-nya keren, pelayanannya juga ramah. Anak muda kayak saya jadi betah belanja di koperasi sendiri."
+                        "Biasanya belanja di warung, sekarang cek harga dulu di sini. Ternyata beras
+                        premium di koperasi lebih murah dua ribu per karung."
                     </p>
                     <div class="mt-5 flex items-center gap-3">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-800">RN</div>
@@ -275,14 +266,14 @@
         </div>
     </section>
 
-    {{-- ═══ Hubungi kami (fungsional) ═══ --}}
+    {{-- ═══ Hubungi pengurus ═══ --}}
     <section class="bg-white">
         <div class="mx-auto max-w-5xl px-5 py-20 lg:py-24">
             <div class="reveal text-center">
-                <p class="text-sm font-semibold uppercase tracking-wider text-teal-700">Hubungi kami</p>
-                <h2 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900 sm:text-4xl">Punya pertanyaan?</h2>
+                <p class="text-sm font-semibold uppercase tracking-wider text-teal-700">Hubungi pengurus</p>
+                <h2 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900 sm:text-4xl">Langsung chat pengurus.</h2>
                 <p class="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-stone-500">
-                    Pengurus koperasi siap membantu — telepon langsung, kirim WhatsApp, atau datang ke koperasi.
+                    Balasan maksimal 1×24 jam di hari kerja. Atau datang langsung, kasir buka setiap hari.
                 </p>
             </div>
 
@@ -334,12 +325,9 @@
                 </div>
             </div>
 
-            <div class="reveal mt-10 text-center">
-                <a href="{{ route('kontak') }}" class="inline-flex items-center gap-2 rounded-full bg-teal-700 px-7 py-3 text-base font-semibold text-white shadow-lg shadow-teal-700/25 transition hover:bg-teal-800">
-                    Kirim Pesan
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                    </svg>
+            <div class="reveal mt-8 text-center">
+                <a href="{{ route('kontak') }}" class="text-sm font-semibold text-teal-700 hover:underline">
+                    Lebih suka tulis pesan? Buka halaman kontak ›
                 </a>
             </div>
         </div>

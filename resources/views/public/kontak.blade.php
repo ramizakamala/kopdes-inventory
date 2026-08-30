@@ -17,7 +17,7 @@
             <div class="mt-12 grid gap-8 lg:grid-cols-5">
                 {{-- Info --}}
                 <div class="space-y-4 lg:col-span-2">
-                    <div class="rounded-3xl bg-[#FAF7F1] p-6">
+                    <div class="rounded-3xl bg-stone-50 p-6">
                         <div class="flex items-center gap-3">
                             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-teal-700 shadow-sm">
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="rounded-3xl bg-[#FAF7F1] p-6">
+                    <div class="rounded-3xl bg-stone-50 p-6">
                         <div class="flex items-center gap-3">
                             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-teal-700 shadow-sm">
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="rounded-3xl bg-[#FAF7F1] p-6">
+                    <div class="rounded-3xl bg-stone-50 p-6">
                         <div class="flex items-center gap-3">
                             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-teal-700 shadow-sm">
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -60,7 +60,7 @@
                 </div>
 
                 {{-- Form --}}
-                <div class="rounded-3xl bg-[#FAF7F1] p-7 lg:col-span-3 lg:p-9">
+                <div class="rounded-3xl bg-stone-50 p-7 lg:col-span-3 lg:p-9">
                     <h2 class="text-xl font-semibold tracking-tight text-stone-900">Kirim pesan.</h2>
                     <form method="POST" action="{{ route('kontak.kirim') }}" class="mt-6">
                         @csrf

@@ -10,7 +10,7 @@
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900" rel="stylesheet">
     @vite(['resources/css/app.css'])
 </head>
-<body class="bg-[#FAF7F1] font-sans text-stone-900 antialiased">
+<body class="bg-white font-sans text-stone-900 antialiased">
 
     {{-- ═══ Navigasi ═══ --}}
     <header class="sticky top-0 z-40 border-b border-stone-200/60 bg-white/75 backdrop-blur-xl">
@@ -63,7 +63,7 @@
     </main>
 
     {{-- ═══ Footer ═══ --}}
-    <footer class="mt-24 border-t border-stone-200/60 bg-[#FAF7F1]">
+    <footer class="mt-24 border-t border-stone-200/70 bg-white">
         <div class="mx-auto max-w-5xl px-5 py-12">
             <p class="max-w-3xl text-xs leading-relaxed text-stone-500">
                 Koperasi Desa Makmur — koperasi desa yang menyediakan kebutuhan pokok, sarana pertanian,

@@ -3,7 +3,7 @@
 @section('title', 'Katalog Produk')
 
 @section('content')
-    <section class="bg-[#FAF7F1]">
+    <section class="bg-stone-50">
         <div class="mx-auto max-w-5xl px-5 py-16 lg:py-20">
             <div class="text-center">
                 <p class="text-sm font-semibold text-teal-700">Katalog</p>

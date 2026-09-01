@@ -36,9 +36,19 @@ class User extends Authenticatable
         return $this->role === 'petugas';
     }
 
+    public function isKasir(): bool
+    {
+        return $this->role === 'kasir';
+    }
+
     public function canManageTransaksi(): bool
     {
-        return in_array($this->role, ['admin', 'petugas'], true);
+        return in_array($this->role, ['admin', 'petugas', 'kasir'], true);
+    }
+
+    public function canViewLaporan(): bool
+    {
+        return in_array($this->role, ['admin', 'petugas', 'pimpinan'], true);
     }
 
     public function barangMasuks(): HasMany

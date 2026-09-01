@@ -37,14 +37,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/barang/{barang}/edit', [BarangController::class, 'edit'])->name('barang.edit')->middleware('role:admin');
     Route::put('/barang/{barang}', [BarangController::class, 'update'])->name('barang.update')->middleware('role:admin');
     Route::delete('/barang/{barang}', [BarangController::class, 'destroy'])->name('barang.destroy')->middleware('role:admin');
-    Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
-    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
-    Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
-    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
-    Route::get('/laporan/cetak', [LaporanController::class, 'cetak'])->name('laporan.cetak');
 
-    // Barang Masuk & Barang Keluar (admin + petugas)
-    Route::middleware('role:admin,petugas')->group(function () {
+    // Monitoring & Laporan: semua role kecuali kasir
+    Route::middleware('role:admin,petugas,pimpinan')->group(function () {
+        Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
+        Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+        Route::get('/laporan/cetak', [LaporanController::class, 'cetak'])->name('laporan.cetak');
+    });
+
+    // Barang Masuk & Barang Keluar (admin + petugas + kasir)
+    Route::middleware('role:admin,petugas,kasir')->group(function () {
         Route::get('/barang-masuk', [BarangMasukController::class, 'index'])->name('barang-masuk.index');
         Route::get('/barang-masuk/create', [BarangMasukController::class, 'create'])->name('barang-masuk.create');
         Route::post('/barang-masuk', [BarangMasukController::class, 'store'])->name('barang-masuk.store');
@@ -56,11 +58,13 @@ Route::middleware('auth')->group(function () {
 
     // Kelola master, penyesuaian, restock & pengguna (khusus admin)
     Route::middleware('role:admin')->group(function () {
+        Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
         Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
         Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
         Route::get('/kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
         Route::put('/kategori/{kategori}', [KategoriController::class, 'update'])->name('kategori.update');
         Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+        Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
         Route::get('/supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
         Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier.store');
         Route::get('/supplier/{supplier}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');

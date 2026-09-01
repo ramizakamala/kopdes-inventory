@@ -97,7 +97,11 @@
                             {{ $hampirKedaluwarsa }} batch kedaluwarsa
                         </a>
                     @endif
-                    <a href="{{ route('monitoring.index') }}" class="text-xs font-semibold text-teal-700 hover:text-teal-800">Lihat semua →</a>
+                    @if (auth()->user()->canViewLaporan())
+                        <a href="{{ route('monitoring.index') }}" class="text-xs font-semibold text-teal-700 hover:text-teal-800">Lihat semua →</a>
+                    @else
+                        <a href="{{ route('barang.index') }}" class="text-xs font-semibold text-teal-700 hover:text-teal-800">Lihat semua →</a>
+                    @endif
                 </div>
             </div>
 
@@ -166,7 +170,11 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ route('restock.index') }}" class="btn btn-primary mt-5 w-full">Lihat Rekomendasi Restock</a>
+                @if (auth()->user()->isAdmin())
+                    <a href="{{ route('restock.index') }}" class="btn btn-primary mt-5 w-full">Lihat Rekomendasi Restock</a>
+                @else
+                    <a href="{{ route('monitoring.index') }}" class="btn btn-outline mt-5 w-full">Lihat Detail Stok</a>
+                @endif
             </div>
 
             {{-- Aktivitas terakhir --}}

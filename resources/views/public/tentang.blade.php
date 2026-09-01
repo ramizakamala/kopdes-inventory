@@ -49,17 +49,27 @@
 
             <div class="reveal mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
                 @foreach([
-                    ['01','Berdiri','Koperasi Desa Kradenan didirikan dengan semangat gotong royong untuk menyejahterakan warga. Dimulai dari warung kecil di balai desa.'],
-                    ['02','Berkembang','Jumlah anggota dan jenis produk terus bertambah. Koperasi mulai mengelola sarana pertanian dan produk kesehatan selain sembako.'],
-                    ['03','Digitalisasi','Sistem SIMPERDES diluncurkan, seluruh stok dan transaksi kini tercatat digital. Warga bisa cek stok dari rumah.'],
-                    ['04','Sekarang','Koperasi terus tumbuh. Keuntungan dialokasikan untuk beasiswa, bantuan pertanian, dan perbaikan fasilitas umum desa.'],
-                ] as [$nomor,$judul,$deskripsi])
-                <div class="group rounded-2xl border border-stone-100 bg-stone-50 p-6 transition hover:border-teal-200 hover:bg-teal-50/40">
-                    <div class="flex items-center gap-3">
-                        <span class="text-sm font-extrabold tabular-nums tracking-tight text-teal-700">{{ $nomor }}</span>
-                        <span class="h-px flex-1 bg-stone-200 transition group-hover:bg-teal-200"></span>
-                    </div>
-                    <div class="mt-4 text-base font-bold tracking-tight text-stone-900">{{ $judul }}</div>
+                    ['01','Berdiri','Koperasi Desa Kradenan didirikan dengan semangat gotong royong untuk menyejahterakan warga. Dimulai dari warung kecil di balai desa.','right',1],
+                    ['02','Berkembang','Jumlah anggota dan jenis produk terus bertambah. Koperasi mulai mengelola sarana pertanian dan produk kesehatan selain sembako.','down',2],
+                    ['03','Digitalisasi','Sistem SIMPERDES diluncurkan, seluruh stok dan transaksi kini tercatat digital. Warga bisa cek stok dari rumah.',null,4],
+                    ['04','Sekarang','Koperasi terus tumbuh. Keuntungan dialokasikan untuk beasiswa, bantuan pertanian, dan perbaikan fasilitas umum desa.','right',3],
+                ] as [$nomor,$judul,$deskripsi,$conn,$order])
+                <div class="relative rounded-2xl border border-stone-100 bg-stone-50 p-6 pl-14 transition hover:border-teal-200 hover:bg-teal-50/40 md:order-{{ $order }}">
+                    {{-- Node urutan --}}
+                    <span class="absolute left-6 top-6 flex h-8 w-8 items-center justify-center rounded-full bg-teal-700 text-xs font-bold tabular-nums text-white">{{ $nomor }}</span>
+
+                    {{-- Penghubung desktop (zigzag) --}}
+                    @if($conn === 'right')
+                        <span class="absolute left-10 top-10 hidden h-0.5 w-[calc(100%+1.25rem)] bg-teal-200 md:block" aria-hidden="true"></span>
+                    @elseif($conn === 'down')
+                        <span class="absolute left-10 top-10 hidden h-[calc(100%+1.25rem)] w-0.5 bg-teal-200 md:block" aria-hidden="true"></span>
+                    @endif
+                    {{-- Penghubung mobile (vertikal) --}}
+                    @if(!$loop->last)
+                        <span class="absolute -bottom-5 left-10 h-5 w-0.5 bg-teal-200 md:hidden" aria-hidden="true"></span>
+                    @endif
+
+                    <h3 class="text-base font-bold tracking-tight text-stone-900">{{ $judul }}</h3>
                     <p class="mt-1.5 text-[15px] leading-relaxed text-stone-600">{{ $deskripsi }}</p>
                 </div>
                 @endforeach

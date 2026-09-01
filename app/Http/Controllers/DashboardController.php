@@ -41,8 +41,15 @@ class DashboardController extends Controller
         $barangKritis = Barang::whereColumn('stok_saat_ini', '<=', 'stok_minimum')
             ->with('kategori')
             ->orderBy('stok_saat_ini')
-            ->take(8)
+            ->take(6)
             ->get();
+
+        // aktivitas terakhir (masuk + keluar digabung, 6 terbaru)
+        $masukBaru = BarangMasuk::with('barang')->latest('tanggal')->take(3)->get()
+            ->map(fn ($m) => ['tipe' => 'masuk', 'nama' => $m->barang?->nama_barang ?? '-', 'jumlah' => $m->jumlah, 'tanggal' => $m->tanggal]);
+        $keluarBaru = BarangKeluar::with('barang')->latest('tanggal')->take(3)->get()
+            ->map(fn ($k) => ['tipe' => 'keluar', 'nama' => $k->barang?->nama_barang ?? '-', 'jumlah' => $k->jumlah, 'tanggal' => $k->tanggal]);
+        $aktivitasTerakhir = $masukBaru->concat($keluarBaru)->sortByDesc('tanggal')->take(6)->values();
 
         return view('dashboard', compact(
             'totalBarang',
@@ -56,6 +63,7 @@ class DashboardController extends Controller
             'deltaMasuk',
             'deltaKeluar',
             'barangKritis',
+            'aktivitasTerakhir',
         ));
     }
 }

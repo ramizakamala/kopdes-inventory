@@ -33,7 +33,6 @@
 
             {{-- Navigasi --}}
             <nav class="flex-1 space-y-0.5 overflow-y-auto px-3 pb-4">
-                <div class="nav-section">Ringkasan</div>
                 <a href="{{ route('dashboard') }}"
                    class="nav-link {{ request()->routeIs('dashboard') ? 'nav-link-active' : '' }}">
                     <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -48,8 +47,6 @@
                     </svg>
                     Monitoring Stok
                 </a>
-
-                <div class="nav-section">Kelola Data</div>
                 <a href="{{ route('barang.index') }}"
                    class="nav-link {{ request()->routeIs('barang.*') ? 'nav-link-active' : '' }}">
                     <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -57,26 +54,7 @@
                     </svg>
                     Data Barang
                 </a>
-                @if (auth()->user()->isAdmin())
-                    <a href="{{ route('kategori.index') }}"
-                       class="nav-link {{ request()->routeIs('kategori.*') ? 'nav-link-active' : '' }}">
-                        <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
-                        </svg>
-                        Kategori
-                    </a>
-                    <a href="{{ route('supplier.index') }}"
-                       class="nav-link {{ request()->routeIs('supplier.*') ? 'nav-link-active' : '' }}">
-                        <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                        </svg>
-                        Supplier
-                    </a>
-                @endif
-
                 @if (auth()->user()->canManageTransaksi())
-                    <div class="nav-section">Transaksi</div>
                     <a href="{{ route('barang-masuk.index') }}"
                        class="nav-link {{ request()->routeIs('barang-masuk.*') ? 'nav-link-active' : '' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -101,15 +79,28 @@
                         </a>
                     @endif
                 @endif
-
-                <div class="nav-section">Laporan &amp; Analisis</div>
                 @if (auth()->user()->isAdmin())
                     <a href="{{ route('restock.index') }}"
                        class="nav-link {{ request()->routeIs('restock.*') ? 'nav-link-active' : '' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                         </svg>
-                        Rekomendasi Restock
+                        Restock
+                    </a>
+                    <a href="{{ route('kategori.index') }}"
+                       class="nav-link {{ request()->routeIs('kategori.*') ? 'nav-link-active' : '' }}">
+                        <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
+                        </svg>
+                        Kategori
+                    </a>
+                    <a href="{{ route('supplier.index') }}"
+                       class="nav-link {{ request()->routeIs('supplier.*') ? 'nav-link-active' : '' }}">
+                        <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                        </svg>
+                        Supplier
                     </a>
                 @endif
                 <a href="{{ route('laporan.index') }}"
@@ -120,7 +111,6 @@
                     Laporan
                 </a>
                 @if (auth()->user()->isAdmin())
-                    <div class="nav-section">Pengaturan</div>
                     <a href="{{ route('pengguna.index') }}"
                        class="nav-link {{ request()->routeIs('pengguna.*') ? 'nav-link-active' : '' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">

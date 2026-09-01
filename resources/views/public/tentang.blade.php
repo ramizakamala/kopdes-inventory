@@ -39,40 +39,37 @@
         </div>
     </section>
 
-    {{-- ═══ Cerita koperasi (Grid) ═══ --}}
+    {{-- ═══ Jejak desa (Timeline horizontal ala referensi) ═══ --}}
     <section class="bg-white">
-        <div class="mx-auto max-w-4xl px-5 py-20 lg:py-24">
+        <div class="mx-auto max-w-5xl px-5 py-20 lg:py-24">
             <div class="reveal text-center">
                 <p class="text-sm font-bold uppercase tracking-wider text-teal-600">Perjalanan kami</p>
-                <h2 class="mt-2 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">Dari desa, untuk desa.</h2>
+                <h2 class="mt-2 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">Jejak Desa Kradenan.</h2>
             </div>
 
-            <div class="reveal mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
-                @foreach([
-                    ['01','Berdiri','Koperasi Desa Kradenan didirikan dengan semangat gotong royong untuk menyejahterakan warga. Dimulai dari warung kecil di balai desa.','right',1],
-                    ['02','Berkembang','Jumlah anggota dan jenis produk terus bertambah. Koperasi mulai mengelola sarana pertanian dan produk kesehatan selain sembako.','down',2],
-                    ['03','Digitalisasi','Sistem SIMPERDES diluncurkan, seluruh stok dan transaksi kini tercatat digital. Warga bisa cek stok dari rumah.',null,4],
-                    ['04','Sekarang','Koperasi terus tumbuh. Keuntungan dialokasikan untuk beasiswa, bantuan pertanian, dan perbaikan fasilitas umum desa.','right',3],
-                ] as [$nomor,$judul,$deskripsi,$conn,$order])
-                <div class="relative rounded-2xl border border-stone-100 bg-stone-50 p-6 pl-14 transition hover:border-teal-200 hover:bg-teal-50/40 md:order-{{ $order }}">
-                    {{-- Node urutan --}}
-                    <span class="absolute left-6 top-6 flex h-8 w-8 items-center justify-center rounded-full bg-teal-700 text-xs font-bold tabular-nums text-white">{{ $nomor }}</span>
+            <div class="reveal relative mt-14">
+                {{-- Garis utama: horizontal (desktop) / vertikal (mobile) --}}
+                <div class="absolute left-9 top-0 h-full w-0.5 -translate-x-1/2 bg-stone-200 md:left-0 md:top-1/2 md:h-0.5 md:w-full md:-translate-y-1/2 md:translate-x-0" aria-hidden="true"></div>
 
-                    {{-- Penghubung desktop (zigzag) --}}
-                    @if($conn === 'right')
-                        <span class="absolute left-10 top-10 hidden h-0.5 w-[calc(100%+1.25rem)] bg-teal-200 md:block" aria-hidden="true"></span>
-                    @elseif($conn === 'down')
-                        <span class="absolute left-10 top-10 hidden h-[calc(100%+1.25rem)] w-0.5 bg-teal-200 md:block" aria-hidden="true"></span>
-                    @endif
-                    {{-- Penghubung mobile (vertikal) --}}
-                    @if(!$loop->last)
-                        <span class="absolute -bottom-5 left-10 h-5 w-0.5 bg-teal-200 md:hidden" aria-hidden="true"></span>
-                    @endif
+                <div class="grid grid-cols-1 gap-12 md:grid-cols-4 md:gap-6">
+                    @foreach([
+                        ['01','Berdiri','Bermula dari warung kecil di balai desa.','up'],
+                        ['02','Berkembang','Anggota dan jenis produk terus bertambah.','down'],
+                        ['03','Digitalisasi','SIMPERDES lahir, seluruh stok tercatat digital.','up'],
+                        ['04','Sekarang','Keuntungan kembali untuk beasiswa dan desa.','down'],
+                    ] as [$nomor,$judul,$deskripsi,$posisi])
+                    <div class="relative pl-14 md:pl-0 md:py-28">
+                        {{-- Titik urutan --}}
+                        <span class="absolute left-9 top-1 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-teal-700 text-[11px] font-bold tabular-nums text-white shadow-sm md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:border-0">{{ $nomor }}</span>
 
-                    <h3 class="text-base font-bold tracking-tight text-stone-900">{{ $judul }}</h3>
-                    <p class="mt-1.5 text-[15px] leading-relaxed text-stone-600">{{ $deskripsi }}</p>
+                        {{-- Kartu konten --}}
+                        <div class="rounded-2xl border border-stone-100 bg-stone-50 p-5 transition hover:border-teal-200 hover:bg-teal-50/40 md:absolute md:left-0 md:right-0 {{ $posisi === 'up' ? 'md:top-0' : 'md:bottom-0' }}">
+                            <div class="text-xs font-bold uppercase tracking-wider text-teal-700">{{ $judul }}</div>
+                            <p class="mt-1 text-sm leading-relaxed text-stone-600">{{ $deskripsi }}</p>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </div>
     </section>

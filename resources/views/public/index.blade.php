@@ -3,31 +3,30 @@
 @section('title', 'Beranda')
 
 @section('content')
-    {{-- ═══ Hero (split) ═══ --}}
-    <section class="relative overflow-hidden bg-gradient-to-b from-teal-50/70 via-white to-white">
-        <div class="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-teal-200/40 blur-3xl"></div>
-        <div class="pointer-events-none absolute -right-24 top-40 h-80 w-80 rounded-full bg-amber-200/30 blur-3xl"></div>
+    {{-- ═══ Hero (simple, clean) ═══ --}}
+    <section class="relative overflow-hidden bg-white">
+        {{-- Satu aksen blob teal saja, halus, tidak mengganggu teks --}}
+        <div class="pointer-events-none absolute -left-40 -top-40 h-80 w-80 rounded-full bg-teal-100/50 blur-3xl"></div>
 
-        <div class="relative mx-auto max-w-3xl px-5 pb-16 pt-20 text-center lg:pt-28">
-            <h1 class="text-4xl font-semibold leading-[1.1] tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
-                Kebutuhan pokok warga desa, <span class="text-teal-700">stoknya bisa dicek dari rumah.</span>
+        <div class="relative mx-auto max-w-2xl px-5 pb-20 pt-16 text-center lg:pb-24 lg:pt-20">
+            <p class="text-sm font-semibold uppercase tracking-wider text-teal-700">Koperasi Desa Makmur</p>
+            <h1 class="mt-3 text-3xl font-semibold leading-tight tracking-tight text-stone-900 sm:text-4xl lg:text-[2.75rem]">
+                Kebutuhan pokok warga desa,
+                <span class="text-teal-700">stoknya bisa dicek dari rumah.</span>
             </h1>
-            <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-stone-500">
+            <p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-stone-500">
                 Beras, minyak, pupuk, obat. Harganya wajar dan stoknya selalu kelihatan,
                 jadi nggak perlu nebak-nebak sebelum datang ke koperasi.
             </p>
-            <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-                <a href="{{ route('produk') }}" class="inline-flex items-center gap-2 rounded-full bg-teal-700 px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-teal-700/25 transition hover:bg-teal-800">
+            <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+                <a href="{{ route('produk') }}" class="inline-flex items-center gap-2 rounded-full bg-teal-700 px-6 py-3 text-[15px] font-semibold text-white shadow-sm transition hover:bg-teal-800">
                     Cek Stok &amp; Harga
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                </a>
-                <a href="{{ route('kontak') }}" class="inline-flex items-center gap-1 text-base font-semibold text-teal-700 transition hover:underline">
-                    Hubungi pengurus
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
+                </a>
+                <a href="{{ route('kontak') }}" class="inline-flex items-center gap-2 rounded-full border border-stone-200 px-6 py-3 text-[15px] font-semibold text-stone-700 transition hover:border-teal-200 hover:text-teal-700">
+                    Hubungi pengurus
                 </a>
             </div>
         </div>
@@ -35,18 +34,27 @@
 
     {{-- ═══ Statistik (data asli) ═══ --}}
     <section class="border-y border-stone-100 bg-stone-50">
-        <div class="mx-auto grid max-w-5xl grid-cols-3 px-5 py-7">
-            <div class="text-center">
+        <div class="mx-auto grid max-w-4xl grid-cols-3 divide-x divide-stone-200 px-5 py-9">
+            <div class="flex flex-col items-center gap-1.5 px-2 text-center">
+                <svg class="h-5 w-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375C2.754 3.75 2.25 4.254 2.25 4.875v1.5c0 .621.504 1.125 1.125 1.125z" />
+                </svg>
                 <div class="text-xl font-semibold tabular-nums text-stone-900 lg:text-2xl">{{ $totalBarang }}</div>
-                <div class="mt-0.5 text-xs text-stone-400">Jenis Produk</div>
+                <div class="text-xs text-stone-400">Jenis Produk</div>
             </div>
-            <div class="text-center">
+            <div class="flex flex-col items-center gap-1.5 px-2 text-center">
+                <svg class="h-5 w-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                </svg>
                 <div class="text-xl font-semibold tabular-nums text-stone-900 lg:text-2xl">{{ $totalKategori }}</div>
-                <div class="mt-0.5 text-xs text-stone-400">Kategori</div>
+                <div class="text-xs text-stone-400">Kategori</div>
             </div>
-            <div class="text-center">
+            <div class="flex flex-col items-center gap-1.5 px-2 text-center">
+                <svg class="h-5 w-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m16.5 0H3.75m16.5 0l-1.883-3.766A2.25 2.25 0 0016.5 2.75h-9a2.25 2.25 0 00-1.867.984L3.75 7.5" />
+                </svg>
                 <div class="text-xl font-semibold tabular-nums text-stone-900 lg:text-2xl">{{ number_format($totalStok) }}</div>
-                <div class="mt-0.5 text-xs text-stone-400">Unit Stok</div>
+                <div class="text-xs text-stone-400">Unit Stok</div>
             </div>
         </div>
     </section>
@@ -180,7 +188,11 @@
                     @endphp
                     <a href="{{ route('produk', ['kategori_id' => $p->kategori_id]) }}" class="group overflow-hidden rounded-3xl border border-stone-200/70 bg-white shadow-sm transition hover:-translate-y-1 hover:border-teal-200 hover:shadow-lg">
                         <div class="overflow-hidden">
-                            <x-produk-art :barang="$p" />
+                            @if ($p->foto)
+                                <img src="{{ $p->foto }}" alt="{{ $p->nama_barang }}" class="aspect-[4/3] w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
+                            @else
+                                <x-produk-art :barang="$p" />
+                            @endif
                         </div>
                         <div class="p-6">
                             <div class="flex items-start justify-between gap-2">

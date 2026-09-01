@@ -36,7 +36,11 @@
                     @endphp
                     <a href="{{ route('produk', ['kategori_id' => $p->kategori_id]) }}" class="group overflow-hidden rounded-3xl bg-white shadow-sm transition hover:shadow-md">
                         <div class="overflow-hidden">
-                            <x-produk-art :barang="$p" />
+                            @if ($p->foto)
+                                <img src="{{ $p->foto }}" alt="{{ $p->nama_barang }}" class="aspect-[4/3] w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
+                            @else
+                                <x-produk-art :barang="$p" />
+                            @endif
                         </div>
                         <div class="p-6">
                             <div class="flex items-start justify-between gap-2">

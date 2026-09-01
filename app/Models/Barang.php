@@ -103,4 +103,19 @@ class Barang extends Model
 
         return 'aman';
     }
+
+    /**
+     * Foto produk: public/images/{slug}.jpg kalau ada, null kalau nggak.
+     * Tinggal taruh file jpg di public/images sesuai slug nama barang
+     * (contoh "Gula Pasir 1kg" → gula-pasir-1kg.jpg), otomatis kepakai.
+     */
+    public function getFotoAttribute(): ?string
+    {
+        $file = 'images/' . \Illuminate\Support\Str::slug($this->nama_barang) . '.jpg';
+        if (!file_exists(public_path($file))) {
+            return null;
+        }
+
+        return asset($file);
+    }
 }

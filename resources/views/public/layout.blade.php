@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Koperasi Desa Makmur') — SIMPERDES</title>
+    <title>@yield('title', 'Koperasi Desa Kradenan') — SIMPERDES</title>
     <meta name="description" content="Koperasi Desa — kebutuhan pokok, sarana pertanian, dan produk kesehatan untuk warga desa.">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -17,7 +17,7 @@
         <div class="mx-auto flex h-12 max-w-5xl items-center justify-between gap-4 px-5">
             <a href="{{ route('home') }}" class="flex items-center gap-2.5">
                 <x-logo size="h-7 w-7" icon="h-4 w-4" tile="rounded-lg bg-teal-700 shadow-teal-700/25" />
-                <span class="text-[15px] font-semibold tracking-tight text-stone-900">Koperasi Desa Makmur</span>
+                <span class="text-[15px] font-semibold tracking-tight text-stone-900">Koperasi Desa Kradenan</span>
             </a>
 
             <nav class="hidden items-center gap-6 md:flex">
@@ -84,7 +84,7 @@
     <footer class="mt-24 border-t border-stone-200/70 bg-white">
         <div class="mx-auto max-w-5xl px-5 py-12">
             <p class="max-w-3xl text-xs leading-relaxed text-stone-500">
-                Koperasi Desa Makmur — koperasi desa yang menyediakan kebutuhan pokok, sarana pertanian,
+                Koperasi Desa Kradenan — koperasi desa yang menyediakan kebutuhan pokok, sarana pertanian,
                 dan produk kesehatan untuk kesejahteraan warga. Ketersediaan stok ditampilkan secara
                 langsung dari sistem persediaan koperasi.
             </p>
@@ -110,7 +110,7 @@
                 <div>
                     <div class="text-xs font-semibold text-stone-700">Kontak</div>
                     <ul class="mt-3 space-y-2 text-xs text-stone-500">
-                        <li>Jl. Raya Desa No. 1</li>
+                        <li>Jl. Raya Sumpiuh, Kradenan, Kec. Sumpiuh, Kabupaten Banyumas, Jawa Tengah 53196</li>
                         <li>+62 812-3456-7890</li>
                         <li>halo@koperasidesa.id</li>
                     </ul>
@@ -118,14 +118,14 @@
                 <div>
                     <div class="text-xs font-semibold text-stone-700">Jam Layanan</div>
                     <ul class="mt-3 space-y-2 text-xs text-stone-500">
-                        <li>Senin – Sabtu</li>
-                        <li>07.00 – 17.00 WIB</li>
+                        <li>Senin – Jumat</li>
+                        <li>07.15 – 15.30 WIB</li>
                     </ul>
                 </div>
             </div>
 
             <div class="mt-10 flex flex-wrap items-center justify-between gap-2 border-t border-stone-200 pt-5 text-xs text-stone-400">
-                <span>&copy; {{ date('Y') }} Koperasi Desa Makmur. Hak cipta dilindungi.</span>
+                <span>&copy; {{ date('Y') }} Koperasi Desa Kradenan. Hak cipta dilindungi.</span>
                 <a href="{{ route('login') }}" class="hover:text-stone-600">Login Staff &middot; Ditenagai SIMPERDES</a>
             </div>
         </div>

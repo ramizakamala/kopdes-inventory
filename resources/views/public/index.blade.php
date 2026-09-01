@@ -9,7 +9,7 @@
         <div class="pointer-events-none absolute -left-40 -top-40 h-80 w-80 rounded-full bg-teal-100/50 blur-3xl"></div>
 
         <div class="relative mx-auto max-w-2xl px-5 pb-20 pt-16 text-center lg:pb-24 lg:pt-20">
-            <p class="text-sm font-semibold uppercase tracking-wider text-teal-700">Koperasi Desa Makmur</p>
+            <p class="text-sm font-semibold uppercase tracking-wider text-teal-700">Koperasi Desa Kradenan</p>
             <h1 class="mt-3 text-3xl font-semibold leading-tight tracking-tight text-stone-900 sm:text-4xl lg:text-[2.75rem]">
                 Kebutuhan pokok warga desa,
                 <span class="text-teal-700">stoknya bisa dicek dari rumah.</span>
@@ -293,7 +293,7 @@
             </div>
 
             <div class="reveal mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
-                <a href="https://wa.me/6281234567890?text=Halo%20Koperasi%20Desa%20Makmur" target="_blank" rel="noopener"
+                <a href="https://wa.me/6281234567890?text=Halo%20Koperasi%20Desa%20Kradenan" target="_blank" rel="noopener"
                    class="group rounded-3xl border border-stone-200/70 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-teal-200 hover:shadow-lg">
                     <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50 text-teal-700">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
@@ -335,8 +335,8 @@
                         </svg>
                     </div>
                     <h3 class="mt-5 text-lg font-semibold tracking-tight text-stone-900">Kunjungi Koperasi</h3>
-                    <p class="mt-1.5 text-sm leading-relaxed text-stone-500">Jl. Raya Desa No. 1, Kec. Contoh, Kab. Contoh</p>
-                    <p class="mt-3 text-sm text-stone-400">Senin – Sabtu, 07.00 – 17.00 WIB</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-stone-500">Jl. Raya Sumpiuh, Kradenan, Kec. Sumpiuh, Kabupaten Banyumas, Jawa Tengah 53196</p>
+                    <p class="mt-3 text-sm text-stone-400">Senin – Jumat, 07.15 – 15.30 WIB</p>
                 </div>
             </div>
 

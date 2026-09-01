@@ -10,7 +10,7 @@
                 <h1 class="mt-2 text-4xl font-semibold tracking-tight text-stone-900 sm:text-5xl">Tentang koperasi kami.</h1>
             </div>
 
-            <div class="mx-auto mt-10 max-w-3xl space-y-5 text-center text-[15px] leading-relaxed text-stone-600">
+            <div class="mx-auto mt-10 max-w-3xl space-y-5 text-center text-[15px] Jleading-relaxed text-stone-600">
                 <p>
                     Koperasi Desa berdiri sebagai wadah ekonomi warga. Kami menyediakan kebutuhan
                     pokok sehari-hari, sarana pertanian, hingga produk kesehatan dengan harga yang

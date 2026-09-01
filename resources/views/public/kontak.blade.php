@@ -50,14 +50,14 @@
                             <div class="text-sm tabular-nums text-stone-500">+62 812-3456-7890</div>
                         </div>
                     </div>
-                    <a href="https://wa.me/6281234567890?text=Halo%20Koperasi%20Desa%20Makmur" target="_blank" rel="noopener"
+                    <a href="https://wa.me/6281234567890?text=Halo%20Koperasi%20Desa%20Kradenan" target="_blank" rel="noopener"
                        class="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-teal-700 px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-teal-800">
                         Chat sekarang
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                         </svg>
                     </a>
-                    <p class="mt-3 text-center text-xs text-stone-400">Senin – Sabtu, 07.00 – 17.00 WIB</p>
+                    <p class="mt-3 text-center text-xs text-stone-400">Senin – Jumat, 07.15 – 15.30 WIB</p>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
                     </svg>
                     <div class="min-w-0">
                         <div class="text-[13px] font-medium text-stone-400">Alamat</div>
-                        <div class="mt-0.5 text-[15px] font-medium text-stone-900">Jl. Raya Desa No. 1, Kec. Contoh, Kab. Contoh</div>
+                        <div class="mt-0.5 text-[15px] font-medium text-stone-900">Jl. Raya Sumpiuh, Kradenan, Kec. Sumpiuh, Kabupaten Banyumas, Jawa Tengah 53196</div>
                     </div>
                 </div>
                 <a href="tel:+6281234567890" class="group flex items-center gap-4 px-5 py-5 transition hover:bg-stone-50 sm:px-6">
@@ -108,7 +108,7 @@
                     </svg>
                     <div class="min-w-0">
                         <div class="text-[13px] font-medium text-stone-400">Jam Layanan</div>
-                        <div class="mt-0.5 text-[15px] font-medium text-stone-900">Senin – Sabtu, 07.00 – 17.00 WIB</div>
+                        <div class="mt-0.5 text-[15px] font-medium text-stone-900">Senin – Jumat, 07.15 – 15.30 WIB</div>
                     </div>
                 </div>
             </div>

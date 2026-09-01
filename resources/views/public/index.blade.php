@@ -4,21 +4,21 @@
 
 @section('content')
 
-    {{-- ═══ Hero (Dark Gradient) ═══ --}}
-    <section class="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-teal-900 to-stone-900">
+    {{-- ═══ Hero (Clean Light) ═══ --}}
+    <section class="relative overflow-hidden border-b border-stone-100 bg-white">
 
         {{-- Background decorations --}}
         <div class="pointer-events-none absolute inset-0">
-            {{-- Radial glow top-right --}}
-            <div class="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-teal-500/10 blur-3xl"></div>
-            {{-- Radial glow bottom-left --}}
-            <div class="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-emerald-600/10 blur-3xl"></div>
+            {{-- Soft teal glow top-right --}}
+            <div class="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-teal-200/40 blur-3xl"></div>
+            {{-- Soft glow bottom-left --}}
+            <div class="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-emerald-100/50 blur-3xl"></div>
             {{-- Decorative rings --}}
-            <div class="absolute right-10 top-10 h-72 w-72 rounded-full border border-teal-700/20"></div>
-            <div class="absolute right-20 top-20 h-56 w-56 rounded-full border border-teal-600/15"></div>
+            <div class="absolute right-10 top-10 h-72 w-72 rounded-full border border-teal-200/70"></div>
+            <div class="absolute right-20 top-20 h-56 w-56 rounded-full border border-teal-100"></div>
             {{-- Dot grid (SVG data URI) --}}
-            <div class="absolute inset-0 opacity-20"
-                 style="background-image:url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23ffffff' fill-opacity='0.3'/%3E%3C/svg%3E\")"></div>
+            <div class="absolute inset-0 opacity-30"
+                 style="background-image:url(&quot;data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23d6d3d1' fill-opacity='0.35'/%3E%3C/svg%3E&quot;)"></div>
         </div>
 
         <div class="relative mx-auto max-w-5xl px-5 pb-24 pt-20 lg:flex lg:items-center lg:gap-16 lg:pb-32 lg:pt-28">
@@ -27,33 +27,33 @@
             <div class="flex-1 text-center lg:text-left">
 
                 {{-- Trust badge --}}
-                <div class="inline-flex items-center gap-2 rounded-full border border-teal-400/30 bg-teal-400/10 px-4 py-1.5 text-sm font-semibold text-teal-300 backdrop-blur-sm">
+                <div class="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-4 py-1.5 text-sm font-semibold text-teal-700">
                     <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     Stok &amp; harga asli dari toko, bukan perkiraan
                 </div>
 
-                <h1 class="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
+                <h1 class="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-stone-900 sm:text-5xl lg:text-[3.25rem]">
                     Kebutuhan pokok warga desa,
-                    <span class="text-teal-400">stoknya bisa dicek dari rumah.</span>
+                    <span class="text-teal-700">stoknya bisa dicek dari rumah.</span>
                 </h1>
 
-                <p class="mx-auto mt-5 max-w-lg text-base leading-relaxed text-teal-100/70 lg:mx-0">
+                <p class="mx-auto mt-5 max-w-lg text-base leading-relaxed text-stone-600 lg:mx-0">
                     Beras, minyak, pupuk, obat. Harganya wajar dan stoknya selalu kelihatan,
                     jadi nggak perlu nebak-nebak sebelum datang ke koperasi.
                 </p>
 
                 <div class="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
                     <a href="{{ route('produk') }}"
-                       class="inline-flex items-center gap-2 rounded-full bg-teal-400 px-7 py-3.5 text-[15px] font-bold text-emerald-950 shadow-lg shadow-teal-400/25 transition hover:bg-teal-300 hover:-translate-y-0.5">
+                       class="inline-flex items-center gap-2 rounded-full bg-teal-700 px-7 py-3.5 text-[15px] font-bold text-white shadow-sm shadow-teal-700/20 transition hover:bg-teal-800 hover:-translate-y-0.5">
                         Cek Stok &amp; Harga
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                         </svg>
                     </a>
                     <a href="{{ route('kontak') }}"
-                       class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-7 py-3.5 text-[15px] font-semibold text-white backdrop-blur-sm transition hover:bg-white/20">
+                       class="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-7 py-3.5 text-[15px] font-semibold text-stone-700 shadow-sm transition hover:border-teal-300 hover:text-teal-700">
                         Hubungi Pengurus
                     </a>
                 </div>
@@ -62,8 +62,8 @@
             {{-- Right: Floating product cards (desktop only, data asli dari DB) --}}
             @if($produkUnggulan->isNotEmpty())
             <div class="pointer-events-none relative mt-14 hidden w-80 shrink-0 lg:mt-0 lg:flex lg:w-96">
-                {{-- Glow backdrop --}}
-                <div class="absolute inset-8 rounded-full bg-teal-400/10 blur-2xl"></div>
+                {{-- Soft backdrop --}}
+                <div class="absolute inset-8 rounded-full bg-teal-100/60 blur-2xl"></div>
 
                 @php
                     $posisi = [
@@ -71,9 +71,9 @@
                         1 => 'absolute right-0 top-24 w-48 float-alt',
                         2 => 'absolute bottom-0 left-8 w-52 float-slower',
                     ];
-                    $badgeCls = fn($s) => $s === 'habis' ? 'bg-red-500/20 text-red-300'
-                                : ($s === 'menipis' ? 'bg-amber-500/20 text-amber-300' : 'bg-green-500/20 text-green-300');
-                    $barCls   = fn($s) => $s === 'habis' ? 'bg-red-400' : ($s === 'menipis' ? 'bg-amber-400' : 'bg-emerald-400');
+                    $badgeCls = fn($s) => $s === 'habis' ? 'bg-red-50 text-red-600'
+                                : ($s === 'menipis' ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700');
+                    $barCls   = fn($s) => $s === 'habis' ? 'bg-red-500' : ($s === 'menipis' ? 'bg-amber-500' : 'bg-emerald-500');
                     $label    = fn($s) => $s === 'habis' ? 'Habis' : ($s === 'menipis' ? 'Stok menipis' : 'Stok aman');
                 @endphp
 
@@ -83,27 +83,27 @@
                         $st  = $p->status;
                     @endphp
                     <div class="{{ $posisi[$i] ?? $posisi[2] }}">
-                        <div class="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md shadow-xl">
+                        <div class="rounded-2xl border border-stone-200/80 bg-white p-4 shadow-lg shadow-stone-900/5">
                             <div class="flex items-center gap-3">
                                 <x-kategori-chip :kategori="$p->kategori" size="h-10 w-10" icon="h-5 w-5" />
                                 <div class="min-w-0">
-                                    <div class="truncate text-sm font-bold text-white">{{ $p->nama_barang }}</div>
+                                    <div class="truncate text-sm font-bold text-stone-900">{{ $p->nama_barang }}</div>
                                     @if($i === 1)
                                         <div class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold {{ $badgeCls($st) }}">
                                             {{ $label($st) }}
                                         </div>
                                     @else
-                                        <div class="text-xs text-teal-200/70">{{ $p->kategori?->nama_kategori ?? 'Umum' }}</div>
+                                        <div class="text-xs text-stone-400">{{ $p->kategori?->nama_kategori ?? 'Umum' }}</div>
                                     @endif
                                 </div>
                             </div>
                             @if($i !== 1)
-                                <div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                                <div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
                                     <div class="h-full rounded-full {{ $barCls($st) }}" style="width: {{ max(8, $pct) }}%"></div>
                                 </div>
                                 <div class="mt-1.5 flex items-center justify-between">
-                                    <span class="text-xs text-teal-200/60">{{ $label($st) }}</span>
-                                    <span class="text-sm font-bold text-white">Rp{{ number_format($p->harga_jual, 0, ',', '.') }}</span>
+                                    <span class="text-xs text-stone-500">{{ $label($st) }}</span>
+                                    <span class="text-sm font-bold text-stone-900">Rp{{ number_format($p->harga_jual, 0, ',', '.') }}</span>
                                 </div>
                             @endif
                         </div>

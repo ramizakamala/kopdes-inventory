@@ -20,20 +20,20 @@
     </section>
 
     {{-- ═══ Angka nyata koperasi ═══ --}}
-    <section class="bg-gradient-to-br from-emerald-950 via-teal-900 to-stone-900">
+    <section class="border-b border-stone-100 bg-white">
         <div class="mx-auto max-w-4xl px-5 py-14">
             <div class="grid grid-cols-3 gap-4 text-center">
                 <div class="reveal">
-                    <div class="text-4xl font-extrabold text-teal-400 tabular-nums" data-counter="{{ $totalBarang }}">{{ $totalBarang }}</div>
-                    <div class="mt-1.5 text-sm font-medium text-teal-200/70">Jenis produk tersedia</div>
+                    <div class="text-4xl font-extrabold text-teal-700 tabular-nums" data-counter="{{ $totalBarang }}">{{ $totalBarang }}</div>
+                    <div class="mt-1.5 text-sm font-medium text-stone-500">Jenis produk tersedia</div>
                 </div>
-                <div class="reveal border-x border-white/10">
-                    <div class="text-4xl font-extrabold text-teal-400 tabular-nums" data-counter="{{ $totalStok }}">{{ number_format($totalStok) }}</div>
-                    <div class="mt-1.5 text-sm font-medium text-teal-200/70">Unit stok siap melayani</div>
+                <div class="reveal border-x border-stone-100">
+                    <div class="text-4xl font-extrabold text-teal-700 tabular-nums" data-counter="{{ $totalStok }}">{{ number_format($totalStok) }}</div>
+                    <div class="mt-1.5 text-sm font-medium text-stone-500">Unit stok siap melayani</div>
                 </div>
                 <div class="reveal">
-                    <div class="text-4xl font-extrabold text-teal-400 tabular-nums" data-counter="{{ $totalKategori }}">{{ $totalKategori }}</div>
-                    <div class="mt-1.5 text-sm font-medium text-teal-200/70">Kategori kebutuhan</div>
+                    <div class="text-4xl font-extrabold text-teal-700 tabular-nums" data-counter="{{ $totalKategori }}">{{ $totalKategori }}</div>
+                    <div class="mt-1.5 text-sm font-medium text-stone-500">Kategori kebutuhan</div>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
 
             <div class="reveal mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-2">
                 {{-- Visi --}}
-                <div class="rounded-3xl border border-teal-200/60 bg-gradient-to-br from-teal-50 to-emerald-50 p-8">
+                <div class="rounded-3xl border border-teal-200/60 bg-teal-50/50 p-8">
                     <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-700 text-white">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />

@@ -44,48 +44,73 @@
         </div>
     </div>
 
-    {{-- ═══ Metric row ═══ --}}
-    <div class="card overflow-hidden">
-        <div class="grid grid-cols-2 md:grid-cols-4 md:divide-x md:divide-stone-100">
-            <div class="p-5 md:p-6">
-                <div class="stat-label">
-                    <svg class="h-4 w-4 text-stone-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                    </svg>
-                    Total Barang
-                </div>
-                <div class="stat-value">{{ $totalBarang }}</div>
-                <div class="stat-caption">jenis terdaftar</div>
+    {{-- ═══ Metric cards ═══ --}}
+    @php
+        $deltaBadge = function ($delta, $label = 'vs bulan lalu') {
+            if ($delta === null) return '<span class="inline-flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 text-xs font-semibold text-stone-500">baru</span>';
+            $up = $delta >= 0;
+            $cls = $up ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600';
+            $arr = $up ? '↑' : '↓';
+            return '<span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold ' . $cls . '">' . $arr . ' ' . abs($delta) . '%</span>';
+        };
+    @endphp
+
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div class="card flex items-start gap-4 p-5">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                </svg>
             </div>
-            <div class="p-5 md:p-6">
-                <div class="stat-label">
-                    <svg class="h-4 w-4 text-stone-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
-                    </svg>
-                    Total Stok
-                </div>
-                <div class="stat-value">{{ number_format($totalStok) }}</div>
-                <div class="stat-caption">unit keseluruhan</div>
+            <div class="min-w-0 flex-1">
+                <div class="text-sm font-medium text-stone-500">Total Barang</div>
+                <div class="mt-1 text-3xl font-extrabold tabular-nums tracking-tight text-stone-900">{{ $totalBarang }}</div>
+                <div class="mt-1.5 text-xs text-stone-400">jenis terdaftar</div>
             </div>
-            <div class="p-5 md:p-6">
-                <div class="stat-label">
-                    <svg class="h-4 w-4 text-stone-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                    </svg>
-                    Barang Masuk
-                </div>
-                <div class="stat-value">{{ $totalMasuk }}</div>
-                <div class="stat-caption">transaksi masuk</div>
+        </div>
+
+        <div class="card flex items-start gap-4 p-5">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+                </svg>
             </div>
-            <div class="p-5 md:p-6">
-                <div class="stat-label">
-                    <svg class="h-4 w-4 text-stone-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-4.5-9L12 3m0 0L7.5 7.5M12 3v13.5" />
-                    </svg>
-                    Barang Keluar
+            <div class="min-w-0 flex-1">
+                <div class="text-sm font-medium text-stone-500">Total Stok</div>
+                <div class="mt-1 text-3xl font-extrabold tabular-nums tracking-tight text-stone-900">{{ number_format($totalStok) }}</div>
+                <div class="mt-1.5 text-xs text-stone-400">unit keseluruhan</div>
+            </div>
+        </div>
+
+        <div class="card flex items-start gap-4 p-5">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-700">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                </svg>
+            </div>
+            <div class="min-w-0 flex-1">
+                <div class="text-sm font-medium text-stone-500">Barang Masuk</div>
+                <div class="mt-1 text-3xl font-extrabold tabular-nums tracking-tight text-stone-900">{{ $totalMasuk }}</div>
+                <div class="mt-1.5 flex items-center gap-2">
+                    {!! $deltaBadge($deltaMasuk) !!}
+                    <span class="text-xs text-stone-400">vs bulan lalu</span>
                 </div>
-                <div class="stat-value">{{ $totalKeluar }}</div>
-                <div class="stat-caption">transaksi keluar</div>
+            </div>
+        </div>
+
+        <div class="card flex items-start gap-4 p-5">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-4.5-9L12 3m0 0L7.5 7.5M12 3v13.5" />
+                </svg>
+            </div>
+            <div class="min-w-0 flex-1">
+                <div class="text-sm font-medium text-stone-500">Barang Keluar</div>
+                <div class="mt-1 text-3xl font-extrabold tabular-nums tracking-tight text-stone-900">{{ $totalKeluar }}</div>
+                <div class="mt-1.5 flex items-center gap-2">
+                    {!! $deltaBadge($deltaKeluar) !!}
+                    <span class="text-xs text-stone-400">vs bulan lalu</span>
+                </div>
             </div>
         </div>
     </div>

@@ -17,7 +17,7 @@
         $tanggalHariIni = $hari . ', ' . now()->format('j') . ' ' . $bulan . ' ' . now()->format('Y');
     @endphp
 </head>
-<body class="min-h-screen bg-canvas font-sans text-stone-800 antialiased">
+<body class="min-h-screen bg-stone-100 font-sans text-stone-800 antialiased">
     <div class="min-h-screen lg:flex">
 
         {{-- ═══ Sidebar ═══ --}}
@@ -160,26 +160,49 @@
 
         {{-- ═══ Konten utama ═══ --}}
         <div class="flex min-w-0 flex-1 flex-col">
-            <header class="sticky top-0 z-30 border-b border-stone-200/70 bg-canvas/80 backdrop-blur">
-                <div class="flex items-center justify-between gap-4 px-5 py-4 lg:px-8">
+            <header class="sticky top-0 z-30 border-b border-stone-200/70 bg-white/85 backdrop-blur">
+                <div class="flex items-center justify-between gap-4 px-5 py-3.5 lg:px-8">
                     <div class="flex items-center gap-3">
                         <button id="menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-xl border border-stone-200 bg-white text-stone-600 lg:hidden">
                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                             </svg>
                         </button>
-                        <div>
+                        <div class="hidden sm:block">
                             <h1 class="page-title">@yield('title')</h1>
                             <p class="page-subtitle">@yield('subtitle', 'Sistem Manajemen Persediaan Koperasi Desa')</p>
                         </div>
                     </div>
-                    <div class="hidden items-center gap-3 sm:flex">
-                        <span class="text-sm font-medium text-stone-500">{{ $tanggalHariIni }}</span>
-                        <span class="h-5 w-px bg-stone-200"></span>
-                        <span class="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-bold capitalize text-stone-600 ring-1 ring-inset ring-stone-200">
-                            <span class="h-1.5 w-1.5 rounded-full bg-teal-500"></span>
-                            {{ $role }}
-                        </span>
+
+                    <div class="flex flex-1 items-center justify-end gap-3 lg:gap-4">
+                        {{-- Search global (cari barang, nyambung ke halaman Data Barang) --}}
+                        <form action="{{ route('barang.index') }}" method="GET" class="relative hidden w-full max-w-xs md:block">
+                            <svg class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0016.803 15.803z" />
+                            </svg>
+                            <input type="search" name="q" value="{{ request('q') }}"
+                                   placeholder="Cari barang atau kode..."
+                                   class="w-full rounded-xl border border-stone-200 bg-stone-50 py-2 pl-10 pr-4 text-sm text-stone-900 placeholder-stone-400 outline-none transition focus:border-teal-600 focus:bg-white focus:ring-4 focus:ring-teal-600/10">
+                        </form>
+
+                        <span class="hidden text-sm font-medium text-stone-500 xl:block">{{ $tanggalHariIni }}</span>
+
+                        @if (auth()->user()->canManageTransaksi())
+                            <a href="{{ route('barang-masuk.create') }}" class="btn btn-primary !rounded-full !px-4 !py-2 text-sm">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                <span class="hidden sm:inline">Catat Masuk</span>
+                            </a>
+                        @endif
+
+                        <div class="flex items-center gap-2.5">
+                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-700 text-xs font-bold text-white">{{ $inisial }}</div>
+                            <div class="hidden leading-tight lg:block">
+                                <div class="text-sm font-semibold text-stone-900">{{ $nama }}</div>
+                                <div class="text-[11px] capitalize text-stone-400">{{ $role }}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>

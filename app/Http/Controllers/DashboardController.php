@@ -28,6 +28,16 @@ class DashboardController extends Controller
         $totalMasuk = BarangMasuk::count();
         $totalKeluar = BarangKeluar::count();
 
+        // delta bulan ini vs bulan lalu (untuk badge ↑↓ di kartu statistik)
+        $bulanIni = now()->startOfMonth();
+        $bulanLalu = now()->subMonth()->startOfMonth();
+        $masukBulanIni = BarangMasuk::whereBetween('tanggal', [$bulanIni, now()])->count();
+        $masukBulanLalu = BarangMasuk::whereBetween('tanggal', [$bulanLalu, $bulanIni->copy()->subSecond()])->count();
+        $keluarBulanIni = BarangKeluar::whereBetween('tanggal', [$bulanIni, now()])->count();
+        $keluarBulanLalu = BarangKeluar::whereBetween('tanggal', [$bulanLalu, $bulanIni->copy()->subSecond()])->count();
+        $deltaMasuk = $masukBulanLalu > 0 ? (int) round(($masukBulanIni - $masukBulanLalu) / $masukBulanLalu * 100) : null;
+        $deltaKeluar = $keluarBulanLalu > 0 ? (int) round(($keluarBulanIni - $keluarBulanLalu) / $keluarBulanLalu * 100) : null;
+
         $barangKritis = Barang::whereColumn('stok_saat_ini', '<=', 'stok_minimum')
             ->with('kategori')
             ->orderBy('stok_saat_ini')
@@ -43,6 +53,8 @@ class DashboardController extends Controller
             'hampirKedaluwarsa',
             'totalMasuk',
             'totalKeluar',
+            'deltaMasuk',
+            'deltaKeluar',
             'barangKritis',
         ));
     }

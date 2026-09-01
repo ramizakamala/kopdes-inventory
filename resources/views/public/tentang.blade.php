@@ -39,7 +39,7 @@
         </div>
     </section>
 
-    {{-- ═══ Cerita koperasi (Timeline) ═══ --}}
+    {{-- ═══ Cerita koperasi (Grid) ═══ --}}
     <section class="bg-white">
         <div class="mx-auto max-w-4xl px-5 py-20 lg:py-24">
             <div class="reveal text-center">
@@ -47,38 +47,22 @@
                 <h2 class="mt-2 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">Dari desa, untuk desa.</h2>
             </div>
 
-            <div class="reveal relative mt-14">
-                {{-- Timeline line --}}
-                <div class="absolute left-5 top-0 h-full w-0.5 bg-stone-100 md:left-1/2 md:-translate-x-0.5" aria-hidden="true"></div>
-
-                <div class="space-y-12">
-                    @foreach([
-                        ['Berdiri','Koperasi Desa Kradenan didirikan dengan semangat gotong royong untuk menyejahterakan warga. Dimulai dari warung kecil di balai desa.','bg-teal-700','text-teal-600'],
-                        ['Berkembang','Jumlah anggota dan jenis produk terus bertambah. Koperasi mulai mengelola sarana pertanian dan produk kesehatan selain sembako.','bg-emerald-700','text-emerald-600'],
-                        ['Digitalisasi','Sistem SIMPERDES diluncurkan, seluruh stok dan transaksi kini tercatat digital. Warga bisa cek stok dari rumah.','bg-teal-700','text-teal-600'],
-                        ['Sekarang','Koperasi terus tumbuh. Keuntungan dialokasikan untuk beasiswa, bantuan pertanian, dan perbaikan fasilitas umum desa.','bg-emerald-700','text-emerald-600'],
-                    ] as $i => [$judul,$deskripsi,$dotClass,$labelClass])
-                    <div class="relative flex items-start gap-8 md:justify-end {{ $i % 2 == 1 ? 'md:flex-row-reverse' : '' }}">
-                        {{-- Dot --}}
-                        <div class="absolute left-5 flex h-10 w-10 shrink-0 -translate-x-5 items-center justify-center rounded-full border-4 border-white {{ $dotClass }} shadow-md md:left-1/2 md:-translate-x-5">
-                            <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                            </svg>
-                        </div>
-                        {{-- Content --}}
-                        <div class="ml-14 md:ml-0 md:w-5/12">
-                            <div class="rounded-2xl border border-stone-100 bg-stone-50 p-6 shadow-sm">
-                                <div class="{{ $labelClass }} mb-2 text-xs font-bold uppercase tracking-wider">
-                                    {{ $judul }}
-                                </div>
-                                <p class="text-[15px] leading-relaxed text-stone-600">{{ $deskripsi }}</p>
-                            </div>
-                        </div>
-                        {{-- Spacer for the other side (desktop) --}}
-                        <div class="hidden md:block md:w-5/12"></div>
+            <div class="reveal mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
+                @foreach([
+                    ['01','Berdiri','Koperasi Desa Kradenan didirikan dengan semangat gotong royong untuk menyejahterakan warga. Dimulai dari warung kecil di balai desa.'],
+                    ['02','Berkembang','Jumlah anggota dan jenis produk terus bertambah. Koperasi mulai mengelola sarana pertanian dan produk kesehatan selain sembako.'],
+                    ['03','Digitalisasi','Sistem SIMPERDES diluncurkan, seluruh stok dan transaksi kini tercatat digital. Warga bisa cek stok dari rumah.'],
+                    ['04','Sekarang','Koperasi terus tumbuh. Keuntungan dialokasikan untuk beasiswa, bantuan pertanian, dan perbaikan fasilitas umum desa.'],
+                ] as [$nomor,$judul,$deskripsi])
+                <div class="group rounded-2xl border border-stone-100 bg-stone-50 p-6 transition hover:border-teal-200 hover:bg-teal-50/40">
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-extrabold tabular-nums tracking-tight text-teal-700">{{ $nomor }}</span>
+                        <span class="h-px flex-1 bg-stone-200 transition group-hover:bg-teal-200"></span>
                     </div>
-                    @endforeach
+                    <div class="mt-4 text-base font-bold tracking-tight text-stone-900">{{ $judul }}</div>
+                    <p class="mt-1.5 text-[15px] leading-relaxed text-stone-600">{{ $deskripsi }}</p>
                 </div>
+                @endforeach
             </div>
         </div>
     </section>

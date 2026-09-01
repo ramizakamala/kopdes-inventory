@@ -42,7 +42,11 @@ class PublicController extends Controller
 
     public function tentang(): View
     {
-        return view('public.tentang');
+        $totalBarang = Barang::count();
+        $totalKategori = Kategori::count();
+        $totalStok = (int) Barang::sum('stok_saat_ini');
+
+        return view('public.tentang', compact('totalBarang', 'totalKategori', 'totalStok'));
     }
 
     public function kontak(): View

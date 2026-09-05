@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="max-w-3xl">
-        <form method="POST" action="{{ route('barang.store') }}">
+        <form method="POST" action="{{ route('barang.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card p-6">
                 @include('barang._form', ['barang' => null, 'suggestedKode' => $suggestedKode ?? null])

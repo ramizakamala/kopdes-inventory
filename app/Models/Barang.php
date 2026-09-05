@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'nama_barang',
     'kategori_id',
     'satuan',
+    'deskripsi',
+    'foto_path',
+    'tampil_publik',
     'harga_beli',
     'harga_jual',
     'stok_minimum',
@@ -37,6 +40,7 @@ class Barang extends Model
             'safety_stock' => 'integer',
             'stok_saat_ini' => 'integer',
             'is_batch_tracked' => 'boolean',
+            'tampil_publik' => 'boolean',
         ];
     }
 
@@ -105,12 +109,17 @@ class Barang extends Model
     }
 
     /**
-     * Foto produk: public/images/{slug}.jpg kalau ada, null kalau nggak.
-     * Tinggal taruh file jpg di public/images sesuai slug nama barang
-     * (contoh "Gula Pasir 1kg" → gula-pasir-1kg.jpg), otomatis kepakai.
+     * Foto produk untuk website publik. Prioritas:
+     * 1) foto hasil upload via form admin (storage/app/public/produk → /storage/produk),
+     * 2) fallback file lama public/images/{slug}.jpg,
+     * 3) null → view memakai ilustrasi <x-produk-art>.
      */
     public function getFotoAttribute(): ?string
     {
+        if ($this->foto_path) {
+            return asset('storage/' . $this->foto_path);
+        }
+
         $file = 'images/' . \Illuminate\Support\Str::slug($this->nama_barang) . '.jpg';
         if (!file_exists(public_path($file))) {
             return null;

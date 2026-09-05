@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="max-w-3xl">
-        <form method="POST" action="{{ route('barang.update', $barang) }}">
+        <form method="POST" action="{{ route('barang.update', $barang) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card p-6">

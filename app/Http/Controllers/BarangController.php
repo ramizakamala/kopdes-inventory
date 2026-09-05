@@ -6,6 +6,8 @@ use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class BarangController extends Controller
@@ -64,12 +66,21 @@ class BarangController extends Controller
             'lead_time_hari' => ['required', 'integer', 'min:0'],
             'safety_stock' => ['required', 'integer', 'min:0'],
             'is_batch_tracked' => ['boolean'],
+            // info tampilan website publik
+            'deskripsi' => ['nullable', 'string', 'max:600'],
+            'foto' => ['nullable', 'image', 'mimes:jpeg,jpg,png,webp', 'max:2048'],
+            'tampil_publik' => ['boolean'],
         ]);
 
         $data['is_batch_tracked'] = $request->boolean('is_batch_tracked');
+        $data['tampil_publik'] = $request->boolean('tampil_publik');
         $data['stok_saat_ini'] = 0;
 
-        Barang::create($data);
+        $barang = Barang::create($data);
+
+        if ($request->hasFile('foto')) {
+            $this->simpanFoto($request, $barang);
+        }
 
         return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan.');
     }
@@ -94,13 +105,40 @@ class BarangController extends Controller
             'lead_time_hari' => ['required', 'integer', 'min:0'],
             'safety_stock' => ['required', 'integer', 'min:0'],
             'is_batch_tracked' => ['boolean'],
+            // info tampilan website publik
+            'deskripsi' => ['nullable', 'string', 'max:600'],
+            'foto' => ['nullable', 'image', 'mimes:jpeg,jpg,png,webp', 'max:2048'],
+            'tampil_publik' => ['boolean'],
         ]);
 
         $data['is_batch_tracked'] = $request->boolean('is_batch_tracked');
+        $data['tampil_publik'] = $request->boolean('tampil_publik');
 
         $barang->update($data);
 
+        if ($request->hasFile('foto')) {
+            // ganti foto lama kalau ada
+            if ($barang->foto_path) {
+                Storage::disk('public')->delete($barang->foto_path);
+            }
+
+            $this->simpanFoto($request, $barang);
+        }
+
         return redirect()->route('barang.index')->with('success', 'Barang berhasil diperbarui.');
+    }
+
+    /**
+     * Simpan foto upload ke storage/app/public/produk (→ /storage/produk).
+     * Nama file pakai id barang supaya stabil walau nama/kode barang berubah.
+     */
+    private function simpanFoto(Request $request, Barang $barang): void
+    {
+        $file = $request->file('foto');
+        $nama = 'produk/barang-' . $barang->id . '-' . Str::lower(Str::random(6)) . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('produk', basename($nama), 'public');
+
+        $barang->update(['foto_path' => $path]);
     }
 
     public function destroy(Barang $barang): RedirectResponse

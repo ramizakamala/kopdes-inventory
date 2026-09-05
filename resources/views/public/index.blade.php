@@ -320,6 +320,9 @@
                                 <div>
                                     <h3 class="text-[15px] font-bold leading-snug text-stone-900 group-hover:text-teal-700">{{ $p->nama_barang }}</h3>
                                     <div class="mt-0.5 text-xs text-stone-400">{{ $p->kategori?->nama_kategori ?? 'Umum' }} &middot; {{ $p->satuan }}</div>
+                                    @if ($p->deskripsi)
+                                        <p class="mt-2 text-[13px] leading-relaxed text-stone-500 line-clamp-2">{{ $p->deskripsi }}</p>
+                                    @endif
                                 </div>
                                 <x-stok-badge :barang="$p" />
                             </div>

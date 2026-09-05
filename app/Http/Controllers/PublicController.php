@@ -13,12 +13,13 @@ class PublicController extends Controller
 {
     public function index(): View
     {
-        $totalBarang = Barang::count();
+        $totalBarang = Barang::where('tampil_publik', true)->count();
         $totalKategori = Kategori::count();
-        $totalStok = (int) Barang::sum('stok_saat_ini');
+        $totalStok = (int) Barang::where('tampil_publik', true)->sum('stok_saat_ini');
         $kategoris = Kategori::orderBy('nama_kategori')->get();
-        $barangs = Barang::orderBy('nama_barang')->get();
+        $barangs = Barang::where('tampil_publik', true)->orderBy('nama_barang')->get();
         $produkUnggulan = Barang::with('kategori')
+            ->where('tampil_publik', true)
             ->where('stok_saat_ini', '>', 0)
             ->latest()
             ->take(8)
@@ -32,6 +33,7 @@ class PublicController extends Controller
         $kategoris = Kategori::orderBy('nama_kategori')->get();
 
         $barangs = Barang::with('kategori')
+            ->where('tampil_publik', true)
             ->when($request->filled('kategori_id'), fn ($q) => $q->where('kategori_id', $request->integer('kategori_id')))
             ->orderBy('nama_barang')
             ->paginate(9)
@@ -42,9 +44,9 @@ class PublicController extends Controller
 
     public function tentang(): View
     {
-        $totalBarang = Barang::count();
+        $totalBarang = Barang::where('tampil_publik', true)->count();
         $totalKategori = Kategori::count();
-        $totalStok = (int) Barang::sum('stok_saat_ini');
+        $totalStok = (int) Barang::where('tampil_publik', true)->sum('stok_saat_ini');
 
         return view('public.tentang', compact('totalBarang', 'totalKategori', 'totalStok'));
     }

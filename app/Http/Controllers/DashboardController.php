@@ -51,6 +51,35 @@ class DashboardController extends Controller
             ->map(fn ($k) => ['tipe' => 'keluar', 'nama' => $k->barang?->nama_barang ?? '-', 'jumlah' => $k->jumlah, 'tanggal' => $k->tanggal]);
         $aktivitasTerakhir = $masukBaru->concat($keluarBaru)->sortByDesc('tanggal')->take(6)->values();
 
+        // ═══ Tren pemakaian 6 bulan (unit keluar per bulan, data transaksi asli) ═══
+        $bulanTren = collect(range(5, 0))->map(fn ($i) => now()->startOfMonth()->subMonths($i));
+        $pemakaian = BarangKeluar::where('tanggal', '>=', $bulanTren->first()->toDateString())
+            ->get(['barang_id', 'tanggal', 'jumlah'])
+            ->groupBy('barang_id')
+            ->map(fn ($rows) => $rows->groupBy(fn ($r) => $r->tanggal->format('Y-m'))->map->sum('jumlah'));
+
+        $trenBarang = Barang::with('kategori')->orderBy('nama_barang')->get()
+            ->map(function ($b) use ($pemakaian, $bulanTren) {
+                $usage = $bulanTren->map(fn ($bln) => (int) ($pemakaian[$b->id][$bln->format('Y-m')] ?? 0));
+                $rataHarian = $b->keluar30Hari() / 30;
+
+                return [
+                    'id' => $b->id,
+                    'nama' => $b->nama_barang,
+                    'satuan' => $b->satuan,
+                    'stok' => (int) $b->stok_saat_ini,
+                    'min' => (int) $b->stok_minimum,
+                    'rop' => $b->rop(),
+                    'usage' => $usage->values()->all(),
+                    'estimasiHabis' => $rataHarian > 0 ? (int) floor($b->stok_saat_ini / $rataHarian) : null,
+                    'rataHarian' => round($rataHarian, 1),
+                ];
+            })
+            ->values();
+
+        // default grafik: barang yang paling aktif (paling sering keluar), bukan barang mati
+        $defaultTrenId = ($trenBarang->first(fn ($t) => array_sum($t['usage']) > 0) ?? $trenBarang->first())['id'] ?? null;
+
         return view('dashboard', compact(
             'totalBarang',
             'totalStok',
@@ -64,6 +93,9 @@ class DashboardController extends Controller
             'deltaKeluar',
             'barangKritis',
             'aktivitasTerakhir',
+            'bulanTren',
+            'trenBarang',
+            'defaultTrenId',
         ));
     }
 }

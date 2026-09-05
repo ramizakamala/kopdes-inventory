@@ -201,4 +201,96 @@
             </div>
         </div>
     </div>
+
+    {{-- ═══ Tren pemakaian 6 bulan ═══ --}}
+    <div class="card mt-4 p-5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+                <h3 class="text-[15px] font-bold text-stone-900">Tren Pemakaian 6 Bulan</h3>
+                <p class="mt-0.5 text-xs text-stone-400">Unit keluar per bulan dari transaksi asli — garis putus-putus = batas reorder point & stok minimum</p>
+            </div>
+            <select id="tren-select" class="input w-full sm:w-80">
+                @foreach ($trenBarang as $item)
+                    <option value="{{ $item['id'] }}" @selected((string) $defaultTrenId === (string) $item['id'])>{{ $item['nama'] }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-4">
+            <div class="lg:col-span-3">
+                <svg id="tren-chart" viewBox="0 0 640 230" class="w-full" role="img"
+                     aria-label="Grafik tren pemakaian barang"></svg>
+                <div class="mt-1 flex items-center gap-4 text-[11px] text-stone-400">
+                    <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-sm bg-teal-700"></span>pemakaian (keluar)</span>
+                    <span class="inline-flex items-center gap-1.5"><span class="inline-block h-0 w-5 border-t-2 border-dashed border-amber-500"></span>reorder point</span>
+                    <span class="inline-flex items-center gap-1.5"><span class="inline-block h-0 w-5 border-t-2 border-dashed border-red-400"></span>stok minimum</span>
+                </div>
+            </div>
+            <div class="flex flex-col justify-center gap-2 rounded-xl bg-stone-50 p-4 text-sm" id="tren-meta"></div>
+        </div>
+    </div>
+
+    <script>
+        var TREN = @json([
+            'months' => $bulanTren->map(fn ($b) => $b->format('M'))->values()->all(),
+            'items' => $trenBarang->all(),
+        ]);
+
+        function trenRender(id) {
+            var item = null;
+            TREN.items.forEach(function (it) { if (String(it.id) === String(id)) item = it; });
+            if (!item) return;
+
+            var W = 640, H = 230, padL = 6, padR = 6, padT = 14, padB = 28;
+            var plotW = W - padL - padR, plotH = H - padT - padB;
+            var vals = item.usage.slice();
+            var maxV = Math.max(1, Math.max.apply(null, vals.concat([item.rop, item.min])) * 1.15);
+            var n = TREN.months.length;
+            var slot = plotW / n, barW = Math.min(46, slot * 0.5);
+            var y = function (v) { return padT + plotH - (v / maxV) * plotH; };
+
+            var s = '';
+            // garis bantu + label sumbu kiri (0, setengah, maksimal)
+            [0, 0.5, 1].forEach(function (f) {
+                var gy = padT + plotH - f * plotH;
+                s += '<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) + '" y2="' + gy + '" stroke="#e7e5e4" stroke-width="1"/>';
+                s += '<text x="' + (padL + 2) + '" y="' + (gy - 4) + '" font-size="10" fill="#a8a29e">' + Math.round(maxV * f) + '</text>';
+            });
+            // garis batas ROP & stok minimum
+            var yRop = y(item.rop), yMin = y(item.min);
+            if (item.rop > 0) s += '<line x1="' + padL + '" y1="' + yRop + '" x2="' + (W - padR) + '" y2="' + yRop + '" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5 4"/>';
+            if (item.min > 0) s += '<line x1="' + padL + '" y1="' + yMin + '" x2="' + (W - padR) + '" y2="' + yMin + '" stroke="#f87171" stroke-width="1.5" stroke-dasharray="5 4"/>';
+            // batang + label bulan
+            vals.forEach(function (v, i) {
+                var cx = padL + slot * i + slot / 2;
+                var bh = (v / maxV) * plotH;
+                if (v > 0) {
+                    s += '<rect x="' + (cx - barW / 2) + '" y="' + (padT + plotH - bh) + '" width="' + barW + '" height="' + bh + '" rx="6" fill="#0f766e"/>';
+                    s += '<text x="' + cx + '" y="' + (padT + plotH - bh - 6) + '" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">' + v + '</text>';
+                } else {
+                    s += '<line x1="' + (cx - 5) + '" y1="' + (padT + plotH - 6) + '" x2="' + (cx + 5) + '" y2="' + (padT + plotH + 2) + '" stroke="#d6d3d1" stroke-width="1.5"/>';
+                }
+                s += '<text x="' + cx + '" y="' + (H - 8) + '" font-size="11" fill="#78716c" text-anchor="middle">' + TREN.months[i] + '</text>';
+            });
+            document.getElementById('tren-chart').innerHTML = s;
+
+            // meta stok di samping grafik
+            var meta = document.getElementById('tren-meta');
+            var est;
+            if (item.stok <= 0) est = '<span class="font-bold text-red-600">stok habis</span>';
+            else if (item.estimasiHabis === null) est = '<span class="text-stone-400">belum ada data pemakaian 30 hari</span>';
+            else est = '± ' + item.estimasiHabis + ' hari';
+            meta.innerHTML =
+                '<div class="flex justify-between"><span class="text-stone-500">Stok saat ini</span><span class="font-bold text-stone-900">' + item.stok + ' ' + item.satuan + '</span></div>' +
+                '<div class="flex justify-between"><span class="text-stone-500">Pemakaian rata-rata</span><span class="font-bold text-stone-900">' + item.rataHarian + ' /hari</span></div>' +
+                '<div class="flex justify-between"><span class="text-stone-500">Estimasi cukup sampai</span><span class="font-bold ' + (item.stok <= 0 || (item.estimasiHabis !== null && item.estimasiHabis <= 7) ? 'text-amber-600' : 'text-stone-900') + '">' + est + '</span></div>' +
+                '<div class="flex justify-between"><span class="text-stone-500">Reorder point (ROP)</span><span class="font-bold text-amber-600">' + item.rop + ' ' + item.satuan + '</span></div>' +
+                '<div class="flex justify-between"><span class="text-stone-500">Stok minimum</span><span class="font-bold text-red-400">' + item.min + ' ' + item.satuan + '</span></div>';
+        }
+
+        document.getElementById('tren-select').addEventListener('change', function () {
+            trenRender(this.value);
+        });
+        trenRender(@json($defaultTrenId));
+    </script>
 @endsection

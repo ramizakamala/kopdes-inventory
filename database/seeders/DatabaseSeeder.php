@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
         $susu = Barang::create(['kode_barang' => 'BRG-006', 'nama_barang' => 'Susu Kental Manis', 'kategori_id' => $sembako->id, 'satuan' => 'kaleng', 'harga_beli' => 9000, 'harga_jual' => 11000, 'stok_minimum' => 25, 'lead_time_hari' => 3, 'safety_stock' => 2, 'stok_saat_ini' => 5, 'is_batch_tracked' => true]);
 
         Batch::create(['barang_id' => $obat->id, 'nomor_batch' => 'VC-2026-08', 'tanggal_masuk' => '2026-08-01', 'tanggal_kedaluwarsa' => '2026-09-15', 'jumlah' => 12]);
-        Batch::create(['barang_id' => $susu->id, 'nomor_batch' => 'SKM-2026-07', 'tanggal_masuk' => '2026-07-20', 'tanggal_kedaluwarsa' => '2026-08-30', 'jumlah' => 5]);
+        Batch::create(['barang_id' => $susu->id, 'nomor_batch' => 'SKM-2026-07', 'tanggal_masuk' => '2026-07-20', 'tanggal_kedaluwarsa' => '2026-09-20', 'jumlah' => 5]);
 
         BarangMasuk::create(['tanggal' => '2026-08-05', 'barang_id' => $beras->id, 'supplier_id' => $supplierA->id, 'jumlah' => 20, 'harga_beli' => 62000, 'user_id' => $admin->id]);
         BarangMasuk::create(['tanggal' => '2026-08-06', 'barang_id' => $minyak->id, 'supplier_id' => $supplierA->id, 'jumlah' => 10, 'harga_beli' => 15000, 'user_id' => $admin->id]);
@@ -75,5 +75,26 @@ class DatabaseSeeder extends Seeder
 
         BarangKeluar::create(['tanggal' => '2026-08-10', 'barang_id' => $beras->id, 'jumlah' => 3, 'harga_jual' => 68000, 'hpp_satuan' => 62000, 'keterangan' => 'Penjualan anggota', 'user_id' => $admin->id]);
         BarangKeluar::create(['tanggal' => '2026-08-12', 'barang_id' => $minyak->id, 'jumlah' => 2, 'harga_jual' => 17000, 'hpp_satuan' => 15000, 'user_id' => $admin->id]);
+
+        // riwayat pemakaian lintas bulan (buat grafik tren & laporan laba kotor punya data)
+        $riwayat = [
+            // [bulan, tanggal, barang, jumlah]
+            [4, 12, $beras->id, 4], [5, 10, $beras->id, 5], [6, 14, $beras->id, 6], [7, 9, $beras->id, 5], [8, 20, $beras->id, 2], [9, 3, $beras->id, 2],
+            [5, 18, $minyak->id, 3], [6, 21, $minyak->id, 4], [7, 25, $minyak->id, 3], [8, 26, $minyak->id, 2], [9, 3, $minyak->id, 1],
+            [6, 5, $gula->id, 4], [7, 6, $gula->id, 5], [8, 8, $gula->id, 3],
+            [7, 12, $obat->id, 2], [8, 2, $obat->id, 3],
+            [8, 3, $susu->id, 1],
+        ];
+        $hargaMap = Barang::pluck('harga_beli', 'id');
+        foreach ($riwayat as [$bulan, $hari, $barangId, $jumlah]) {
+            BarangKeluar::create([
+                'tanggal' => sprintf('2026-%02d-%02d', $bulan, $hari),
+                'barang_id' => $barangId,
+                'jumlah' => $jumlah,
+                'harga_jual' => Barang::find($barangId)->harga_jual,
+                'hpp_satuan' => $hargaMap[$barangId],
+                'user_id' => $admin->id,
+            ]);
+        }
     }
 }

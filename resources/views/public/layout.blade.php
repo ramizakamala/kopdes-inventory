@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Koperasi Desa Kradenan') · SIMPERDES</title>
     <meta name="description" content="Koperasi Desa Kradenan, kebutuhan pokok, sarana pertanian, dan produk kesehatan untuk warga desa. Cek stok dan harga langsung dari sistem.">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900" rel="stylesheet">
     @vite(['resources/css/app.css'])
@@ -20,16 +20,9 @@
         <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-5">
 
             {{-- Logo --}}
-            <a href="{{ route('home') }}" class="flex items-center gap-3 shrink-0">
-                <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-700 shadow-sm">
-                    <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
-                    </svg>
-                </div>
-                <div class="leading-none">
-                    <div class="text-[15px] font-bold tracking-tight text-stone-900">Koperasi Desa</div>
-                    <div class="text-[11px] font-medium text-stone-400 mt-0.5">Kradenan · SIMPERDES</div>
-                </div>
+            <a href="{{ route('home') }}" class="flex items-center shrink-0" aria-label="Koperasi Desa Kradenan — Beranda">
+                <img src="{{ asset('images/logo-kopdes.jpg') }}" alt="Logo Koperasi Desa Kradenan"
+                     class="h-10 w-auto rounded-lg object-contain" width="40" height="40">
             </a>
 
             {{-- Nav Desktop --}}
@@ -121,17 +114,8 @@
             <div class="flex flex-col gap-12 md:flex-row md:justify-between">
                 {{-- Brand --}}
                 <div class="max-w-xs">
-                    <div class="flex items-center gap-3">
-                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-700 shadow-sm">
-                            <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
-                            </svg>
-                        </div>
-                        <div class="leading-none">
-                            <div class="font-bold text-stone-900">Koperasi Desa Kradenan</div>
-                            <div class="text-xs text-stone-400 mt-0.5">SIMPERDES</div>
-                        </div>
-                    </div>
+                    <img src="{{ asset('images/logo-kopdes.jpg') }}" alt="Logo Koperasi Desa Kradenan"
+                         class="h-16 w-auto rounded-xl object-contain">
                     <p class="mt-5 text-sm leading-relaxed text-stone-500">
                         Kebutuhan pokok, sarana pertanian, dan produk kesehatan untuk warga desa.
                         Harga jujur, stok transparan, dikelola bersama untuk kesejahteraan warga Kradenan.

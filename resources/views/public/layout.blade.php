@@ -20,7 +20,7 @@
         <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-5">
 
             {{-- Logo --}}
-            <a href="{{ route('home') }}" class="flex items-center shrink-0" aria-label="Koperasi Desa Kradenan — Beranda">
+            <a href="{{ route('home') }}" class="flex items-center shrink-0" aria-label="Koperasi Desa Kradenan, kembali ke beranda">
                 <img src="{{ asset('images/logo-kopdes.jpg') }}" alt="Logo Koperasi Desa Kradenan"
                      class="h-10 w-auto rounded-lg object-contain" width="40" height="40">
             </a>

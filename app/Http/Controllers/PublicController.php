@@ -16,7 +16,9 @@ class PublicController extends Controller
         $totalBarang = Barang::where('tampil_publik', true)->count();
         $totalKategori = Kategori::count();
         $totalStok = (int) Barang::where('tampil_publik', true)->sum('stok_saat_ini');
-        $kategoris = Kategori::orderBy('nama_kategori')->get();
+        $kategoris = Kategori::withCount(['barangs' => fn ($q) => $q->where('tampil_publik', true)])
+            ->orderBy('nama_kategori')
+            ->get();
         $barangs = Barang::where('tampil_publik', true)->orderBy('nama_barang')->get();
         $produkUnggulan = Barang::with('kategori')
             ->where('tampil_publik', true)

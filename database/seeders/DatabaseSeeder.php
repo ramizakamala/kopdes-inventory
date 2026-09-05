@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
         BarangMasuk::create(['tanggal' => '2026-08-06', 'barang_id' => $minyak->id, 'supplier_id' => $supplierA->id, 'jumlah' => 10, 'harga_beli' => 15000, 'user_id' => $admin->id]);
         BarangMasuk::create(['tanggal' => '2026-08-07', 'barang_id' => $pupuk->id, 'supplier_id' => $supplierB->id, 'jumlah' => 5, 'harga_beli' => 110000, 'user_id' => $admin->id]);
 
-        BarangKeluar::create(['tanggal' => '2026-08-10', 'barang_id' => $beras->id, 'jumlah' => 3, 'harga_jual' => 68000, 'keterangan' => 'Penjualan anggota', 'user_id' => $admin->id]);
-        BarangKeluar::create(['tanggal' => '2026-08-12', 'barang_id' => $minyak->id, 'jumlah' => 2, 'harga_jual' => 17000, 'user_id' => $admin->id]);
+        BarangKeluar::create(['tanggal' => '2026-08-10', 'barang_id' => $beras->id, 'jumlah' => 3, 'harga_jual' => 68000, 'hpp_satuan' => 62000, 'keterangan' => 'Penjualan anggota', 'user_id' => $admin->id]);
+        BarangKeluar::create(['tanggal' => '2026-08-12', 'barang_id' => $minyak->id, 'jumlah' => 2, 'harga_jual' => 17000, 'hpp_satuan' => 15000, 'user_id' => $admin->id]);
     }
 }

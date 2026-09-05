@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\BarangKeluar;
 use App\Models\BarangKeluarBatch;
+use App\Models\BarangMasuk;
 use App\Models\Batch;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -109,16 +110,9 @@ class BarangKeluarController extends Controller
             ]);
         }
 
-        $keluar = BarangKeluar::create([
-            'tanggal' => $data['tanggal'],
-            'barang_id' => $data['barang_id'],
-            'jumlah' => $data['jumlah'],
-            'harga_jual' => $data['harga_jual'],
-            'hpp_satuan' => 0, // dihitung dari harga beli batch (commit laporan laba)
-            'keterangan' => $data['keterangan'] ?? null,
-            'user_id' => auth()->id(),
-        ]);
-
+        // susun rencana alokasi di memori dulu (barang apa diambil dari batch mana,
+        // berapa, dan berapa harga belinya) — baru ditulis ke DB sekaligus.
+        $alokasi = [];
         $sisa = (int) $data['jumlah'];
         foreach ($batches as $batch) {
             if ($sisa <= 0) {
@@ -126,15 +120,45 @@ class BarangKeluarController extends Controller
             }
 
             $ambil = min($batch->jumlah, $sisa);
-            $batch->decrement('jumlah', $ambil);
+            $alokasi[] = ['batch' => $batch, 'jumlah' => $ambil];
+            $sisa -= $ambil;
+        }
+
+        // HPP satuan = rata-rata tertimbang harga beli batch yang terpakai.
+        // Harga beli batch diambil dari barang masuk terakhir batch itu;
+        // kalau batch tidak punya riwayat masuk (seed/manual), fallback ke harga beli barang.
+        $ids = collect($alokasi)->pluck('batch.id')->all();
+        $hargaBatch = BarangMasuk::whereIn('batch_id', $ids)
+            ->orderByDesc('id')
+            ->get()
+            ->unique('batch_id')
+            ->pluck('harga_beli', 'batch_id');
+
+        $totalHpp = 0;
+        foreach ($alokasi as $a) {
+            $harga = (float) ($hargaBatch[$a['batch']->id] ?? $barang->harga_beli);
+            $totalHpp += $harga * $a['jumlah'];
+        }
+        $hppSatuan = round($totalHpp / (int) $data['jumlah'], 2);
+
+        $keluar = BarangKeluar::create([
+            'tanggal' => $data['tanggal'],
+            'barang_id' => $data['barang_id'],
+            'jumlah' => $data['jumlah'],
+            'harga_jual' => $data['harga_jual'],
+            'hpp_satuan' => $hppSatuan,
+            'keterangan' => $data['keterangan'] ?? null,
+            'user_id' => auth()->id(),
+        ]);
+
+        foreach ($alokasi as $a) {
+            $a['batch']->decrement('jumlah', $a['jumlah']);
 
             BarangKeluarBatch::create([
                 'barang_keluar_id' => $keluar->id,
-                'batch_id' => $batch->id,
-                'jumlah' => $ambil,
+                'batch_id' => $a['batch']->id,
+                'jumlah' => $a['jumlah'],
             ]);
-
-            $sisa -= $ambil;
         }
     }
 }

@@ -14,7 +14,7 @@ class LaporanController extends Controller
 {
     public function index(Request $request): View
     {
-        $jenis = in_array($request->query('jenis'), ['stok', 'masuk', 'keluar', 'kedaluwarsa'], true)
+        $jenis = in_array($request->query('jenis'), ['stok', 'masuk', 'keluar', 'kedaluwarsa', 'laba'], true)
             ? $request->query('jenis')
             : 'stok';
         $dari = $request->query('dari');
@@ -29,7 +29,7 @@ class LaporanController extends Controller
 
     public function cetak(Request $request): View
     {
-        $jenis = in_array($request->query('jenis'), ['stok', 'masuk', 'keluar', 'kedaluwarsa'], true)
+        $jenis = in_array($request->query('jenis'), ['stok', 'masuk', 'keluar', 'kedaluwarsa', 'laba'], true)
             ? $request->query('jenis')
             : 'stok';
         $dari = $request->query('dari');
@@ -55,6 +55,7 @@ class LaporanController extends Controller
             'masuk' => $this->dataMasuk($dari, $sampai),
             'keluar' => $this->dataKeluar($dari, $sampai),
             'kedaluwarsa' => $this->dataKedaluwarsa(),
+            'laba' => $this->dataLaba($dari, $sampai),
             default => $this->dataStok(),
         };
     }
@@ -110,5 +111,56 @@ class LaporanController extends Controller
             ->get();
 
         return ['rows' => $rows];
+    }
+
+    /**
+     * Laba kotor per barang pada periode: omzet (harga jual) dikurangi HPP
+     * (harga beli saat transaksi, untuk barang ber-batch sudah rata-rata
+     * tertimbang batch yang benar-benar terpakai — lihat BarangKeluarController).
+     */
+    private function dataLaba(?string $dari, ?string $sampai): array
+    {
+        $transaksi = BarangKeluar::with('barang')
+            ->when($dari, fn ($q) => $q->whereDate('tanggal', '>=', $dari))
+            ->when($sampai, fn ($q) => $q->whereDate('tanggal', '<=', $sampai))
+            ->orderBy('tanggal')
+            ->orderBy('id')
+            ->get();
+
+        $rows = $transaksi
+            ->groupBy('barang_id')
+            ->map(function ($items) {
+                $barang = $items->first()->barang;
+                $qty = (int) $items->sum('jumlah');
+                $omzet = (float) $items->sum(fn ($r) => $r->jumlah * $r->harga_jual);
+                $hpp = (float) $items->sum(fn ($r) => $r->jumlah * (float) $r->hpp_satuan);
+                $laba = $omzet - $hpp;
+
+                return [
+                    'kode' => $barang?->kode_barang ?? '—',
+                    'nama' => $barang?->nama_barang ?? 'Barang terhapus',
+                    'satuan' => $barang?->satuan ?? '',
+                    'qty' => $qty,
+                    'omzet' => $omzet,
+                    'hpp' => $hpp,
+                    'laba' => $laba,
+                    'margin' => $omzet > 0 ? round($laba / $omzet * 100, 1) : null,
+                ];
+            })
+            ->values()
+            ->sortByDesc('laba')
+            ->values();
+
+        $totalOmzet = (float) $rows->sum('omzet');
+        $totalHpp = (float) $rows->sum('hpp');
+
+        return [
+            'rows' => $rows,
+            'totalJumlah' => (int) $rows->sum('qty'),
+            'totalOmzet' => $totalOmzet,
+            'totalHpp' => $totalHpp,
+            'totalLaba' => $totalOmzet - $totalHpp,
+            'totalMargin' => $totalOmzet > 0 ? round(($totalOmzet - $totalHpp) / $totalOmzet * 100, 1) : null,
+        ];
     }
 }

@@ -8,6 +8,7 @@
             'stok' => 'Stok',
             'masuk' => 'Barang Masuk',
             'keluar' => 'Barang Keluar',
+            'laba' => 'Laba Kotor',
             'kedaluwarsa' => 'Kedaluwarsa',
         ];
     @endphp
@@ -23,7 +24,7 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            @if (in_array($jenis, ['masuk', 'keluar'], true))
+            @if (in_array($jenis, ['masuk', 'keluar', 'laba'], true))
                 <form method="GET" action="{{ route('laporan.index') }}" class="flex flex-wrap items-center gap-2">
                     <input type="hidden" name="jenis" value="{{ $jenis }}">
                     <input type="date" name="dari" value="{{ $dari }}" class="input">
@@ -138,6 +139,45 @@
                         <tr class="border-t border-zinc-100 text-sm">
                             <td colspan="4" class="px-5 py-3 text-right text-zinc-500">Total: {{ $totalJumlah }} unit · Total pendapatan</td>
                             <td colspan="3" class="px-5 py-3 font-semibold text-zinc-900">Rp{{ number_format($totalPendapatan, 0, ',', '.') }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            @elseif ($jenis === 'laba')
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-zinc-100 bg-zinc-50/60 text-left text-xs uppercase tracking-wider text-zinc-500">
+                            <th class="px-5 py-3">Barang</th>
+                            <th class="px-5 py-3">Terjual</th>
+                            <th class="px-5 py-3">Omzet</th>
+                            <th class="px-5 py-3">HPP</th>
+                            <th class="px-5 py-3">Laba Kotor</th>
+                            <th class="px-5 py-3">Margin</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        @forelse ($rows as $r)
+                            <tr class="transition hover:bg-zinc-50/60">
+                                <td class="px-5 py-3">
+                                    <div class="font-medium text-zinc-900">{{ $r['nama'] }}</div>
+                                    <div class="font-mono text-[11px] text-zinc-400">{{ $r['kode'] }}</div>
+                                </td>
+                                <td class="px-5 py-3 text-zinc-600">{{ number_format($r['qty']) }} <span class="text-xs text-zinc-400">{{ $r['satuan'] }}</span></td>
+                                <td class="px-5 py-3 text-zinc-600">Rp{{ number_format($r['omzet'], 0, ',', '.') }}</td>
+                                <td class="px-5 py-3 text-zinc-500">Rp{{ number_format($r['hpp'], 0, ',', '.') }}</td>
+                                <td class="px-5 py-3 font-semibold {{ $r['laba'] >= 0 ? 'text-emerald-700' : 'text-red-600' }}">Rp{{ number_format($r['laba'], 0, ',', '.') }}</td>
+                                <td class="px-5 py-3 text-zinc-500">{{ $r['margin'] !== null ? number_format($r['margin'], 1, ',', '.') . '%' : '—' }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="6" class="px-5 py-10 text-center text-zinc-500">Tidak ada penjualan pada periode ini.</td></tr>
+                        @endforelse
+                    </tbody>
+                    <tfoot>
+                        <tr class="border-t border-zinc-100 text-sm">
+                            <td colspan="2" class="px-5 py-3 text-right text-zinc-500">Total: {{ number_format($totalJumlah) }} unit · omzet</td>
+                            <td class="px-5 py-3 font-semibold text-zinc-900">Rp{{ number_format($totalOmzet, 0, ',', '.') }}</td>
+                            <td class="px-5 py-3 text-zinc-600">Rp{{ number_format($totalHpp, 0, ',', '.') }}</td>
+                            <td class="px-5 py-3 font-bold text-zinc-900">Rp{{ number_format($totalLaba, 0, ',', '.') }}</td>
+                            <td class="px-5 py-3 text-zinc-600">{{ $totalMargin !== null ? number_format($totalMargin, 1, ',', '.') . '%' : '—' }}</td>
                         </tr>
                     </tfoot>
                 </table>

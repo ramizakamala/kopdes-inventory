@@ -28,7 +28,7 @@
 <body>
     <button class="no-print" onclick="window.print()" style="position:fixed;top:16px;right:16px;padding:8px 16px;border:1px solid #999;border-radius:8px;background:#fff;cursor:pointer;">🖨 Cetak</button>
 
-    <h1>SIMPERDES — Laporan {{ match ($jenis) { 'stok' => 'Persediaan', 'masuk' => 'Barang Masuk', 'keluar' => 'Barang Keluar', 'kedaluwarsa' => 'Kedaluwarsa', default => '' } }}</h1>
+    <h1>SIMPERDES — Laporan {{ match ($jenis) { 'stok' => 'Persediaan', 'masuk' => 'Barang Masuk', 'keluar' => 'Barang Keluar', 'laba' => 'Laba Kotor', 'kedaluwarsa' => 'Kedaluwarsa', default => '' } }}</h1>
     <div class="sub">
         Koperasi Desa · Dicetak {{ now()->format('d M Y H:i') }} oleh {{ auth()->user()->name }}
         @if ($dari && $sampai) · Periode {{ \Carbon\Carbon::parse($dari)->format('d M Y') }} s/d {{ \Carbon\Carbon::parse($sampai)->format('d M Y') }} @endif
@@ -43,6 +43,8 @@
                     <th>Tanggal</th><th>Barang</th><th>Supplier</th><th class="ta-r">Jumlah</th><th class="ta-r">Harga Beli</th><th class="ta-r">Total</th><th>Oleh</th>
                 @elseif ($jenis === 'keluar')
                     <th>Tanggal</th><th>Barang</th><th class="ta-r">Jumlah</th><th class="ta-r">Harga Jual</th><th class="ta-r">Total</th><th>Keterangan</th><th>Oleh</th>
+                @elseif ($jenis === 'laba')
+                    <th>Barang</th><th class="ta-r">Terjual</th><th class="ta-r">Omzet</th><th class="ta-r">HPP</th><th class="ta-r">Laba Kotor</th><th class="ta-r">Margin</th>
                 @else
                     <th>Batch</th><th>Barang</th><th>Tanggal Masuk</th><th>Kedaluwarsa</th><th class="ta-r">Jumlah</th><th>Status</th>
                 @endif
@@ -64,6 +66,13 @@
                         <td>{{ $r->tanggal->format('d M Y') }}</td><td>{{ $r->barang?->nama_barang ?? '—' }}</td>
                         <td class="ta-r">{{ $r->jumlah }}</td><td class="ta-r">Rp{{ number_format($r->harga_jual, 0, ',', '.') }}</td>
                         <td class="ta-r">Rp{{ number_format($r->jumlah * $r->harga_jual, 0, ',', '.') }}</td><td>{{ $r->keterangan ?? '—' }}</td><td>{{ $r->user?->name ?? '—' }}</td>
+                    @elseif ($jenis === 'laba')
+                        <td>{{ $r['nama'] }}<br><small style="color:#888">{{ $r['kode'] }}</small></td>
+                        <td class="ta-r">{{ number_format($r['qty']) }} {{ $r['satuan'] }}</td>
+                        <td class="ta-r">Rp{{ number_format($r['omzet'], 0, ',', '.') }}</td>
+                        <td class="ta-r">Rp{{ number_format($r['hpp'], 0, ',', '.') }}</td>
+                        <td class="ta-r">Rp{{ number_format($r['laba'], 0, ',', '.') }}</td>
+                        <td class="ta-r">{{ $r['margin'] !== null ? number_format($r['margin'], 1, ',', '.') . '%' : '—' }}</td>
                     @else
                         @php $lewat = $r->tanggal_kedaluwarsa->lt(now()->startOfDay()); @endphp
                         <td>{{ $r->nomor_batch }}</td><td>{{ $r->barang?->nama_barang ?? '—' }}</td>
@@ -82,6 +91,8 @@
             <tfoot><tr><td colspan="5" class="ta-r">Total {{ $totalJumlah }} unit · Total biaya</td><td class="ta-r">Rp{{ number_format($totalBiaya, 0, ',', '.') }}</td><td></td></tr></tfoot>
         @elseif ($jenis === 'keluar')
             <tfoot><tr><td colspan="4" class="ta-r">Total {{ $totalJumlah }} unit · Total pendapatan</td><td class="ta-r">Rp{{ number_format($totalPendapatan, 0, ',', '.') }}</td><td colspan="2"></td></tr></tfoot>
+        @elseif ($jenis === 'laba')
+            <tfoot><tr><td colspan="2" class="ta-r">Total {{ number_format($totalJumlah) }} unit</td><td class="ta-r">Rp{{ number_format($totalOmzet, 0, ',', '.') }}</td><td class="ta-r">Rp{{ number_format($totalHpp, 0, ',', '.') }}</td><td class="ta-r">Rp{{ number_format($totalLaba, 0, ',', '.') }}</td><td class="ta-r">{{ $totalMargin !== null ? number_format($totalMargin, 1, ',', '.') . '%' : '—' }}</td></tr></tfoot>
         @endif
     </table>
 

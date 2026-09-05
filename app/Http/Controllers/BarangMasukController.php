@@ -9,6 +9,7 @@ use App\Models\Supplier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class BarangMasukController extends Controller
@@ -50,6 +51,16 @@ class BarangMasukController extends Controller
         ]);
 
         DB::transaction(function () use ($data) {
+            $barang = Barang::where('id', $data['barang_id'])->lockForUpdate()->firstOrFail();
+
+            // barang ber-batch wajib dicatat dengan batch — kalau tidak, stok
+            // total (stok_saat_ini) melenceng dari kumpulan batch & FEFO rusak.
+            if ($barang->is_batch_tracked && empty($data['nomor_batch'])) {
+                throw ValidationException::withMessages([
+                    'nomor_batch' => "Barang ini dicatat per batch. Nomor batch & tanggal kedaluwarsa wajib diisi.",
+                ]);
+            }
+
             $batchId = null;
             if ($data['nomor_batch'] ?? null) {
                 $batch = Batch::create([
